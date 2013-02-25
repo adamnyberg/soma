@@ -6,11 +6,10 @@ package Parts is
 
   function Get(Str : in Unbounded_String; ID : in Positive) return Part_Type;
 
-  function Create_Part(Rotation : in Vector_Type := (X => 0, Y => 0, Z => 0);
-                       Position : in Vector_Type := (X => 0, Y => 0, Z => 0))
+  function Create_Vector(X, Y, Z : in Integer := 0) return Vector_Type;
+  function Create_Part(Rotation : in Vector_Type := Create_Vector;
+                       Position : in Vector_Type := Create_Vector)
     return Part_Type;
-  function Create_Vector(X, Y, Z : in Integer := (X => 0, Y => 0, Z => 0))
-    return Vector_Type;
 
   procedure Rotate(Part : in out Part_Type; Vector : in Vector_Type);
   -- Also known as "Move"
@@ -22,10 +21,10 @@ private
     Position : Vector_Type;
   end record;
   type Vector_Type is record
-    X, Y, Z : Normal;
+    X, Y, Z : Natural;
   end record;
 
-  function Rotate_X(Part : in out Part_Type) return Part_Type;
-  function Rotate_Y(Part : in out Part_Type) return Part_Type;
-  function Rotate_Z(Part : in out Part_Type) return Part_Type;
+  procedure Rotate_X(Part : in out Part_Type);
+  procedure Rotate_Y(Part : in out Part_Type);
+  procedure Rotate_Z(Part : in out Part_Type);
 end Parts;
