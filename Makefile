@@ -1,7 +1,7 @@
 MAKEFLAGS=
 
+solver:
+	gnatmake ${MAKEFLAGS} src/solver.adb
+
 clean:
 	rm *.o *.ali
-
-solver:
-	gnatmake ${MAKEFLAGS} solver.adb
