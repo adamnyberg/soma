@@ -6,7 +6,7 @@ package Parts is
 
   function Get(Str : in Unbounded_String; ID : in Positive) return Part_Type;
 
-  function Create_Vector(X, Y, Z : in Integer := 0) return Vector_Type;
+  function Create_Vector(X, Y, Z : in Natural := 0) return Vector_Type;
   function Create_Part(Rotation : in Vector_Type := Create_Vector;
                        Position : in Vector_Type := Create_Vector)
     return Part_Type;
