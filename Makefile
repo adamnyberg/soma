@@ -4,4 +4,4 @@ solver:
 	gnatmake ${MAKEFLAGS} src/solver.adb
 
 clean:
-	rm *.o *.ali
+	rm -R *.o *.ali
