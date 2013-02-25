@@ -15,5 +15,5 @@ private
     Message : Unbounded_String;
   end record;
 
-  function HMS_Time return Unbounded_String;
+  function Timestamp return Unbounded_String;
 end Packets;
