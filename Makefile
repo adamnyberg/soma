@@ -1,4 +1,4 @@
-MAKEFLAGS=
+MAKEFLAGS=-O3 -gnatn -gnatp
 
 solver:
 	gnatmake ${MAKEFLAGS} src/solver.adb
