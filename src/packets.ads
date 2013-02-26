@@ -1,3 +1,6 @@
+-- adany869 Adam Nyberg, danth407 Daniel Rapp,
+-- harpe493 Harald Petterson, jonta760 Jonas Tarassu
+
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with TJa.Calendar; use TJa.Calendar;
 with TJa.Sockets; use TJa.Sockets;
