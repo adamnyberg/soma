@@ -8,8 +8,8 @@ with TJa.Sockets; use TJa.Sockets;
 package Packets is
   type Packet_Type is private;
 
-  function Assemble_Packet(Packet : Packet_Type) return Unbounded_String;
-  function Disassemble_Packet(Raw_Packet : Unbounded_String) return Packet_Type;
+  function Assemble(Packet : Packet_Type) return Unbounded_String;
+  function Disassemble(Raw_Packet : Unbounded_String) return Packet_Type;
 private
   type Packet_Type is record
     Header : Character;
