@@ -5,18 +5,16 @@ with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with Bits; use Bits;
 
 package Figures is
-  type Figure_Type is private;
   type Vector_Type is private;
-
-  function Parse_Part(Str : in Unbounded_String) return Part_Type;
-  function Create_Vector(X, Y, Z : in Natural := 0) return Vector_Type;
-private
-  type Figure_Type is tagged record
+  type Figure_Type (Structure_Bits : Natural) is tagged record
     ID : Positive;
-    Structure : Bits_Type;
+    Structure : Bits_Type(1..Structure_Bits);
     Dimension : Vector_Type;
   end record;
 
+  --function Parse_Part(Part_Str : in Unbounded_String) return Figure_Type;
+  procedure Parse_Part(Part_Str : in Unbounded_String);
+private
   type Vector_Type is record
     X, Y, Z : Natural;
   end record;
