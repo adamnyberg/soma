@@ -8,12 +8,11 @@ package Figures is
   type Vector_Type is private;
   type Figure_Type (Structure_Bits : Natural) is tagged record
     ID : Positive;
-    Structure : Bits_Type(1..Structure_Bits);
     Dimension : Vector_Type;
+    Structure : Bits_Type(1..Structure_Bits);
   end record;
 
-  --function Parse_Part(Part_Str : in Unbounded_String) return Figure_Type;
-  procedure Parse_Part(Part_Str : in Unbounded_String);
+  function Parse(Raw_Figure : in Unbounded_String) return Figure_Type;
 private
   type Vector_Type is record
     X, Y, Z : Natural;
