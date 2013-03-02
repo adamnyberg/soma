@@ -22,7 +22,7 @@ vinit:
 		java -jar soma-visual.jar'
 
 sync:
-	rsync -rlp --exclude '.git' . $(id)@astmatix.ida.liu.se:somasomasoma
+	rsync -rlp --exclude '.git' . $(id)@astmatix.ida.liu.se:soma
 
 clean:
 	rm -R *.o *.ali
