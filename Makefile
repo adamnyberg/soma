@@ -5,14 +5,14 @@ solver:
 	gnatmake $(MAKEFLAGS) src/solver.adb
 	./solver; rm solver;
 
-ssolver: sync
-	ssh $(id)@astmatix.ida.liu.se \
-		"cd soma;bash -l -c 'export PATH=/bin:/sw/gcc-3.4.6/bin:/usr/ccs/bin;make solver'"
-
 test:
 	echo "\n"
 	gnatmake $(MAKEFLAGS) -Dtests/ -Isrc/ tests/test_figures.adb
 	./test_figures; rm test_figures;
+
+ssolver: sync
+	ssh $(id)@astmatix.ida.liu.se \
+		"cd soma;bash -l -c 'export PATH=/bin:/sw/gcc-3.4.6/bin:/usr/ccs/bin;make solver'"
 
 stest: sync
 	ssh $(id)@astmatix.ida.liu.se \
