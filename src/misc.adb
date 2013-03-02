@@ -9,7 +9,7 @@ package body Misc is
   procedure Get_Line(Socket : in Socket_Type; Str : out Unbounded_String) is
     Buffer_Size : constant := 2000;
     Buffer : String(1..Buffer_Size);
-		Last : Positive := Buffer_Size;
+    Last : Positive := Buffer_Size;
   begin
     Str := To_Unbounded_String("");
     while Last = Buffer_Size loop
