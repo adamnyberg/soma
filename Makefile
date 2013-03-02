@@ -19,7 +19,7 @@ stest: sync
 vinit:
 	ssh -X $(id)@astmatix.ida.liu.se 'mkdir -p soma; cd soma; /sw/gnu/bin/wget --no-clobber \
 		http://www.ida.liu.se/~TDDC68/2013/Matr/SN/Info_Ada/proj/files/soma-visual.jar;\
-		java -jar soma-visual.jar'
+		/usr/jdk/instances/jdk1.7.0/bin/java -jar soma-visual.jar'
 
 sync:
 	rsync -rlp --exclude '.git' . $(id)@astmatix.ida.liu.se:soma

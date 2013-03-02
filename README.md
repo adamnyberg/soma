@@ -4,7 +4,7 @@ SOMA
 Starting the graphical server
 ------
 
-First start the grahical server with `make vinit` (*NOT WORKING AT THE MOMENT*, see issue [#6](https://github.com/adamnyberg/soma/issues/6)), set the port to 3333 and load the figures/parts with the GUI.
+First start the grahical server with `make vinit`, set the port to 3333 and load the figures/parts with the GUI.
 
 Running the solver (server)
 ------
