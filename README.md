@@ -1,19 +1,19 @@
 SOMA
 ======
 
-Run
+Starting the graphical server
 ------
 
-Run the project by using `make solver`.
+First start the grahical server with `make vinit` (*NOT WORKING AT THE MOMENT*, see issue [#6](https://github.com/adamnyberg/soma/issues/6)), set the port to 3333 and load the figures/parts with the GUI.
 
-Local test
+Running the solver (server)
 ------
 
-Run `make test` to test if the project is running correctly.
-If you've made changes you'll want to make sure they're represented in `tests/` first.
+Run the project by using `make ssolver id=LIU` (replace LIU with your LiU id, e.g. danth407).
+If you set the environment variable `id` to your LiU id (with `export id=danth407`) you can just run `make ssolver`.
 
-Server test
+Tests (server)
 ------
 
-To run the project on a school server (to test the TJa library, for example), run `make stest id=LIU` (replace LIU with your LiU id, e.g. "danth407") to test if the project is running correctly.
+Run `make stest id=LIU` to test if the project is running correctly.
 If you've made changes you'll want to make sure they're represented in `tests/` first.
