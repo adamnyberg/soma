@@ -2,9 +2,9 @@
 -- harpe493 Harald Petterson, jonta760 Jonas Tarassu
 
 package body Packets is
-  function Assemble(Header : Character; Message : Unbounded_String) return Unbounded_String is
+  function Assemble(Header : Character; Message : Unbounded_String) return String is
   begin
-    return Timestamp & ' ' & Header & ' ' & Message;
+    return To_String( Timestamp & ' ' & Header & ' ' & Message );
   end Assemble;
 
   function Disassemble(Raw_Packet : Unbounded_String) return Packet_Type is
@@ -12,7 +12,7 @@ package body Packets is
     return Packet_Type'(
       -- The first 9 characters of the raw packet is always a timestamp
       Header => To_String( Raw_Packet )(10),
-      Message => Slice( Raw_Packet, 12, Length(Raw_Packet) )
+      Message => To_Unbounded_String( Slice( Raw_Packet, 12, Length(Raw_Packet) ) )
     );
   end Disassemble;
 
