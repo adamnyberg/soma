@@ -1,13 +1,11 @@
 MAKEFLAGS=-O3 -aL/home/TDDD11/lib/TJa/lib/Solaris -aI/home/TDDD11/lib/TJa/src/Solaris -aO/home/TDDD11/lib/TJa/lib/Solaris
 
 solver:
-	echo "\n"
 	gnatmake $(MAKEFLAGS) src/solver.adb
 	./solver; rm solver;
 
 test:
-	echo "\n"
-	gnatmake $(MAKEFLAGS) -Dtests/ -Isrc/ tests/test_figures.adb
+	gnatmake $(MAKEFLAGS) -Isrc/ tests/test_figures.adb
 	./test_figures; rm test_figures;
 
 ssolver: sync
@@ -24,8 +22,7 @@ vinit:
 		java -jar soma-visual.jar'
 
 sync:
-	ssh $(id)@astmatix.ida.liu.se 'mkdir -p soma'
-	rsync -rlp --exclude '.git' . $(id)@astmatix.ida.liu.se:soma
+	rsync -rlp --exclude '.git' . $(id)@astmatix.ida.liu.se:somasomasoma
 
 clean:
 	rm -R *.o *.ali
