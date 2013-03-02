@@ -2,9 +2,9 @@
 -- harpe493 Harald Petterson, jonta760 Jonas Tarassu
 
 package body Packets is
-  function Assemble(Packet : Packet_Type) return Unbounded_String is
+  function Assemble(Header : Character; Message : Unbounded_String) return Unbounded_String is
   begin
-    return Timestamp & ' ' & Packet.Header & ' ' & Packet.Message;
+    return Timestamp & ' ' & Header & ' ' & Message;
   end Assemble;
 
   function Disassemble(Raw_Packet : Unbounded_String) return Packet_Type is
