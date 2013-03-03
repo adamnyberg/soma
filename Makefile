@@ -7,8 +7,10 @@ solver:
 
 test:
 	gnatmake $(MAKEFLAGS) -Isrc/\
-		tests/test_parts tests/test_misc.adb tests/test_figures.adb;
-	echo "\n"; ./test_parts; ./test_misc; ./test_figures; rm test_*;
+		tests/test_parts;
+	#	tests/test_parts tests/test_misc.adb tests/test_figures.adb;
+	#echo "\n"; ./test_parts; ./test_misc; ./test_figures; rm test_*;
+	echo "\n"; ./test_parts; rm test_*;
 	echo "All tests succeeded!"
 
 ssolver: sync

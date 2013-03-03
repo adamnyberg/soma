@@ -2,25 +2,24 @@
 -- harpe493 Harald Petterson, jonta760 Jonas Tarassu
 
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
-with Figures; use Figures;
+with Vector; use Vector;
+with Bits; use Bits;
 
 package Parts is
-  type Part_Type is private;
-  type Parts_Type is private;
-  type Vector_Type is private;
-
-  procedure Parse(Raw_Part : in Unbounded_String, Part : out Part_Type);
-  procedure Parse(Raw_Parts : in Unbounded_String, Parts : out Parts_Type);
-  procedure Rotate(Part : in out Part_Type; Vector : in Vector_Type);
-  -- Also known as "Move"
-  procedure Traverse(Part : in out Part_Type; Vector : in Vector_Type);
-private
-  subtype Part_Type is new Figure_Type with record
+  type Part_Type (Structure_Bits : Natural) is record
     Position : Vector_Type;
     Rotation : Vector_Type;
+    Dimension : Vector_Type;
+    Structure : Bits_Type(1..Structure_Bits);
   end record;
-  type Parts_Type is array(range <>) of Part_Type;
+  type Parts_Type is array(Integer range <>) of Part_Type(1);
 
+  function Parse_Part(Raw_Part : in Unbounded_String) return Part_Type;
+  function Parse(Raw_Parts : in Unbounded_String) return Parts_Type;
+
+  procedure Rotate(Part : in out Part_Type; Vector : in Vector_Type);
+  procedure Traverse(Part : in out Part_Type; Vector : in Vector_Type);
+private
   procedure Rotate_X(Part : in out Part_Type);
   procedure Rotate_Y(Part : in out Part_Type);
   procedure Rotate_Z(Part : in out Part_Type);

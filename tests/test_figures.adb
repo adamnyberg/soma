@@ -2,14 +2,16 @@
 -- harpe493 Harald Petterson, jonta760 Jonas Tarassu
 
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
-with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
-with Ada.Text_IO; use Ada.Text_IO;
 with Figures; use Figures;
+with Tests; use Tests;
 
 procedure Test_Figures is
-  Figure_Parse_Str : String := "123 1x8x10 10011";
+  Test_Figure_Parse : String := "123 1x8x10 10011";
   Figure : Figure_Type(1);
 begin
-  Figure := Parse(To_Unbounded_String( Figure_Parse_Str ));
-  Put(Figure.ID);
+  Figure := Figures.Parse(To_Unbounded_String( Test_Figure_Parse ));
+  Test( Figure.ID, 123 );
+  Test( Figure.Dimension.X, 1 );
+  Test( Figure.Dimension.Y, 8 );
+  Test( Figure.Dimension.Z, 10 );
 end Test_Figures;
