@@ -9,5 +9,6 @@ package Bits is
 
   function Parse(Str : Unbounded_String) return Bits_Type;
 private
-  type Unsigned_Type is mod 2**32;
+  BITS_LENGTH : constant Positive := 32;
+  type Unsigned_Type is mod 2**BITS_LENGTH;
 end Bits;
