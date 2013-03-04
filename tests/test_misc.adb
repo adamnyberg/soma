@@ -13,11 +13,11 @@ procedure Test_Misc is
 begin
   Test_Misc_Parse1 := To_Unbounded_String("abc def");
   Misc.Split(Test_Misc_Parse1, " ", Start, Rest, 1);
-	Test(Start, "abc");
-	Test(Rest, "def");
+  Test(Start, "abc");
+  Test(Rest, "def");
 
   Test_Misc_Parse2 := To_Unbounded_String("abc def ghi jkl mno");
-	Misc.Split(Test_Misc_Parse2, " ", Start, Rest, 3);
-	Test(Start, "abc def ghi");
-	Test(Rest, "jkl mno");
+  Misc.Split(Test_Misc_Parse2, " ", Start, Rest, 3);
+  Test(Start, "abc def ghi");
+  Test(Rest, "jkl mno");
 end Test_Misc;
