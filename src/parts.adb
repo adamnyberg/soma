@@ -10,13 +10,18 @@ package body Parts is
   function Parse_Part(Raw_Part : in Unbounded_String) return Part_Type is
     Start : Unbounded_String;
     Rest : Unbounded_String;
-    Part : Part_Type(1);
+    Part_Size : Integer;
   begin
+      
     Misc.Split( Raw_Part, " ", Start, Rest );
-    Part.Dimension := Vector.Parse( Start );
-    Part.Structure := Bits.Parse( Rest );
-
-    return Part;
+    Part_Size := Integer(Float'Ceiling(Float(Length(Rest))/Float(Bits.BITS_LENGTH)));
+    declare
+      Part : Part_Type(Part_Size);
+    begin
+      Part.Dimension := Vector.Parse( Start );
+      Part.Structure := Bits.Parse( Rest );
+      return Part;
+    end;
   end Parse_Part;
 
   function Parse(Raw_Parts : in Unbounded_String) return Parts_Type is
