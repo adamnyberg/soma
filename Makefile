@@ -12,20 +12,20 @@ test:
 	echo "All tests succeeded!"
 
 ssolver: sync
-	ssh $(id)@astmatix.ida.liu.se \
+	ssh $(liu_id)@astmatix.ida.liu.se \
 		"cd soma;bash -l -c 'export PATH=/bin:/sw/gcc-3.4.6/bin:/usr/ccs/bin;make solver'"
 
 stest: sync
-	ssh $(id)@astmatix.ida.liu.se \
+	ssh $(liu_id)@astmatix.ida.liu.se \
 		"cd soma;bash -l -c 'export PATH=/bin:/sw/gcc-3.4.6/bin:/usr/ccs/bin;make test'"
 
 vinit:
-	ssh -X $(id)@astmatix.ida.liu.se 'mkdir -p soma; cd soma; /sw/gnu/bin/wget --no-clobber\
+	ssh -X $(liu_id)@astmatix.ida.liu.se 'mkdir -p soma; cd soma; /sw/gnu/bin/wget --no-clobber\
 		http://www.ida.liu.se/~TDDC68/2013/Matr/SN/Info_Ada/proj/files/soma-visual.jar;\
 		/usr/jdk/instances/jdk1.7.0/bin/java -jar soma-visual.jar'
 
 sync:
-	rsync -rlp --exclude '.git' . $(id)@astmatix.ida.liu.se:soma
+	rsync -rlp --exclude '.git' . $(liu_id)@astmatix.ida.liu.se:soma
 
 clean:
 	rm -R *.o *.ali
