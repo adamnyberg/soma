@@ -20,6 +20,7 @@ package Protocol is
 
   Time_To_Die : exception;
 
-  procedure Initiate(Socket : in Socket_Type; Packet : in Packet_Type);
+  procedure Initiate(Socket : in Socket_Type; Packet : in Packet_Type;
+                     Add_Random_Tail : in Boolean := False);
   procedure Confirm(Socket : in Socket_Type; Packet : in Packet_Type);
 end Protocol;
