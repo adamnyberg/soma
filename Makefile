@@ -28,4 +28,5 @@ sync:
 	rsync -rlp --exclude '.git' . $(liu_id)@astmatix.ida.liu.se:soma
 
 clean:
+	ssh $(liu_id)@astmatix.ida.liu.se "rm soma/solver"
 	rm -R *.o *.ali
