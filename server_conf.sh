@@ -10,8 +10,8 @@ send "F"
 expect "Ange nytt filnamns prefix:"
 send "soma_\r"
 
-send "T"
-send "S"
 send "I"
+send "S"
+send "T"
 
 interact
