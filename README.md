@@ -4,7 +4,13 @@ SOMA
 Starting the graphical server
 ------
 
-First start the grahical server with `make vinit`, set the port to 3333 and load the figures/parts with the GUI.
+To start the grahical server; run `make vinit`, set the port to 3333 and load the figures/parts with the GUI.
+
+Starting the timing server
+------
+
+To the timing server, just run `make tinit`.
+
 
 Running the solver (server)
 ------
