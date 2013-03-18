@@ -38,7 +38,7 @@ package body Misc is
     Tmp_Str : Unbounded_String;
     Space_Index : Natural := 0;
   begin
-    for I in 1..(Skip-1) loop
+    for I in 1..Skip loop
       Tmp_Str := Unbounded_Slice(Str, Space_Index+1, Length(Str));
       Space_Index := Space_Index + Index(Tmp_Str, Pattern);
     end loop;

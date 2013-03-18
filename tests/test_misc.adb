@@ -17,7 +17,7 @@ begin
   Test(Rest, "def");
 
   Test_Misc_Parse2 := To_Unbounded_String("abc def ghi jkl mno");
-  Misc.Split(Test_Misc_Parse2, " ", Start, Rest, 2);
+  Misc.Split(Test_Misc_Parse2, " ", Start, Rest, 3);
   Test(Start, "abc def ghi");
   Test(Rest, "jkl mno");
 end Test_Misc;
