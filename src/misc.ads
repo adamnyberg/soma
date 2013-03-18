@@ -9,4 +9,5 @@ package Misc is
     Start : out Unbounded_String;
     Rest : out Unbounded_String;
     Skip : in Natural := 0);
+  function Divide_With_Ceil(Int1, Int2 : Integer) return Integer;
 end Misc;
