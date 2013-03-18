@@ -7,7 +7,7 @@ lsolver:
 
 ltest:
 	gnatmake $(MAKEFLAGS) -Isrc/\
-		tests/test_parts tests/test_misc.adb tests/test_figures.adb;
+		tests/test_parts.adb tests/test_misc.adb tests/test_figures.adb;
 	echo "\n"; ./test_parts; ./test_misc; ./test_figures; rm test_*;
 	echo "All tests succeeded!"
 
@@ -18,6 +18,12 @@ solver: sync
 test: sync
 	ssh $(liu_id)@astmatix.ida.liu.se \
 		"cd soma;bash -l -c 'export PATH=/bin:/sw/gcc-3.4.6/bin:/usr/ccs/bin;make ltest'"
+
+ptest:
+	gnatmake $(pack) -Isrc/\
+		tests/test_bits.adb;
+	echo "\n"; ./test_bits; rm test_*;
+	echo "Test succeeded!";
 
 vinit:
 	ssh -X $(liu_id)@astmatix.ida.liu.se 'mkdir -p soma; cd soma; /sw/gnu/bin/wget --no-clobber\
