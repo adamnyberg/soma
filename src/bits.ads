@@ -8,7 +8,11 @@ package Bits is
   type Bits_Type is array (Natural range <>) of Unsigned_Type;
   BITS_LENGTH : constant Positive := 32;
 
+
   function Parse(Str : Unbounded_String) return Bits_Type;
+
+  function Read_Bit(Bits : Bits_Type; Index : Integer) return Integer;
 private
   type Unsigned_Type is mod 2**BITS_LENGTH;
-end Bits;
+
+  end Bits;
