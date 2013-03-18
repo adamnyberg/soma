@@ -12,7 +12,6 @@ package body Parts is
     Rest : Unbounded_String;
     Part_Size : Integer;
   begin
-      
     Misc.Split( Raw_Part, " ", Start, Rest );
     Part_Size := Integer(Float'Ceiling(Float(Length(Rest))/Float(Bits.BITS_LENGTH)));
     declare
