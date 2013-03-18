@@ -10,5 +10,5 @@ procedure Test_Bits is
   Bits : Bits_Type(1..1);
 begin
   Bits_Seq := Bits.Parse( Test_Bits_Parse );
-  Test( To_String(Bits_Seq), Test_Bits_Parse );
+  Test( To_Unbounded_String(Bits_Seq), Test_Bits_Parse );
 end Test_Bits;
