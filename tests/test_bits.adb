@@ -7,8 +7,8 @@ with Bits; use Bits;
 
 procedure Test_Bits is
   Test_Bits_Parse : Unbounded_String := To_Unbounded_String("10011");
-  Bits : Bits_Type(1..1);
+  Bits_Seq : Bits_Type(1..1);
 begin
-  Bits_Seq := Bits.Parse( Test_Bits_Parse );
+  Bits_Seq := Parse( Test_Bits_Parse );
   Test( To_Unbounded_String(Bits_Seq), Test_Bits_Parse );
 end Test_Bits;
