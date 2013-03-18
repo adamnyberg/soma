@@ -2,7 +2,6 @@
 -- harpe493 Harald Petterson, jonta760 Jonas Tarassu
 
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
-with TJa.Sockets; use TJa.Sockets;
 
 package body Misc is
   function Unbounded_Slice(
