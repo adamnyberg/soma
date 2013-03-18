@@ -38,7 +38,7 @@ package body Parts is
     begin
       for Part_Index in New_Parts'Range loop
         if Part_Index /= Num_Parts then
-          Misc.Split( Rest, " ", Start, Rest, 2 );
+          Misc.Split( Rest, " ", Start, Rest, 1 );
         else
           Start := Rest;
         end if;
