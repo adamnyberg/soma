@@ -19,12 +19,12 @@ package body Misc is
     Pattern : in String;
     Start : out Unbounded_String;
     Rest : out Unbounded_String;
-    Skip : in Positive := 1) is
+    Skip : in Natural := 0) is
 
     Tmp_Str : Unbounded_String;
     Space_Index : Natural := 0;
   begin
-    for I in 1..Skip loop
+    for I in 0..Skip loop
       Tmp_Str := Unbounded_Slice(Str, Space_Index+1, Length(Str));
       Space_Index := Space_Index + Index(Tmp_Str, Pattern);
     end loop;

@@ -8,5 +8,5 @@ package Misc is
     Pattern : in String;
     Start : out Unbounded_String;
     Rest : out Unbounded_String;
-    Skip : in Positive := 1);
+    Skip : in Natural := 0);
 end Misc;
