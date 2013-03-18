@@ -12,7 +12,7 @@ procedure Test_Misc is
   Rest : Unbounded_String;
 begin
   Test_Misc_Parse1 := To_Unbounded_String("abc def");
-  Misc.Split(Test_Misc_Parse1, " ", Start, Rest, 1);
+  Misc.Split(Test_Misc_Parse1, " ", Start, Rest, 0);
   Test(Start, "abc");
   Test(Rest, "def");
 

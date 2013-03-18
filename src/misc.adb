@@ -2,22 +2,8 @@
 -- harpe493 Harald Petterson, jonta760 Jonas Tarassu
 
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
-with TJa.Sockets; use TJa.Sockets;
 
 package body Misc is
-  -- Get the whole line from a socket into an unbounded string
-  procedure Get_Line(Socket : in Socket_Type; Str : out Unbounded_String) is
-    Buffer_Size : constant := 2000;
-    Buffer : String(1..Buffer_Size);
-    Last : Positive := Buffer_Size;
-  begin
-    Str := To_Unbounded_String("");
-    while Last = Buffer_Size loop
-      Get_Line(Socket, Buffer, Last);
-      Append(Source => Str, New_Item => Buffer(1..Last));
-    end loop;
-  end Get_Line;
-
   function Unbounded_Slice(
       Source : in Unbounded_String;
       Low : in Positive;
@@ -33,12 +19,12 @@ package body Misc is
     Pattern : in String;
     Start : out Unbounded_String;
     Rest : out Unbounded_String;
-    Skip : in Positive := 1) is
+    Skip : in Natural := 0) is
 
     Tmp_Str : Unbounded_String;
     Space_Index : Natural := 0;
   begin
-    for I in 1..(Skip-1) loop
+    for I in 0..Skip loop
       Tmp_Str := Unbounded_Slice(Str, Space_Index+1, Length(Str));
       Space_Index := Space_Index + Index(Tmp_Str, Pattern);
     end loop;

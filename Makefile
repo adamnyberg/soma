@@ -38,8 +38,12 @@ tinit:
 sync:
 	rsync -rlp --exclude '.git' . $(liu_id)@astmatix.ida.liu.se:soma
 
-clean:
+clean: sclean; lclean
+
+sclean:
 	ssh $(liu_id)@astmatix.ida.liu.se "rm soma/solver"
+
+lclean:
 	rm -R *.o *.ali
 
 # Legacy
