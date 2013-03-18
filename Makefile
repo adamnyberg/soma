@@ -27,7 +27,7 @@ vinit:
 tinit:
 	ssh -X $(liu_id)@astmatix.ida.liu.se 'mkdir -p soma/puzzles; cd soma/puzzles; /sw/gnu/bin/wget --no-clobber\
 		http://www.ida.liu.se/~TDDC68/2013/Matr/SN/Info_Ada/proj/files/Server/server;\
-		/usr/bin/chmod 777 server; /usr/local/bin/expect ../server_conf.sh'
+		/usr/bin/chmod 777 server; /usr/local/bin/expect server_conf.sh'
 
 sync:
 	rsync -rlp --exclude '.git' . $(liu_id)@astmatix.ida.liu.se:soma
@@ -39,5 +39,4 @@ clean:
 # Legacy
 ssolver: solver
 stest: test
-
 
