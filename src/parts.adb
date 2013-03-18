@@ -57,7 +57,10 @@ package body Parts is
   -- Moves the part 'vector' much, in each direction
   procedure Traverse(Part : in out Part_Type; Vector : in Vector_Type) is
   begin
-    null;
+    Part.Position := (
+      X => (Part.Position.X + Vector.X),
+      Y => (Part.Position.Y + Vector.Y),
+      Z => (Part.Position.Z + Vector.Z));
   end Traverse;
 
   procedure Rotate_X(Part : in out Part_Type) is
