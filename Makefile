@@ -20,9 +20,9 @@ test: sync
 		"cd soma;bash -l -c 'export PATH=/bin:/sw/gcc-3.4.6/bin:/usr/ccs/bin;make ltest'"
 
 ptest:
-	gnatmake $(pack) -Isrc/\
-		tests/test_bits.adb;
-	echo "\n"; ./test_bits; rm test_*;
+	gnatmake -Isrc/\
+		tests/test_$(pack).adb;
+	echo "\n"; ./test_$(pack); rm test_*;
 	echo "Test succeeded!";
 
 vinit:
