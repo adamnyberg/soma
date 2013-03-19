@@ -4,6 +4,7 @@
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with Vector; use Vector;
 with Bits; use Bits;
+with Misc;
 
 package Figures is
   type Figure_Type (Structure_Bits : Natural) is record

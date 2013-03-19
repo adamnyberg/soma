@@ -4,6 +4,7 @@
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with Vector; use Vector;
 with Bits; use Bits;
+with Misc;
 
 package Parts is
   type Part_Type (Structure_Bits : Natural) is record

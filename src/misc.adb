@@ -1,9 +1,8 @@
 -- adany869 Adam Nyberg, danth407 Daniel Rapp,
 -- harpe493 Harald Petterson, jonta760 Jonas Tarassu
 
-with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
-
 package body Misc is
+
   function Unbounded_Slice(
       Source : in Unbounded_String;
       Low : in Positive;
@@ -32,4 +31,9 @@ package body Misc is
     Start := Unbounded_Slice( Str, 1, Space_Index-1 );
     Rest := Unbounded_Slice( Str, Space_Index+1, Length(Str) );
   end Split;
+
+  function Divide_With_Ceil(Int1, Int2 : Integer) return Integer is
+  begin
+    return Integer(Float'Ceiling(Float(Int1) / Float(Int2)));
+  end Divide_With_Ceil;
 end Misc;
