@@ -62,7 +62,7 @@ package body Bits is
     return To_String(Str);
   end To_String;
 
-  procedure Put(Bits : Bits_Type; Dimension : Vector_Type) is
+  procedure Put(Bits : in Bits_Type; Dimension : in Vector_Type) is
     Bits_Str : String := To_String(Bits);
   begin
     Put("Length of bits: ");
@@ -77,7 +77,7 @@ package body Bits is
       if I mod Dimension.X = 0 then
         New_Line;
       end if;
-      if I mod Dimention.X * Dimension.Y = 0 then
+      if I mod Dimension.X * Dimension.Y = 0 then
         New_Line(2);
       end if;
       Put(Bits_Str(I));
