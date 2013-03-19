@@ -2,6 +2,7 @@
 -- harpe493 Harald Petterson, jonta760 Jonas Tarassu
 
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with Vector; use Vector;
 
 package Tests is
   Test_Fail : exception;
@@ -11,4 +12,6 @@ package Tests is
   procedure Test(El1, El2 : String);
 
   procedure Test(El1 : Unbounded_String; El2 : String);
+
+  procedure Test(El1, El2 : Vector_Type);
 end Tests;
