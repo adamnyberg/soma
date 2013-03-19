@@ -10,7 +10,7 @@ with Misc; use Misc;
 with Vector; use Vector;
 
 procedure Test_Bits is
-  Test_Bits_Parse : Unbounded_String := To_Unbounded_String("11111100000111111111111111");
+  Test_Bits_Parse : Unbounded_String := To_Unbounded_String("111111000001111111111111110");
   Test_Bits_Parse2 : Unbounded_String := To_Unbounded_String("01011010100101010101011010110110100");
 begin
   declare
@@ -22,6 +22,6 @@ begin
     --Test(1, Read_Bit(Bits_Seq2, 12));
     Test(Test_Bits_Parse2, To_String(Bits_Seq2));
     Test(Test_Bits_Parse, To_String(Bits_Seq));
-    Put(Bits_Seq, (13, 2, 1));
+    Put(Bits_Seq, (3, 3, 3));
   end;
 end Test_Bits;

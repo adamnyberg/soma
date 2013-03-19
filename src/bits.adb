@@ -64,13 +64,13 @@ package body Bits is
     New_Line(2);
 
     for I in Bits_Str'Range loop
+      Put(Bits_Str(I));
       if I mod Dimension.X = 0 then
         New_Line;
       end if;
       if I mod (Dimension.X * Dimension.Y) = 0 then
-        New_Line(2);
+        New_Line;
       end if;
-      Put(Bits_Str(I));
     end loop;
   end Put;
 end Bits;
