@@ -2,6 +2,7 @@
 -- harpe493 Harald Petterson, jonta760 Jonas Tarassu
 
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with Vector; use Vector;
 with Parts; use Parts;
 with Tests; use Tests;
 
@@ -9,10 +10,12 @@ procedure Test_Parts is
   Test_Parts_Parse : Unbounded_String :=
     To_Unbounded_String("3 1x8x10 10011 2x3x1 101011011 1x1x1 1010");
 
+  Test_Part_Parse : Unbounded_String :=
+    To_Unbounded_String("2x3x1 101011011");
+
   Test_Part : Part_Type := Parts.Parse_Part(Test_Part_Parse);
   Test_Parts : Parts_Type := Parts.Parse(Test_Parts_Parse);
   Test_Vector : Vector_Type := (2, 3, 4);
-
 begin
   Test( Test_Parts(1).Dimension.X, 1 );
   Test( Test_Parts(1).Dimension.Y, 8 );
