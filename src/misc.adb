@@ -2,14 +2,17 @@
 -- harpe493 Harald Petterson, jonta760 Jonas Tarassu
 
 package body Misc is
-
   function Unbounded_Slice(
       Source : in Unbounded_String;
       Low : in Positive;
-      High : in Natural)
+      High : in Integer := -1)
         return Unbounded_String is
   begin
-    return To_Unbounded_String( Slice(Source, Low, High) );
+    if High < 0 then
+      return To_Unbounded_String( Slice(Source, Low, Length(Source)) );
+    else
+      return To_Unbounded_String( Slice(Source, Low, High) );
+    end if;
   end Unbounded_Slice;
 
   -- Takes in an unbounded string, splits it at the "Skip"th instance of Pattern.
