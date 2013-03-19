@@ -13,6 +13,8 @@ package Bits is
   function Parse(Str : Unbounded_String) return Bits_Type;
 
   function Read_Bit(Bits : Bits_Type; Index : Integer) return Integer;
+
+  function To_String(Bits : Bits_Type) return String;
 private
   type Unsigned_Type is mod 2**BITS_LENGTH;
 
