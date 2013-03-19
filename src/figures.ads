@@ -10,7 +10,7 @@ package Figures is
   type Figure_Type (Structure_Bits : Natural) is record
     ID : Positive;
     Dimension : Vector_Type;
-    Structure : Bits_Type(1..Structure_Bits);
+    Structure : Bits_Type(Structure_Bits);
   end record;
 
   function Parse(Raw_Figure : in Unbounded_String) return Figure_Type;

@@ -51,4 +51,13 @@ package body Bits is
       return 0;
     end if;
   end Read_Bit;
+  
+  function To_String(Bits : Bits_Type) return String is
+    Str : Unbounded_String := To_Unbounded_String("");
+  begin
+    for I in reverse 1.. Bits_Type.Length loop
+      Str := Str & To_Unbounded_String(Read_Bit(Bits, I));
+    end loop;
+    return To_String(Str);
+  end To_String;
 end Bits;

@@ -28,7 +28,7 @@ package body Parts is
 
     -- We don't know how many parts to create until after we parse the string
     declare
-      New_Parts : Parts_Type(1..Num_Parts);
+      New_Parts : Parts_Type(Num_Parts);
     begin
       for Part_Index in New_Parts'Range loop
         if Part_Index /= Num_Parts then
@@ -44,13 +44,23 @@ package body Parts is
     end;
   end Parse;
 
-  procedure Rotate(Part : in out Part_Type; Vector : in Vector_Type) is
+  procedure Rotate(Part : in out Part_Type; Rotation : in Vector_Type) is
   begin
-    null;
+    for X in Rotation.X loop
+      Rotate_X(Part);
+    end loop;
+
+    for Y in Rotation.Y loop
+      Rotate_Y(Part);
+    end loop;
+
+    for Z in Rotation.Z loop
+      Rotate_Z(Part);
+    end loop;
   end Rotate;
 
   -- Moves the part 'vector' much, in each direction
-  procedure Traverse(Part : in out Part_Type; Vector : in Vector_Type) is
+  procedure Traverse(Part : in out Part_Type; Diff : in Vector_Type) is
   begin
     Part.Position := (
       X => (Part.Position.X + Vector.X),

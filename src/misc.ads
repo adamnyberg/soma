@@ -10,7 +10,7 @@ package Misc is
       High : in Natural)
         return Unbounded_String;
 
-  Procedure Split(Str : in Unbounded_String;
+  procedure Split(Str : in Unbounded_String;
     Pattern : in String;
     Start : out Unbounded_String;
     Rest : out Unbounded_String;
