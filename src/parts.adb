@@ -46,15 +46,15 @@ package body Parts is
 
   procedure Rotate(Part : in out Part_Type; Rotation : in Vector_Type) is
   begin
-    for X in Rotation.X loop
+    for X in 1..Rotation.X loop
       Rotate_X(Part);
     end loop;
 
-    for Y in Rotation.Y loop
+    for Y in 1..Rotation.Y loop
       Rotate_Y(Part);
     end loop;
 
-    for Z in Rotation.Z loop
+    for Z in 1..Rotation.Z loop
       Rotate_Z(Part);
     end loop;
   end Rotate;
