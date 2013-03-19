@@ -46,15 +46,15 @@ package body Parts is
 
   procedure Rotate(Part : in out Part_Type; Rotation : in Vector_Type) is
   begin
-    for X in Rotation.X loop
+    for X in 1..Rotation.X loop
       Rotate_X(Part);
     end loop;
 
-    for Y in Rotation.Y loop
+    for Y in 1..Rotation.Y loop
       Rotate_Y(Part);
     end loop;
 
-    for Z in Rotation.Z loop
+    for Z in 1..Rotation.Z loop
       Rotate_Z(Part);
     end loop;
   end Rotate;
@@ -63,14 +63,14 @@ package body Parts is
   procedure Traverse(Part : in out Part_Type; Diff : in Vector_Type) is
   begin
     Part.Position := (
-      X => (Part.Position.X + Vector.X),
-      Y => (Part.Position.Y + Vector.Y),
-      Z => (Part.Position.Z + Vector.Z));
+      X => (Part.Position.X + Diff.X),
+      Y => (Part.Position.Y + Diff.Y),
+      Z => (Part.Position.Z + Diff.Z));
   end Traverse;
 
   procedure Rotate_X(Part : in out Part_Type) is
   begin
-    null;
+    Parts.Structure.Bits := Parts.Structure.Bits * 4;
   end;
 
   procedure Rotate_Y(Part : in out Part_Type) is

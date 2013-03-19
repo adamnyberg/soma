@@ -20,4 +20,10 @@ package body Vector is
 
     return Vector;
   end Parse;
+
+  procedure To_String(Vector : Vector_Type) return String is
+  begin
+     return "X: " & To_String(Vector.X) &
+       " Y: " & To_String(Vector.Y) &
+       " Z: " & To_String(Vector.Z);
 end Vector;

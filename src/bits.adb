@@ -61,4 +61,26 @@ package body Bits is
     end loop;
     return To_String(Str);
   end To_String;
+
+  procedure Put(Bits : Bits_Type; Dimension : Vector_Type) is
+    Bits_Str : String := To_String(Bits);
+  begin
+    Put("Length of bits: ");
+    Put(Bits.Length, 0);
+    New_Line(2);
+
+    Put("Dimension: ");
+    Put(To_String(Dimension));
+    New_Line(2);
+
+    for I in Bits_Str'Range loop
+      if I mod Dimension.X = 0 then
+        New_Line;
+      end if;
+      if I mod Dimention.X * Dimension.Y = 0 then
+        New_Line(2);
+      end if;
+      Put(Bits_Str(I));
+    end loop;
+  end Put;
 end Bits;
