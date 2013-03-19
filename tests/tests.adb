@@ -9,46 +9,46 @@ with Vector; use Vector;
 package body Tests is
   procedure Test(El1, El2 : Unbounded_String) is begin
     if El1 /= El2 then
-      --Put("Test failed.");
-      --Put_Line("Element 1:");
-      --Put(To_String(El1));
-      --New_Line;
-      --Put_Line("Element 2:");
-      --Put(To_String(El2));
-      --New_Line;
+      Put_Line("Test failed.");
+      Put_Line("Element 1:");
+      Put(To_String(El1));
+      New_Line;
+      Put_Line("Element 2:");
+      Put(To_String(El2));
+      New_Line;
       raise Test_Fail;
     end if;
   end Test;
 
   procedure Test(El1, El2 : String) is begin
     if El1 /= El2 then
-      --Put("Test failed.");
-      --Put_Line("Element 1:");
-      --Put(El1);
-      --New_Line;
-      --Put_Line("Element 2:");
-      --Put(El2);
-      --New_Line;
+      Put_Line("Test failed.");
+      Put_Line("Element 1:");
+      Put(El1);
+      New_Line;
+      Put_Line("Element 2:");
+      Put(El2);
+      New_Line;
       raise Test_Fail;
     end if;
   end Test;
 
   procedure Test(El1, El2 : Integer) is begin
     if El1 /= El2 then
-      --Put("Test failed.");
-      --Put_Line("Element 1:");
-      --Put(El1);
-      --New_Line;
-      --Put_Line("Element 2:");
-      --Put(El2);
-      --New_Line;
+      Put_Line("Test failed.");
+      Put_Line("Element 1:");
+      Put(El1);
+      New_Line;
+      Put_Line("Element 2:");
+      Put(El2);
+      New_Line;
       raise Test_Fail;
     end if;
   end Test;
 
   procedure Test(El1 : Unbounded_String; El2 : String) is begin
     if El1 /= To_Unbounded_String(El2) then
-      Put("Test failed.");
+      Put_Line("Test failed.");
       Put_Line("Element 1:");
       Put(To_String(El1));
       New_Line;
@@ -61,13 +61,13 @@ package body Tests is
 
   procedure Test(El1, El2 : Vector_Type) is begin
     if To_String(El1) /= To_String(El2) then
-      --Put("Test failed.");
-      --Put_Line("Element 1:");
-      --Put(To_String(El1));
-      --New_Line;
-      --Put_Line("Element 2:");
-      --Put(To_String(El2));
-      --New_Line;
+      Put_Line("Test failed.");
+      Put_Line("Element 1:");
+      Put(To_String(El1));
+      New_Line;
+      Put_Line("Element 2:");
+      Put(To_String(El2));
+      New_Line;
       raise Test_Fail;
     end if;
   end Test;

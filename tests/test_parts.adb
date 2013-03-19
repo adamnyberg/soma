@@ -12,9 +12,9 @@ procedure Test_Parts is
     To_Unbounded_String("3 1x8x10 10011 2x3x1 101011011 1x1x1 1010");
 
   Test_Part_Parse : Unbounded_String :=
-    To_Unbounded_String("2x3x1 101011011");  
-  Test_Part : Part_Type := Parts.Parse_Part(Test_Part_Parse);
+    To_Unbounded_String("2x3x1 101011011");
 
+  Test_Part : Part_Type := Parts.Parse_Part(Test_Part_Parse);
 
 
   Test_Part_Parse2 : Unbounded_String :=
@@ -25,7 +25,6 @@ procedure Test_Parts is
 
   Test_Part_Parse3 : Unbounded_String :=
      To_Unbounded_String("1x3x3 011110010");
-
 
   Rotate_Test_Part : Part_Type := Parts.Parse_Part(Test_Part_Parse2);
   Rotate_Test_Part2 : Part_Type := Parts.Parse_Part(Test_Part_Parse3); 
@@ -70,9 +69,9 @@ begin
 
   -------------------------------------------------------
 
+  Test( Rotate_Test_Part2.Dimension, (1, 3, 3) );
+
   Rotate(Rotate_Test_Part2, X_Rotate_Test_Vector);
-  Vector4 := (1,3,3);
-  Test( Rotate_Test_Part2.Dimension, Vector4);
   Test( To_String(Rotate_Test_Part2.Structure), "100111010");
 
   -- Rotate_Test_Part2 := Parts.Parse_Part(Test_Part_Parse3);
