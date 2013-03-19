@@ -23,7 +23,7 @@ package Bits is
 
   function To_String(Bits : Bits_Type) return String;
 
-  procedure Put(Bits : in Bits_Type; Dimesion : in Vector_Type);
+  procedure Put(Bits : in Bits_Type; Dimension : in Vector_Type);
 private
   type Unsigned_Type is mod 2**BITS_LENGTH;
 end Bits;
