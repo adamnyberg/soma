@@ -23,8 +23,8 @@ package body Vector is
 
   function To_String(Vector : Vector_Type) return String is
   begin
-     return "X: " & To_String(Vector.X) &
-       ", Y: " & To_String(Vector.Y) &
-       ", Z: " & To_String(Vector.Z);
+     return "X: " & Integer'Image(Vector.X) &
+       ", Y: " & Integer'Image(Vector.Y) &
+       ", Z: " & Integer'Image(Vector.Z);
   end To_String;
 end Vector;

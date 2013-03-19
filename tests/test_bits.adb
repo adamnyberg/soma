@@ -7,6 +7,7 @@ with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with Tests; use Tests;
 with Bits; use Bits;
 with Misc; use Misc;
+with Vector; use Vector;
 
 procedure Test_Bits is
   Test_Bits_Parse : Unbounded_String := To_Unbounded_String("11111100000111111111111111");
@@ -21,5 +22,6 @@ begin
     --Test(1, Read_Bit(Bits_Seq2, 12));
     Test(Test_Bits_Parse2, To_String(Bits_Seq2));
     Test(Test_Bits_Parse, To_String(Bits_Seq));
+    Put(Bits_Seq, (13, 2, 1));
   end;
 end Test_Bits;

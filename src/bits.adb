@@ -3,6 +3,7 @@
 
 with Misc;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with Vector; use Vector;
 
 package body Bits is
   function Parse(Str : Unbounded_String) return Bits_Type is
@@ -27,22 +28,13 @@ package body Bits is
     return Bits_Seq;
   end Parse;
 
-  function Read_Bit(Bits : Bits_Type; Index : Integer) return Integer is
+  function Read_Bit(Bits : Bits_Type; In_Index : Integer) return Integer is
+    Index : Integer := Bits.Bits'Length*BITS_LENGTH - In_Index + 1;
     Pos_Bit : Unsigned_Type := 2**((Index-1) rem BITS_LENGTH);
     Resulting_Bit : Unsigned_Type;
     Element_In_Bits : Integer := Bits.Bits'Last + 1 - Divide_With_Ceil(Index, BITS_LENGTH);
   begin
     Resulting_Bit := Bits.Bits(Element_In_Bits) and Pos_Bit;
-    --Put(Integer(Bits.Bits(1)), Base=>2);
-    --Put(" ------- ");
-    --Put(Integer(Bits.Bits(2)), Base=>2);
-    --Put(" ------- ");
-    --Put(Integer(Bits.Bits(3)), Base=>2);
-    --Put(" ------- ");
-    --Put(Integer(Pos_Bit), Base=>2);
-    --Put(" ------- ");
-    --Put(Integer(Resulting_Bit), Base=>2);
-    --New_Line;
     if Resulting_Bit /= 0 then
       return 1;
     else
@@ -52,10 +44,8 @@ package body Bits is
 
   function To_String(Bits : Bits_Type) return String is
     Str : Unbounded_String := To_Unbounded_String("");
-    First_Index : Integer := Bits.Bits'Length*BITS_LENGTH;
-    Last_Index : Integer := First_Index-Bits.Length+1;
   begin
-    for I in reverse Last_Index..First_Index loop
+    for I in 1..Bits.Length loop
       -- (2) at the end removes the extra space
       Str := Str & Integer'Image(Read_Bit(Bits, I))(2);
     end loop;
@@ -77,7 +67,7 @@ package body Bits is
       if I mod Dimension.X = 0 then
         New_Line;
       end if;
-      if I mod Dimension.X * Dimension.Y = 0 then
+      if I mod (Dimension.X * Dimension.Y) = 0 then
         New_Line(2);
       end if;
       Put(Bits_Str(I));

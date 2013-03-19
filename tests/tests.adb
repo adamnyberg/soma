@@ -48,13 +48,13 @@ package body Tests is
 
   procedure Test(El1 : Unbounded_String; El2 : String) is begin
     if El1 /= To_Unbounded_String(El2) then
-      --Put("Test failed.");
-      --Put_Line("Element 1:");
-      --Put(To_String(El1));
-      --New_Line;
-      --Put_Line("Element 2:");
-      --Put(El2);
-      --New_Line;
+      Put("Test failed.");
+      Put_Line("Element 1:");
+      Put(To_String(El1));
+      New_Line;
+      Put_Line("Element 2:");
+      Put(El2);
+      New_Line;
       raise Test_Fail;
     end if;
   end Test;
