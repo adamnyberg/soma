@@ -9,6 +9,5 @@ package Vector is
   end record;
 
   function Parse(Raw_Vector : in Unbounded_String) return Vector_Type;
-
   function To_String(Vector : Vector_Type) return String;
 end Vector;
