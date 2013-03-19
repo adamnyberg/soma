@@ -69,8 +69,19 @@ package body Parts is
   end Traverse;
 
   procedure Rotate_X(Part : in out Part_Type) is
+    Length : integer := Part.Structure.Length;
+    Structure : Bits_Type := Part.Structure.Bits;
+    Reverse_Index : Integer := Length - 1;
+    Y : Integer := Part.Dimension.Y;
+    Z : Integer := Part.Dimension.Z;
+    Res : Integer := 0;
   begin
-    Parts.Structure.Bits := Parts.Structure.Bits * 4;
+    for I in reverse 1..Y loop
+      for J in 0..Z-1 loop
+        Res := Res + Read_Bit(Structure, I+J*Y)*2**Reverse_Length;
+        Reverse_Length := Reverse_Length - 1;
+      end loop;
+    end loop;
   end;
 
   procedure Rotate_Y(Part : in out Part_Type) is
