@@ -44,13 +44,13 @@ package body Parts is
     end;
   end Parse;
 
-  procedure Rotate(Part : in out Part_Type; Vector : in Vector_Type) is
+  procedure Rotate(Part : in out Part_Type; Rotation : in Vector_Type) is
   begin
     null;
   end Rotate;
 
   -- Moves the part 'vector' much, in each direction
-  procedure Traverse(Part : in out Part_Type; Vector : in Vector_Type) is
+  procedure Traverse(Part : in out Part_Type; Diff : in Vector_Type) is
   begin
     Part.Position := (
       X => (Part.Position.X + Vector.X),
