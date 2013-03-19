@@ -17,9 +17,9 @@ begin
     Bits_Seq : Bits_Type := Parse( Test_Bits_Parse );
     Bits_Seq2 : Bits_Type := Parse( Test_Bits_Parse2 );
   begin
-    --Test(0, Read_Bit(Bits_Seq2, 1));
-    --Test(0, Read_Bit(Bits_Seq2, 6));
-    --Test(1, Read_Bit(Bits_Seq2, 12));
+    Test(0, Read_Bit(Bits_Seq2, 1));
+    Test(0, Read_Bit(Bits_Seq2, 6));
+    Test(1, Read_Bit(Bits_Seq2, 12));
     Test(Test_Bits_Parse2, To_String(Bits_Seq2));
     Test(Test_Bits_Parse, To_String(Bits_Seq));
     Put(Bits_Seq, (3, 3, 3));
