@@ -70,7 +70,7 @@ package body Parts is
 
   procedure Rotate_X(Part : in out Part_Type) is
   begin
-    null;
+    Parts.Structure.Bits := Parts.Structure.Bits * 4;
   end;
 
   procedure Rotate_Y(Part : in out Part_Type) is
