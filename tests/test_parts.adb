@@ -22,8 +22,7 @@ procedure Test_Parts is
     To_Unbounded_String("2x4x3 101010110010000000110000");
   -- Need to compare structure of the part before and after rotation
   
-  -- Test_Bits_Parse : Unbounded_String := To_Unbounded_String("101011");
-  -- Test_Bits_Parse2 : Unbounded_String := To_Unbounded_String("101010110010000000110000");
+  
 
 
   Rotate_Test_Part : Part_Type := Parts.Parse_Part(Test_Part_Parse2);
@@ -55,6 +54,7 @@ begin
   Rotate(Rotate_Test_Part, X_Rotate_Test_Vector);
   Vector1 := (2,1,3);
   Test( Rotate_Test_Part.Dimension, Vector1);
+  --Test( To_String(Rotate_Test_Part.Structure),)
   
   Rotate_Test_Part := Parts.Parse_Part(Test_Part_Parse2);
   Rotate(Rotate_Test_Part, Y_Rotate_Test_Vector);
@@ -71,16 +71,19 @@ begin
   Rotate(Rotate_Test_Part2, X_Rotate_Test_Vector);
   Vector4 := (2,3,4);
   Test( Rotate_Test_Part2.Dimension, Vector4);
+  Test( To_String(Rotate_Test_Part2.Structure), "110000100000101011100000");
   
   Rotate_Test_Part2 := Parts.Parse_Part(Test_Part_Parse3);
   Rotate(Rotate_Test_Part2, Y_Rotate_Test_Vector);
   Vector5 := (3,4,2);
   Test( Rotate_Test_Part2.Dimension, Vector5);
+  Test( To_String(Rotate_Test_Part2.Structure), "000001000100100111100100");
 
   Rotate_Test_Part2 := Parts.Parse_Part(Test_Part_Parse3);
   Rotate(Rotate_Test_Part2, Z_Rotate_Test_Vector);
   Vector6 := (4,2,3);
   Test( Rotate_Test_Part2.Dimension, Vector6);
+  Test( To_String(Rotate_Test_Part2.Structure), "000111110000010001000100");
 
   -------------------------------------------------------
 
