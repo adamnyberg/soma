@@ -27,4 +27,10 @@ package body Tests is
       raise Test_Fail;
     end if;
   end Test;
+
+  procedure Test(El1, El2 : Vector_Type) is begin
+    if El1 /= El2 then
+      raise Test_Fail;
+    end if;
+  end Test;
 end Tests;

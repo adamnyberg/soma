@@ -63,9 +63,9 @@ package body Parts is
   procedure Traverse(Part : in out Part_Type; Diff : in Vector_Type) is
   begin
     Part.Position := (
-      X => (Part.Position.X + Vector.X),
-      Y => (Part.Position.Y + Vector.Y),
-      Z => (Part.Position.Z + Vector.Z));
+      X => (Part.Position.X + Diff.X),
+      Y => (Part.Position.Y + Diff.Y),
+      Z => (Part.Position.Z + Diff.Z));
   end Traverse;
 
   procedure Rotate_X(Part : in out Part_Type) is
