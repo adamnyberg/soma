@@ -14,7 +14,7 @@ package Bits is
     Length : Natural;
   end record;
 
-  BITS_LENGTH : constant Positive := 32;
+  BITS_LENGTH : constant Positive := 31;
 
   function Parse(Str : Unbounded_String) return Bits_Type;
   function Read_Bit(Bits : Bits_Type; Index : Integer) return Integer;
