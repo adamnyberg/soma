@@ -46,7 +46,17 @@ package body Parts is
 
   procedure Rotate(Part : in out Part_Type; Rotation : in Vector_Type) is
   begin
-    null;
+    for X in Rotation.X loop
+      Rotate_X(Part);
+    end loop;
+
+    for Y in Rotation.Y loop
+      Rotate_Y(Part);
+    end loop;
+
+    for Z in Rotation.Z loop
+      Rotate_Z(Part);
+    end loop;
   end Rotate;
 
   -- Moves the part 'vector' much, in each direction
