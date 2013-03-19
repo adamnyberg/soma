@@ -11,7 +11,7 @@ package Parts is
     Position : Vector_Type;
     Rotation : Vector_Type;
     Dimension : Vector_Type;
-    Structure : Bits_Type(1..Structure_Bits);
+    Structure : Bits_Type(Structure_Bits);
   end record;
   type Parts_Type is array(Integer range <>) of Part_Type(1);
 

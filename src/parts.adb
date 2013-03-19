@@ -28,7 +28,7 @@ package body Parts is
 
     -- We don't know how many parts to create until after we parse the string
     declare
-      New_Parts : Parts_Type(1..Num_Parts);
+      New_Parts : Parts_Type(Num_Parts);
     begin
       for Part_Index in New_Parts'Range loop
         if Part_Index /= Num_Parts then
