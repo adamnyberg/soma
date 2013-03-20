@@ -23,4 +23,6 @@ package Protocol is
   procedure Initiate(Socket : in Socket_Type; Packet : in Packet_Type;
                      Add_Random_Tail : in Boolean := False);
   procedure Confirm(Socket : in Socket_Type; Packet : in Packet_Type);
+
+  procedure Give_Up(Socket : in Socket_Type; Figure_Id : in Positive);
 end Protocol;

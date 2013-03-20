@@ -35,4 +35,9 @@ package body Protocol is
       Initiate(Socket, Packet, True);
     end if;
   end Confirm;
+
+  procedure Give_Up(Socket : in Socket_Type; Figure_Id : in Positive) is
+  begin
+    Put_Line(Socket, Packets.Assemble(GIVEUP_HEADER, Figure_Id));
+  end Give_Up;
 end Protocol;
