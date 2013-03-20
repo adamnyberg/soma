@@ -72,23 +72,21 @@ package body Parts is
   end Traverse;
 
   procedure Rotate_X(Part : in out Part_Type) is
-    Reverse_Index : Integer := Part.Structure.Length - 1;
+    Index : Integer := 1;
+    Tmp : Integer;
     Y : Integer := Part.Dimension.Y;
     Z : Integer := Part.Dimension.Z;
-    Res : Integer := 0;
   begin
-    for I in reverse 1..Y loop
+    for I in 1..Y loop
       for J in 0..Z-1 loop
-        -- WARNING, should not be done due to overflow
-        Res := Res + Read_Bit(Part.Structure, I+J*Y) * 2**Reverse_Index;
-        Reverse_Index := Reverse_Index - 1;
+        Set_Bit(Part.Structure, Index, Read_Bit(Part.Structure, I+J*Y));
+        Index := Index + 1;
       end loop;
     end loop;
 
-    -- TODO: Change dimension
-    --Part.Structure.Bits := Res;
-    --Put(Res, Base => 2);
-    --New_Line;
+    Tmp := Part.Dimension.Y;
+    Part.Dimension.Y := Part.Dimension.Z;
+    Part.Dimension.Z := Tmp;
   end;
 
   procedure Rotate_Y(Part : in out Part_Type) is
