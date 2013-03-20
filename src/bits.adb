@@ -28,6 +28,22 @@ package body Bits is
     return Bits_Seq;
   end Parse;
 
+  procedure Set_Bit(
+    Bits : in out Bits_Type;
+    In_Index : in Natural;
+    Bit : in Natural) is
+
+    Index : Integer := Bits.Bits'Length*BITS_LENGTH - In_Index + 1;
+    Pos_Bit : Unsigned_Type := 2**((Index-1) rem BITS_LENGTH);
+    Element_In_Bits : Integer := Bits.Bits'Last + 1 - Divide_With_Ceil(Index, BITS_LENGTH);
+  begin
+    if Bit = 0 then
+      Bits.Bits(Element_In_Bits) := Bits.Bits(Element_In_Bits) and not Pos_Bit;
+    elsif Bit = 1 then
+      Bits.Bits(Element_In_Bits) := Bits.Bits(Element_In_Bits) or Pos_Bit;
+    end if;
+  end Set_Bit;
+
   function Read_Bit(Bits : Bits_Type; In_Index : Integer) return Integer is
     Index : Integer := Bits.Bits'Length*BITS_LENGTH - In_Index + 1;
     Pos_Bit : Unsigned_Type := 2**((Index-1) rem BITS_LENGTH);

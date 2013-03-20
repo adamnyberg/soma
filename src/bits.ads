@@ -19,6 +19,11 @@ package Bits is
   BITS_LENGTH : constant Positive := 31;
 
   function Parse(Str : Unbounded_String) return Bits_Type;
+  procedure Set_Bit(
+    Bits : in out Bits_Type;
+    In_Index : in Natural;
+    Bit : in Natural);
+
   function Read_Bit(Bits : Bits_Type; In_Index : Integer) return Integer;
 
   function To_String(Bits : Bits_Type) return String;
