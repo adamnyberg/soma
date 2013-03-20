@@ -1,6 +1,9 @@
 -- adany869 Adam Nyberg, danth407 Daniel Rapp,
 -- harpe493 Harald Petterson, jonta760 Jonas Tarassu
 
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with Ada.Text_IO; use Ada.Text_IO;
+
 package body Parts is
   function Parse_Part(Raw_Part : in Unbounded_String) return Part_Type is
     Start : Unbounded_String;
@@ -69,8 +72,23 @@ package body Parts is
   end Traverse;
 
   procedure Rotate_X(Part : in out Part_Type) is
+    Reverse_Index : Integer := Part.Structure.Length - 1;
+    Y : Integer := Part.Dimension.Y;
+    Z : Integer := Part.Dimension.Z;
+    Res : Integer := 0;
   begin
-    Null;
+    for I in reverse 1..Y loop
+      for J in 0..Z-1 loop
+        -- WARNING, should not be done due to overflow
+        Res := Res + Read_Bit(Part.Structure, I+J*Y) * 2**Reverse_Index;
+        Reverse_Index := Reverse_Index - 1;
+      end loop;
+    end loop;
+
+    -- TODO: Change dimension
+    --Part.Structure.Bits := Res;
+    --Put(Res, Base => 2);
+    --New_Line;
   end;
 
   procedure Rotate_Y(Part : in out Part_Type) is
