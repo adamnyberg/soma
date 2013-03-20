@@ -85,22 +85,23 @@ begin
 
   -- ROTATE Z
 
-  if False then
   Rotate_Test_Part := Parts.Parse_Part(Test_Part_Parse2);
-  --Rotate(Rotate_Test_Part, Z_Rotate_Test_Vector);
-  --Test( Rotate_Test_Part.Dimension, (3, 2, 1));
+  Rotate(Rotate_Test_Part, Z_Rotate_Test_Vector);
+  Rotate(Rotate_Test_Part, Z_Rotate_Test_Vector);
+  Rotate(Rotate_Test_Part, Z_Rotate_Test_Vector);
+  Rotate(Rotate_Test_Part, Z_Rotate_Test_Vector);
+  Rotate(Rotate_Test_Part, Z_Rotate_Test_Vector);
+  Test( Rotate_Test_Part.Dimension, (3, 2, 1));
 
   Rotate_Test_Part2 := Parts.Parse_Part(Test_Part_Parse3);
-  --Rotate(Rotate_Test_Part2, Z_Rotate_Test_Vector);
-  --Test( Rotate_Test_Part2.Dimension, (4, 2, 3));
-  --Test( To_String(Rotate_Test_Part2.Structure), "000111110000010001000100");
+  Rotate(Rotate_Test_Part2, Z_Rotate_Test_Vector);
+  Test( Rotate_Test_Part2.Dimension, (4, 2, 3));
+  Test( To_String(Rotate_Test_Part2.Structure), "000111110000010001000100");
 
   Rotate_Test_Part2 := Parts.Parse_Part(To_Unbounded_String("2x2x3 101101001011"));
-  --Rotate(Rotate_Test_Part2, Z_Rotate_Test_Vector);
-  --Test( Rotate_Test_Part2.Dimension, (4, 2, 3));
-  --Test( To_String(Rotate_Test_Part2.Structure), "101101010101");
-  --Test( To_String(Rotate_Test_Part2.Structure), "101101001011");
-  end if;
+  Rotate(Rotate_Test_Part2, Z_Rotate_Test_Vector);
+  Test( Rotate_Test_Part2.Dimension, (2, 2, 3));
+  Test( To_String(Rotate_Test_Part2.Structure), "011110000111");
 
   -------------------------------------------------------
 

@@ -132,7 +132,6 @@ package body Parts is
         end loop;
       end loop;
     end loop;
-    New_Line;
 
     Tmp := Part.Dimension.Z;
     Part.Dimension.Z := Part.Dimension.X;
@@ -140,7 +139,24 @@ package body Parts is
   end Rotate_Y_270;
 
   procedure Rotate_Z(Part : in out Part_Type) is
+    Index : Integer := 1;
+    Tmp : Integer;
+    Tmp_Structure : Bits_Type := Part.Structure;
+    X : Integer := Part.Dimension.X;
+    Y : Integer := Part.Dimension.Y;
+    Z : Integer := Part.Dimension.Z;
   begin
-    null;
+    for I in 0..Z-1 loop
+      for J in 0..X-1 loop
+        for K in 1..Y loop
+          Set_Bit(Part.Structure, Index, Read_Bit(Tmp_Structure, K*X-J+I*X*Y));
+          Index := Index + 1;
+        end loop;
+      end loop;
+    end loop;
+
+    Tmp := Part.Dimension.Y;
+    Part.Dimension.Y := Part.Dimension.X;
+    Part.Dimension.X := Tmp;
   end Rotate_Z;
 end Parts;
