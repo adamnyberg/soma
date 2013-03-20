@@ -71,10 +71,6 @@ package body Parts is
       Z => (Part.Position.Z + Diff.Z));
   end Traverse;
 
-  -- index=8;x=2;y=3;z=2;
-  -- for(var i = y; i >= 1; i--){
-  -- for(var j = 0; j <= (z-1); j++){
-  -- for(var k=1;k<=x;k++){console.log(x*(i+j*y-1)+k);index-=1;}}}
   procedure Rotate_X(Part : in out Part_Type) is
     Index : Integer := 1;
     Tmp : Integer;
@@ -95,15 +91,56 @@ package body Parts is
     Tmp := Part.Dimension.Y;
     Part.Dimension.Y := Part.Dimension.Z;
     Part.Dimension.Z := Tmp;
-  end;
+  end Rotate_X;
 
   procedure Rotate_Y(Part : in out Part_Type) is
+    Index : Integer := 1;
+    Tmp : Integer;
+    Tmp_Structure : Bits_Type := Part.Structure;
+    X : Integer := Part.Dimension.X;
+    Y : Integer := Part.Dimension.Y;
+    Z : Integer := Part.Dimension.Z;
   begin
-    null;
-  end;
+    for I in 0..X-1 loop
+      for J in 1..Y loop
+        for K in 0..Z-1 loop
+          Set_Bit(Part.Structure, Index, Read_Bit(Tmp_Structure, K*X*Y+J*X-I));
+          Index := Index + 1;
+        end loop;
+      end loop;
+    end loop;
+    New_Line;
+
+    Tmp := Part.Dimension.Z;
+    Part.Dimension.Z := Part.Dimension.X;
+    Part.Dimension.X := Tmp;
+  end Rotate_Y;
+
+  procedure Rotate_Y_270(Part : in out Part_Type) is
+    Index : Integer := 1;
+    Tmp : Integer;
+    Tmp_Structure : Bits_Type := Part.Structure;
+    X : Integer := Part.Dimension.X;
+    Y : Integer := Part.Dimension.Y;
+    Z : Integer := Part.Dimension.Z;
+  begin
+    for I in reverse 0..X-1 loop
+      for J in 1..Y loop
+        for K in reverse 0..Z-1 loop
+          Set_Bit(Part.Structure, Index, Read_Bit(Tmp_Structure, K*X*Y+J*X-I));
+          Index := Index + 1;
+        end loop;
+      end loop;
+    end loop;
+    New_Line;
+
+    Tmp := Part.Dimension.Z;
+    Part.Dimension.Z := Part.Dimension.X;
+    Part.Dimension.X := Tmp;
+  end Rotate_Y_270;
 
   procedure Rotate_Z(Part : in out Part_Type) is
   begin
     null;
-  end;
+  end Rotate_Z;
 end Parts;
