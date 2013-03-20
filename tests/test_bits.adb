@@ -28,6 +28,18 @@ begin
     Test(Test_Bits_Parse, To_String(Bits_Seq));
     Put(Bits_Seq, (3, 3, 3));
 
-    Test(Set_Bit(Bits_Seq3,2,1),Bits_Seq3);
+    Test(Set_Bit(Bits_Seq3,2,1),Bits_Seq3_Ref);
+    
+    Bits_Seq3 := Parse( Test_Bits_Parse4 );
+    Bits_Seq3_Ref := Parse(To_Unbounded_String("1010"));   
+    Test(Set_Bit(Bits_Seq3,2,0),Bits_Seq3_Ref);
+    
+    Bits_Seq3 := Parse( Test_Bits_Parse4 );
+    Bits_Seq3_Ref := Parse(To_Unbounded_String("1010"));
+    Test(Set_Bit(Bits_Seq3,1,1),Bits_Seq3_Ref);
+    
+    Bits_Seq3 := Parse( Test_Bits_Parse4 );
+    Bits_Seq3_Ref := Parse(To_Unbounded_String("1000"));
+    Test(Set_Bit(Bits_Seq3,1,1),Bits_Seq3_Ref);
   end;
 end Test_Bits;
