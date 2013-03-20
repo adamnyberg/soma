@@ -23,5 +23,6 @@ package Parts is
 private
   procedure Rotate_X(Part : in out Part_Type);
   procedure Rotate_Y(Part : in out Part_Type);
+  procedure Rotate_Y_270(Part : in out Part_Type);
   procedure Rotate_Z(Part : in out Part_Type);
 end Parts;
