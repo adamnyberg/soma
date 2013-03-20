@@ -38,7 +38,10 @@ package body Bits is
     Element_In_Bits : Integer := Bits.Bits'Last + 1 - Divide_With_Ceil(Index, BITS_LENGTH);
   begin
     if Bit = 0 then
-      Bits.Bits(Element_In_Bits) := Bits.Bits(Element_In_Bits) and not Pos_Bit;
+      -- GNAT bugfix
+      -- (Bits.Bits(Element_In_Bits) and Pos_Bit) xor Bits.Bits(Element_In_Bits) is the same as
+      -- Bits.Bits(Element_In_Bits) and not Pos_Bit
+      Bits.Bits(Element_In_Bits) := (Bits.Bits(Element_In_Bits) and Pos_Bit) xor Bits.Bits(Element_In_Bits);
     elsif Bit = 1 then
       Bits.Bits(Element_In_Bits) := Bits.Bits(Element_In_Bits) or Pos_Bit;
     end if;

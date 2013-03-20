@@ -71,16 +71,24 @@ package body Parts is
       Z => (Part.Position.Z + Diff.Z));
   end Traverse;
 
+  -- index=8;x=2;y=3;z=2;
+  -- for(var i = y; i >= 1; i--){
+  -- for(var j = 0; j <= (z-1); j++){
+  -- for(var k=1;k<=x;k++){console.log(x*(i+j*y-1)+k);index-=1;}}}
   procedure Rotate_X(Part : in out Part_Type) is
     Index : Integer := 1;
     Tmp : Integer;
+    Tmp_Structure : Bits_Type := Part.Structure;
+    X : Integer := Part.Dimension.X;
     Y : Integer := Part.Dimension.Y;
     Z : Integer := Part.Dimension.Z;
   begin
-    for I in 1..Y loop
+    for I in reverse 1..Y loop
       for J in 0..Z-1 loop
-        Set_Bit(Part.Structure, Index, Read_Bit(Part.Structure, I+J*Y));
-        Index := Index + 1;
+        for K in 1..X loop
+          Set_Bit(Part.Structure, Index, Read_Bit(Tmp_Structure, X*(I+J*Y-1)+K));
+          Index := Index + 1;
+        end loop;
       end loop;
     end loop;
 
