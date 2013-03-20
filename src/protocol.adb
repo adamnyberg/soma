@@ -1,7 +1,6 @@
 -- adany869 Adam Nyberg, danth407 Daniel Rapp,
 -- harpe493 Harald Petterson, jonta760 Jonas Tarassu
 
-with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with TJa.Sockets; use TJa.Sockets;
 with Packets; use Packets;
 with Ada.Numerics.Float_Random; use Ada.Numerics.Float_Random;
@@ -36,8 +35,8 @@ package body Protocol is
     end if;
   end Confirm;
 
-  procedure Give_Up(Socket : in Socket_Type; Figure_Id : in Positive) is
+  procedure Give_Up(Socket : in Socket_Type; Figure_ID : in Unbounded_String) is
   begin
-    Put_Line(Socket, Packets.Assemble(GIVEUP_HEADER, Figure_Id));
+    Put_Line(Socket, Packets.Assemble(GIVEUP_HEADER, Figure_ID));
   end Give_Up;
 end Protocol;

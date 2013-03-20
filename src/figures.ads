@@ -6,9 +6,10 @@ with Vector; use Vector;
 with Bits; use Bits;
 with Misc;
 
+
 package Figures is
   type Figure_Type (Structure_Bits : Natural) is record
-    ID : Positive;
+    ID : Unbounded_String;
     Dimension : Vector_Type;
     Structure : Bits_Type(Structure_Bits);
   end record;

@@ -7,8 +7,8 @@ lsolver:
 
 ltest:
 	gnatmake $(MAKEFLAGS) -Isrc/\
-		tests/test_parts.adb tests/test_misc.adb tests/test_figures.adb;
-	echo "\n"; ./test_parts; ./test_misc; ./test_figures; rm test_*;
+		tests/test_parts.adb tests/test_misc.adb tests/test_figures.adb tests/test_packets.adb;
+	echo "\n"; ./test_parts; ./test_misc; ./test_figures; ./test_packets; rm test_*;
 	echo "All tests succeeded!"
 
 solver: sync
@@ -24,6 +24,16 @@ ptest:
 		tests/test_$(pack).adb;
 	echo "\n"; ./test_$(pack); rm test_*;
 	echo "Test succeeded!";
+
+iptest:
+	gnatmake $(MAKEFLAGS) -Isrc/\
+		tests/test_$(pack).adb;
+	echo "\n"; ./test_$(pack); rm test_*;
+	echo "Test succeeded!";
+
+sptest: sync
+	ssh $(liu_id)@astmatix.ida.liu.se \
+		"cd soma;bash -l -c 'export PATH=/bin:/sw/gcc-3.4.6/bin:/usr/ccs/bin;make iptest pack=$(pack)'"
 
 vinit:
 	ssh -X $(liu_id)@astmatix.ida.liu.se 'mkdir -p soma; cd soma; /sw/gnu/bin/wget --no-clobber\

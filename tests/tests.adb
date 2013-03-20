@@ -47,6 +47,19 @@ package body Tests is
     end if;
   end Test;
 
+  procedure Test(El1, El2 : Character) is begin
+    if El1 /= El2 then
+      Put_Line("Test failed.");
+      Put_Line("Element 1:");
+      Put(El1);
+      New_Line;
+      Put_Line("Element 2:");
+      Put(El2);
+      New_Line;
+      raise Test_Fail;
+    end if;
+  end Test;
+
   procedure Test(El1 : Unbounded_String; El2 : String) is begin
     if El1 /= To_Unbounded_String(El2) then
       Put_Line("Test failed.");
@@ -58,6 +71,10 @@ package body Tests is
       New_Line;
       raise Test_Fail;
     end if;
+  end Test;
+
+  procedure Test(El1 : String; El2 : Unbounded_String) is begin
+    Test(El2, El1);
   end Test;
 
   procedure Test(El1, El2 : Vector_Type) is begin

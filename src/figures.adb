@@ -3,21 +3,22 @@
 
 package body Figures is
   function Parse(Raw_Figure : in Unbounded_String) return Figure_Type is
-    Start : Unbounded_String;
+    Figure_ID : Unbounded_String;
     Rest : Unbounded_String;
+    Dimension : Unbounded_String;
+    Bits_Str : Unbounded_String;
     Figure_Size : Integer;
   begin
-    Misc.Split( Raw_Figure, " ", Start, Rest );
+    Misc.Split( Raw_Figure, " ", Figure_ID, Rest );
+    Misc.Split( Rest, " ", Dimension, Bits_Str );
     Figure_Size := Misc.Divide_With_Ceil(Length(Rest), Bits.BITS_LENGTH);
     declare
       Figure : Figure_Type(Figure_Size);
     begin
-      Figure.ID := Integer'Value(To_String( Start ));
-
-      Misc.Split( Rest, " ", Start, Rest );
-      Figure.Dimension := Vector.Parse( Start );
-      Figure.Structure := Bits.Parse( Rest );
-
+      Figure.ID := Figure_ID; 
+      Figure.Dimension := Vector.Parse( Dimension );
+      Put(To_String(Bits_Str));
+      Figure.Structure := Bits.Parse( Bits_Str );
       return Figure;
     end;
   end Parse;

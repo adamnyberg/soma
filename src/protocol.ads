@@ -1,6 +1,7 @@
 -- adany869 Adam Nyberg, danth407 Daniel Rapp,
 -- harpe493 Harald Petterson, jonta760 Jonas Tarassu
 
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with TJa.Sockets; use TJa.Sockets;
 with Packets; use Packets;
 
@@ -24,5 +25,5 @@ package Protocol is
                      Add_Random_Tail : in Boolean := False);
   procedure Confirm(Socket : in Socket_Type; Packet : in Packet_Type);
 
-  procedure Give_Up(Socket : in Socket_Type; Figure_Id : in Positive);
+  procedure Give_Up(Socket : in Socket_Type; Figure_ID : in Unbounded_String);
 end Protocol;

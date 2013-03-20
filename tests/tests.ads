@@ -11,8 +11,11 @@ package Tests is
   procedure Test(El1, El2 : Unbounded_String);
   procedure Test(El1, El2 : Integer);
   procedure Test(El1, El2 : String);
+  procedure Test(El1, El2 : Character);
 
   procedure Test(El1 : Unbounded_String; El2 : String);
+
+  procedure Test(El1 : String; El2 : Unbounded_String);
 
   procedure Test(El1, El2 : Vector_Type);
 
