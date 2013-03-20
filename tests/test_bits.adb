@@ -28,18 +28,26 @@ begin
     Test(Test_Bits_Parse, To_String(Bits_Seq));
     Put(Bits_Seq, (3, 3, 3));
 
-    Test(Set_Bit(Bits_Seq3,2,1),Bits_Seq3_Ref);
-    
-    Bits_Seq3 := Parse( Test_Bits_Parse4 );
-    Bits_Seq3_Ref := Parse(To_Unbounded_String("1010"));   
-    Test(Set_Bit(Bits_Seq3,2,0),Bits_Seq3_Ref);
-    
-    Bits_Seq3 := Parse( Test_Bits_Parse4 );
+    -- Set 1 on 0
+    Set_Bit(Bits_Seq3,2,1);
+    Test(Bits_Seq3, Bits_Seq3_Ref);
+
+    -- Set 0 on 0
+    Bits_Seq3 := Parse( Test_Bits_Parse3 );
     Bits_Seq3_Ref := Parse(To_Unbounded_String("1010"));
-    Test(Set_Bit(Bits_Seq3,1,1),Bits_Seq3_Ref);
-    
-    Bits_Seq3 := Parse( Test_Bits_Parse4 );
-    Bits_Seq3_Ref := Parse(To_Unbounded_String("1000"));
-    Test(Set_Bit(Bits_Seq3,1,1),Bits_Seq3_Ref);
+    Set_Bit(Bits_Seq3,2,0);
+    Test(Bits_Seq3, Bits_Seq3_Ref);
+
+    -- Set 1 on 1
+    Bits_Seq3 := Parse( Test_Bits_Parse3 );
+    Bits_Seq3_Ref := Parse(To_Unbounded_String("1010"));
+    Set_Bit(Bits_Seq3,1,1);
+    Test(Bits_Seq3, Bits_Seq3_Ref);
+
+    -- Set 0 on 1
+    Bits_Seq3 := Parse( Test_Bits_Parse3 );
+    Bits_Seq3_Ref := Parse(To_Unbounded_String("0010"));
+    Set_Bit(Bits_Seq3,1,0);
+    Test(Bits_Seq3, Bits_Seq3_Ref);
   end;
 end Test_Bits;

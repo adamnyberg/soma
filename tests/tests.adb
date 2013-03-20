@@ -5,6 +5,7 @@ with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with Ada.Text_IO; use Ada.Text_IO;
 with Vector; use Vector;
+with Bits; use Bits;
 
 package body Tests is
   procedure Test(El1, El2 : Unbounded_String) is begin
