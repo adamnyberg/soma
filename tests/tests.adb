@@ -71,4 +71,17 @@ package body Tests is
       raise Test_Fail;
     end if;
   end Test;
+
+  procedure Test(El1, El2 : Bits_Type) is begin
+    if To_String(El1) /= To_String(El2) then
+      Put_Line("Test failed.");
+      Put_Line("Element 1:");
+      Put(To_String(El1));
+      New_Line;
+      Put_Line("Element 2:");
+      Put(To_String(El2));
+      New_Line;
+      raise Test_Fail;
+    end if;
+  end Test;
 end Tests;

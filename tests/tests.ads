@@ -3,6 +3,7 @@
 
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with Vector; use Vector;
+with Bits; use Bits;
 
 package Tests is
   Test_Fail : exception;
@@ -14,4 +15,6 @@ package Tests is
   procedure Test(El1 : Unbounded_String; El2 : String);
 
   procedure Test(El1, El2 : Vector_Type);
+
+  Procedure Test(El1, El2 : Bits_Type);
 end Tests;
