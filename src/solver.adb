@@ -8,8 +8,7 @@ with Packets; use Packets;
 with Figures;
 with Parts;
 with Misc;
-
-with Ada.Text_IO;
+with Ada.Text_IO; use Ada.Text_IO;
 
 procedure Solver is
   -- Get the whole line from a socket into an unbounded string
@@ -41,10 +40,18 @@ begin
 
     Ada.Text_IO.Put_Line(To_String( Packet.Message ));
     case Packet.Header is
-      when INITIATE_HEADER => Protocol.Initiate(Socket, Packet);
-      when CONFIRM_HEADER => Protocol.Confirm(Socket, Packet);
-      when PARTS_HEADER => New_Parts := Parts.Parse(Packet.Message);
-      when FIGURE_HEADER => Figure := Figures.Parse(Packet.Message);
+      when INITIATE_HEADER =>
+        Put("Init");
+        Protocol.Initiate(Socket, Packet);
+      when CONFIRM_HEADER =>
+        Put("Confirm");
+        Protocol.Confirm(Socket, Packet);
+      when PARTS_HEADER =>
+        Put("Parts");
+        New_Parts := Parts.Parse(Packet.Message);
+      when FIGURE_HEADER =>
+        Put("Figure");
+        Figure := Figures.Parse(Packet.Message);
       when others => Ada.Text_IO.Put(Packet.Header); exit;
     end case;
   end loop;
