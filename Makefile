@@ -56,3 +56,4 @@ sclean:
 lclean:
 	rm -R *.o *.ali
 
+solver: soma
