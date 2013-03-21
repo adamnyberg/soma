@@ -37,6 +37,38 @@ package body Protocol is
 
   procedure Give_Up(Socket : in Socket_Type; Figure_ID : in Unbounded_String) is
   begin
+    Put("Give up");
+    New_Line;
     Put_Line(Socket, Packets.Assemble(GIVEUP_HEADER, Figure_ID));
   end Give_Up;
+
+  procedure Answer(Packet : in Packet_Type) is
+  begin
+    -- Make put more vackert
+    Put(To_String(Packet.Message));
+  end Answer;
+
+  procedure Done(Packet : in Packet_Type) is
+  begin
+    -- Make put more vackert
+    Put(To_String(Packet.Message));
+  end Done;
+
+  procedure Highscore(Packet : in Packet_Type) is
+  begin
+    -- Make put more vackert
+    Put(To_String(Packet.Message));
+  end Highscore;
+
+  procedure All_Done(Packet : in Packet_Type) is
+  begin
+    -- Make put more vackert
+    Put(To_String(Packet.Message));
+  end All_Done;
+
+  procedure Terminator(Packet : in Packet_Type) is
+  begin
+    -- Make put more vackert
+    Put(To_String(Packet.Message));
+  end Terminator;
 end Protocol;

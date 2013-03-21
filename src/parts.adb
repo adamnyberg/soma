@@ -40,7 +40,7 @@ package body Parts is
           Start := Rest;
         end if;
 
-        New_Parts(Part_Index) := Parse_Part( Start );
+        New_Parts(Part_Index) := new Part_Type'(Parse_Part( Start ));
       end loop;
 
       return New_Parts;
@@ -67,9 +67,13 @@ package body Parts is
       Rotate_X(Part);
     end loop;
 
-    for Y in 1..Rotation.Y loop
-      Rotate_Y(Part);
-    end loop;
+    if Rotation.Y = 3 then
+      Rotate_Y_270(Part);
+    else
+      for Y in 1..Rotation.Y loop
+	Rotate_Y(Part);
+      end loop;
+    end if;
 
     for Z in 1..Rotation.Z loop
       Rotate_Z(Part);

@@ -22,10 +22,10 @@ package Bits is
   procedure Set_Bit(Bits : in out Bits_Type; In_Index : in Natural; Bit : in Natural);
   function Read_Bit(Bits : Bits_Type; In_Index : Integer) return Integer;
 
-  procedure Fill_With_Zeroes(Bits : Bits_Type; Dimension : Vector_Type);
-  function Compare(Bits1, Bits2 : Bits_Type) return Boolean;
-  function "xor"(Bits1, Bits2 : Bits_Type) return Bits_Type;
-  function Is_Zero(Bits : Bits_Type) return Boolean;
+  -- procedure Fill_With_Zeroes(Bits : Bits_Type; Dimension : Vector_Type);
+  -- function Compare(Bits1, Bits2 : Bits_Type) return Boolean;
+  -- function "xor"(Bits1, Bits2 : Bits_Type) return Bits_Type;
+  -- function Is_Zero(Bits : Bits_Type) return Boolean;
 
   function To_String(Bits : Bits_Type) return String;
   procedure Put(Bits : in Bits_Type; Dimension : in Vector_Type);
