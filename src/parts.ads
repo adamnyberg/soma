@@ -18,8 +18,9 @@ package Parts is
   function Parse_Part(Raw_Part : in Unbounded_String) return Part_Type;
   function Parse(Raw_Parts : in Unbounded_String) return Parts_Type;
 
-  procedure Rotate(Part : in out Part_Type; Rotation : in Vector_Type);
+  procedure Compile(Parts : Parts_Type);
   procedure Traverse(Part : in out Part_Type; Diff : in Vector_Type);
+  procedure Rotate(Part : in out Part_Type; Rotation : in Vector_Type);
 private
   procedure Rotate_X(Part : in out Part_Type);
   procedure Rotate_Y(Part : in out Part_Type);

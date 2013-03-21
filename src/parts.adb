@@ -47,6 +47,20 @@ package body Parts is
     end;
   end Parse;
 
+  procedure Compile(Parts : Parts_Type) is
+  begin
+    null;
+  end Compile;
+
+  -- Moves the part 'vector' much, in each direction
+  procedure Traverse(Part : in out Part_Type; Diff : in Vector_Type) is
+  begin
+    Part.Position := (
+      X => (Part.Position.X + Diff.X),
+      Y => (Part.Position.Y + Diff.Y),
+      Z => (Part.Position.Z + Diff.Z));
+  end Traverse;
+
   procedure Rotate(Part : in out Part_Type; Rotation : in Vector_Type) is
   begin
     for X in 1..Rotation.X loop
@@ -61,15 +75,6 @@ package body Parts is
       Rotate_Z(Part);
     end loop;
   end Rotate;
-
-  -- Moves the part 'vector' much, in each direction
-  procedure Traverse(Part : in out Part_Type; Diff : in Vector_Type) is
-  begin
-    Part.Position := (
-      X => (Part.Position.X + Diff.X),
-      Y => (Part.Position.Y + Diff.Y),
-      Z => (Part.Position.Z + Diff.Z));
-  end Traverse;
 
   procedure Rotate_X(Part : in out Part_Type) is
     Index : Integer := 1;
