@@ -37,6 +37,13 @@ procedure Test_Parts is
   Y_Rotate_270_Test_Vector : Vector_Type := (0,3,0);
   Z_Rotate_Test_Vector : Vector_Type := (0,0,1);
 
+  -------------------------------------------------------
+  --
+  -- TEST EVERYTHING AGAIN WITH PART BIGGER THAN 31 BIT
+  --
+  -------------------------------------------------------
+
+  Part1 : Part_Type := Parts.Parse_Part(To_Unbounded_String("3x3x4 101010110001110001110011001111000110"));
 begin
   Test( Test_Parts(1).Dimension.X, 1 );
   Test( Test_Parts(1).Dimension.Y, 8 );
@@ -131,22 +138,20 @@ begin
   --
   -------------------------------------------------------
 
-  Part1 := Parts.Parse_Part(To_Unbounded_String("3x3x4 101010110001110001110011001111000110"));
-
   -- ROTATE X
 
-  Rotate(Part1, (4, 0, 0);
+  Rotate(Part1, (4, 0, 0));
   Test( To_String(Part1.Structure), "101010110001110001110011001111000110");
 
 
   -- ROTATE Y
 
-  Rotate(Part1, (0, 4, 0);
+  Rotate(Part1, (0, 4, 0));
   Test( To_String(Part1.Structure), "101010110001110001110011001111000110");
 
   -- ROTATE Z
 
-  Rotate(Part1, (0, 0, 4);
+  Rotate(Part1, (0, 0, 4));
   Test( To_String(Part1.Structure), "101010110001110001110011001111000110");
 
 end Test_Parts;
