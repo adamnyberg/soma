@@ -68,16 +68,19 @@ package body Bits is
 
   function Compare(Bits1, Bits2 : Bits_Type) return Boolean is
   begin
+    return False;
     null;
   end Compare;
 
   function "xor"(Bits1, Bits2 : Bits_Type) return Bits_Type is
   begin
+    return Bits1;
     null;
   end "xor";
 
   function Is_Zero(Bits : Bits_Type) return Boolean is
   begin
+    return False;
     null;
   end Is_Zero;
 
