@@ -61,6 +61,14 @@ package body Bits is
     end if;
   end Read_Bit;
 
+  procedure Set_Bit(Bits : in out Bits_Type;
+                      Bits_Dimension : in Vector_Type;
+                      Vector_Index : in Vector_Type;
+                      Bit : in Natural) is
+  begin
+    Set_Bit(Bits,Vector_To_Index(Bits_Dimension,Vector_Index),Bit);
+  end Set_Bit;
+
   procedure Fill_With_Zeroes(Bits : Bits_Type; Dimension : Vector_Type) is
   begin
     null;
