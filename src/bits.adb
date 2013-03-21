@@ -61,6 +61,11 @@ package body Bits is
     end if;
   end Read_Bit;
 
+  function Read_Bit(Bits : Bits_Type; Bits_Dimension, Vector_Index : Vector_Type) return Integer is
+  begin
+    return Read_Bit( Bits, Vector_To_Index( Bits_Dimension, Vector_Index ) );
+  end Read_Bit;
+
   procedure Fill_With_Zeroes(Bits : Bits_Type; Dimension : Vector_Type) is
   begin
     null;
@@ -83,6 +88,11 @@ package body Bits is
     return False;
     null;
   end Is_Zero;
+
+  function Vector_To_Index(Dimension : Vector_Type; Vector_Index : Vector_Type) return Natural is
+  begin
+    return Dimension.X*( Dimension.Y - Vector_Index.Y + Dimension.Y*( Vector_Index.Z - 1 ) ) + Vector_Index.X; 
+  end Vector_To_Index;
 
   function To_String(Bits : Bits_Type) return String is
     Str : Unbounded_String := To_Unbounded_String("");
