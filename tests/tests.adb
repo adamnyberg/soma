@@ -1,13 +1,14 @@
 -- adany869 Adam Nyberg, danth407 Daniel Rapp,
 -- harpe493 Harald Petterson, jonta760 Jonas Tarassu
 
-with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
-with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
-with Ada.Text_IO; use Ada.Text_IO;
-with Vector; use Vector;
-with Bits; use Bits;
+--with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+--with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+--with Ada.Text_IO; use Ada.Text_IO;
+--with Vector; use Vector;
+--with Bits; use Bits;
 
 package body Tests is
+
   procedure Test(El1, El2 : Unbounded_String) is begin
     if El1 /= El2 then
       Put_Line("Test failed.");
@@ -74,7 +75,16 @@ package body Tests is
   end Test;
 
   procedure Test(El1 : String; El2 : Unbounded_String) is begin
-    Test(El2, El1);
+    if To_Unbounded_String(El1) /= El2 then
+      Put_Line("Test failed.");
+      Put_Line("Element 1:");
+      Put(El1);
+      New_Line;
+      Put_Line("Element 2:");
+      Put(To_String(El2));
+      New_Line;
+      raise Test_Fail;
+    end if;
   end Test;
 
   procedure Test(El1, El2 : Vector_Type) is begin
@@ -102,4 +112,5 @@ package body Tests is
       raise Test_Fail;
     end if;
   end Test;
+  
 end Tests;

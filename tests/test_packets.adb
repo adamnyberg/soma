@@ -8,12 +8,15 @@ with TJa.Calendar; use TJa.Calendar;
 with TJa.Sockets; use TJa.Sockets;
 
 procedure Test_Packets is
+	--Figure messages
 	Message : Unbounded_String := To_Unbounded_String("12 3x4x2 110101011111101111000001");
+	--Raw_Packet message
 	Raw_Packet : Unbounded_String := To_Unbounded_String("01:01:01 F 12 3x4x2 110101011111101111000001");
+	--Assembles figure messages
 	Assembled_String : String := Assemble( 'F', Message );
+	--Disasseble Raw_Packet message
 	Disassembled_Packet : Packet_Type := Disassemble( Raw_Packet );
 begin
-
 	-- Test of Assemble
 	Test( Assembled_String(10..Assembled_String'Last), To_Unbounded_String("F ") & Message );
 
