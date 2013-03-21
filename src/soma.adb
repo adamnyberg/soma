@@ -10,7 +10,7 @@ with Parts;
 with Misc;
 with Ada.Text_IO; use Ada.Text_IO;
 
-procedure Solver is
+procedure Soma is
   -- Get the whole line from a socket into an unbounded string
   procedure Get_Line(Socket : in Socket_Type; Str : out Unbounded_String) is
     Buffer_Size : constant := 2000;
@@ -58,4 +58,4 @@ begin
   end loop;
 
   Close(Socket);
-end Solver;
+end Soma;
