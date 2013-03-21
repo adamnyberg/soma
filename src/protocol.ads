@@ -4,6 +4,7 @@
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with TJa.Sockets; use TJa.Sockets;
 with Packets; use Packets;
+with Ada.Text_IO; use Ada.Text_IO;
 
 package Protocol is
   INITIATE_HEADER : constant Character := 'I';
