@@ -21,6 +21,10 @@ package Bits is
   function Parse(Str : Unbounded_String) return Bits_Type;
   procedure Set_Bit(Bits : in out Bits_Type; In_Index : in Natural; Bit : in Natural);
   function Read_Bit(Bits : Bits_Type; In_Index : Integer) return Integer;
+  procedure Set_Bit(Bits : in out Bits_Type;
+                      Bits_Dimension : in Vector_Type;
+                      Vector_Index : in Vector_Type;
+                      Bit : in Natural);
 
   function Read_Bit(Bits : Bits_Type; Bits_Dimension, Vector_Index : Vector_Type) return Integer; 
 
