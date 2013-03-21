@@ -30,6 +30,7 @@ procedure Test_Parts is
   --Rotation vectors
   X_Rotate_Test_Vector : Vector_Type := (1,0,0);
   Y_Rotate_Test_Vector : Vector_Type := (0,1,0);
+  Y_Rotate_270_Test_Vector : Vector_Type := (0,3,0);
   Z_Rotate_Test_Vector : Vector_Type := (0,0,1);
   
 begin
@@ -70,6 +71,23 @@ begin
   Rotate(Rotate_Test_Part2, Y_Rotate_Test_Vector);
   Test( Rotate_Test_Part2.Dimension, (3, 4, 2));
   Test( To_String(Rotate_Test_Part2.Structure), "000001000100100111100100");
+
+  -- ROTATE Y 270
+  Rotate_Test_Part := Parts.Parse_Part(To_Unbounded_String("2x3x1 110010"));
+  Rotate_Test_Part2 := Rotate_Test_Part; 
+  for I in 1..3 loop
+    Rotate( Rotate_Test_Part, Y_Rotate_Test_Vector);
+  end loop;
+  Rotate( Rotate_Test_Part2, Y_Rotate_270_Test_Vector);
+  Test ( To_String(Rotate_Test_Part.Structure), To_String(Rotate_Test_Part2.Structure));
+  Test ( Rotate_Test_Part.Dimension, Rotate_Test_Part.Dimension);
+      --Rotates 270 4 times to 1080 degrees.
+  Rotate_Test_Part := Parts.Parse_Part(To_Unbounded_String("2x3x1 110010"));
+  Rotate( Rotate_Test_Part2, Y_Rotate_270_Test_Vector);
+  Rotate( Rotate_Test_Part2, Y_Rotate_270_Test_Vector);
+  Rotate( Rotate_Test_Part2, Y_Rotate_270_Test_Vector);
+  Test ( To_String(Rotate_Test_Part.Structure), To_String(Rotate_Test_Part2.Structure));
+  Test ( Rotate_Test_Part.Dimension, Rotate_Test_Part.Dimension);
 
   -- ROTATE Z
 

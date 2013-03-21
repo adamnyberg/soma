@@ -40,7 +40,7 @@ package body Parts is
           Start := Rest;
         end if;
 
-        New_Parts(Part_Index) := Parse_Part( Start );
+        New_Parts(Part_Index) := new Part_Type'(Parse_Part( Start ));
       end loop;
 
       return New_Parts;
