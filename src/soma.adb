@@ -53,6 +53,16 @@ begin
         Figure := Figures.Parse(Packet.Message);
         Put("Figure");
         Protocol.Give_Up(Socket, Figure.ID);
+      when ANSWER_HEADER =>
+        Protocol.Answer(Packet);
+      when DONE_HEADER =>
+        Protocol.Done(Packet);
+      when HIGHSCORE_HEADER =>
+        Protocol.Highscore(Packet);
+      when ALLDONE_HEADER =>
+        Protocol.All_Done(Packet);
+      when TERMINATE_HEADER =>
+        Protocol.Terminator(Packet);
       when others => Ada.Text_IO.Put(Packet.Header); exit;
     end case;
   end loop;
