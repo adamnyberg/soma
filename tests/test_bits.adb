@@ -14,6 +14,8 @@ procedure Test_Bits is
   Test_Bits_Parse2 : Unbounded_String := To_Unbounded_String("01011010100101010101011010110110100");
   Test_Bits_Parse3 : Unbounded_String := To_Unbounded_String("1010");
   Test_Bits_Parse4 : Unbounded_String := To_Unbounded_String("1110");
+  Test_Bits_Parse5 : Unbounded_String := To_Unbounded_String("111000110110");
+  Test_Bits_Parse6 : Unbounded_String := To_Unbounded_String("111000110110");
 begin
   declare
     --Parsing bits strings to create bits_type
@@ -21,6 +23,8 @@ begin
     Bits_Seq2 : Bits_Type := Bits.Parse( Test_Bits_Parse2 );
     Bits_Seq3 : Bits_Type := Bits.Parse( Test_Bits_Parse3 );
     Bits_Seq3_Ref : Bits_Type := Bits.Parse( Test_Bits_Parse4 );
+    Bits_Set_Bit : Bits_Type := Bits.Parse( Test_Bits_Parse5 );
+    Bits_Set_Bit2 : Bits_Type := Bits.Parse( Test_Bits_Parse6 );
   begin
     --Tests Read_Bit
     Test(Read_Bit(Bits_Seq2, 1),0);
@@ -55,5 +59,19 @@ begin
     Bits_Seq3_Ref := Parse(To_Unbounded_String("0010"));
     Set_Bit(Bits_Seq3,1,0);
     Test(Bits_Seq3, Bits_Seq3_Ref);
+
+    --Tests Vector_To_Index
+    Test(Vector_To_Index((3,3,3),(2,3,2)),11);
+
+    --Tests Set_Bit with vector_type as index
+    Set_Bit(Bits_Set_Bit,(3,2,2),(3,2,2),1);
+    Test(To_String(Bits_Set_Bit),"111000111110");
+    Set_Bit(Bits_Set_Bit,(3,2,2),(2,2,2),0);
+    Test(To_String(Bits_Set_Bit),"111000101110");
+
+    --Tests Read_Bit with vector_type as index
+    Test(Read_Bit(Bits_Set_Bit2,(3,2,2),(3,2,2)),0);
+    Test(Read_Bit(Bits_Set_Bit2,(3,2,2),(2,2,2)),1);
+
   end;
 end Test_Bits;
