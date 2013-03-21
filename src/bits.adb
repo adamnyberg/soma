@@ -16,11 +16,11 @@ package body Bits is
     for B in Bits_Seq.Bits'Range loop
       Bits_Seq.Bits(B) := 0; -- Maybe remove
       if B = Bits_Seq.Bits'Last then
-	Start := Misc.Unbounded_Slice(Rest, 1);
-	Zero_Padding_Removal_Shifter := 2**(BITS_LENGTH - Length(Start));
+        Start := Misc.Unbounded_Slice(Rest, 1);
+        Zero_Padding_Removal_Shifter := 2**(BITS_LENGTH - Length(Start));
       else
-	Start := Misc.Unbounded_Slice(Rest, 1, BITS_LENGTH);
-	Rest := Misc.Unbounded_Slice(Rest, BITS_LENGTH+1);
+        Start := Misc.Unbounded_Slice(Rest, 1, BITS_LENGTH);
+        Rest := Misc.Unbounded_Slice(Rest, BITS_LENGTH+1);
       end if;
 
       Bits_Seq.Bits(B) := Unsigned_Type( Integer'Value("2#" & To_String(Start) & "#")*Zero_Padding_Removal_Shifter);
@@ -60,6 +60,26 @@ package body Bits is
       return 0;
     end if;
   end Read_Bit;
+
+  procedure Fill_With_Zeroes(Bits : Bits_Type; Dimension : Vector_Type) is
+  begin
+    null;
+  end Fill_With_Zeroes;
+
+  function Compare(Bits1, Bits2 : Bits_Type) return Boolean is
+  begin
+    null;
+  end Compare;
+
+  function "xor"(Bits1, Bits2 : Bits_Type) return Bits_Type is
+  begin
+    null;
+  end "xor";
+
+  function Is_Zero(Bits : Bits_Type) return Boolean is
+  begin
+    null;
+  end Is_Zero;
 
   function To_String(Bits : Bits_Type) return String is
     Str : Unbounded_String := To_Unbounded_String("");

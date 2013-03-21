@@ -2,8 +2,8 @@ QUICKRUN=-O3
 MAKEFLAGS=-aL/home/TDDD11/lib/TJa/lib/Solaris -aI/home/TDDD11/lib/TJa/src/Solaris -aO/home/TDDD11/lib/TJa/lib/Solaris
 
 lsolver:
-	gnatmake $(QUICKRUN) $(MAKEFLAGS) src/solver.adb
-	./solver; rm solver;
+	gnatmake $(QUICKRUN) $(MAKEFLAGS) src/soma.adb
+	./soma; rm soma;
 
 ltest:
 	gnatmake $(MAKEFLAGS) -Isrc/\
@@ -11,9 +11,9 @@ ltest:
 	echo "\n"; ./test_parts; ./test_misc; ./test_figures; ./test_packets; rm test_*;
 	echo "All tests succeeded!"
 
-solver: sync
+soma: sync
 	ssh $(liu_id)@astmatix.ida.liu.se \
-		"cd soma;bash -l -c 'export PATH=/bin:/sw/gcc-3.4.6/bin:/usr/ccs/bin;make lsolver'"
+		"cd soma;bash -l -c 'export PATH=/bin:/sw/gcc-3.4.6/bin:/usr/ccs/bin;make lsoma'"
 
 test: sync
 	ssh $(liu_id)@astmatix.ida.liu.se \
@@ -51,7 +51,7 @@ sync:
 clean: sclean; lclean
 
 sclean:
-	ssh $(liu_id)@astmatix.ida.liu.se "rm soma/solver"
+	ssh $(liu_id)@astmatix.ida.liu.se "rm soma/soma"
 
 lclean:
 	rm -R *.o *.ali
