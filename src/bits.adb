@@ -61,25 +61,25 @@ package body Bits is
     end if;
   end Read_Bit;
 
-  procedure Fill_With_Zeroes(Bits : Bits_Type; Dimension : Vector_Type) is
-  begin
-    null;
-  end Fill_With_Zeroes;
+  -- procedure Fill_With_Zeroes(Bits : Bits_Type; Dimension : Vector_Type) is
+  -- begin
+  --   null;
+  -- end Fill_With_Zeroes;
 
-  function Compare(Bits1, Bits2 : Bits_Type) return Boolean is
-  begin
-    null;
-  end Compare;
+  -- function Compare(Bits1, Bits2 : Bits_Type) return Boolean is
+  -- begin
+  --   return null;
+  -- end Compare;
 
-  function "xor"(Bits1, Bits2 : Bits_Type) return Bits_Type is
-  begin
-    null;
-  end "xor";
+  -- function "xor"(Bits1, Bits2 : Bits_Type) return Bits_Type is
+  -- begin
+  --   return null;
+  -- end "xor";
 
-  function Is_Zero(Bits : Bits_Type) return Boolean is
-  begin
-    null;
-  end Is_Zero;
+  -- function Is_Zero(Bits : Bits_Type) return Boolean is
+  -- begin
+  --   return null;
+  -- end Is_Zero;
 
   function To_String(Bits : Bits_Type) return String is
     Str : Unbounded_String := To_Unbounded_String("");

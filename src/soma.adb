@@ -29,39 +29,57 @@ procedure Soma is
   Packet : Packet_Type;
 
   New_Parts : Parts.Parts_Type(1..7);
-  Figure : Figures.Figure_Type(1);
+  --Figure : Figures.Figure_Type(1);
+
+  Start : Unbounded_String;
+  Rest  : Unbounded_String;
 begin
   Initiate(Socket);
-  Connect(Socket, "localhost", 3333);
+  Connect(Socket, "localhost", 3342);
 
   loop
     Get_Line(Socket, Raw_Packet);
     Packet := Packets.Disassemble(Raw_Packet);
 
-    Ada.Text_IO.Put_Line(To_String( Packet.Message ));
+    --Ada.Text_IO.Put_Line(To_String( Packet.Message ));
     case Packet.Header is
       when INITIATE_HEADER =>
-        Put("Init");
+        Put("Init ");
         Protocol.Initiate(Socket, Packet);
       when CONFIRM_HEADER =>
-        Put("Confirm");
+        Put("Confirm ");
         Protocol.Confirm(Socket, Packet);
       when PARTS_HEADER =>
-        Put("Parts");
+        Put("Parts ");
         New_Parts := Parts.Parse(Packet.Message);
       when FIGURE_HEADER =>
-        Figure := Figures.Parse(Packet.Message);
-        Put("Figure");
-        Protocol.Give_Up(Socket, Figure.ID);
+        --Figure := Figures.Parse(Packet.Message);
+        Put("Figure ");
+        
+        Misc.Split(Packet.Message," ",Start,Rest);
+        Put(To_String(Start));
+        New_Line;
+        Protocol.Give_Up(Socket, Start);
       when ANSWER_HEADER =>
+        Put("Answer");
+        New_Line;
         Protocol.Answer(Packet);
+        Put_Line(Socket,"Du suger!");
       when DONE_HEADER =>
+        Put("Done");
+        New_Line;
         Protocol.Done(Packet);
       when HIGHSCORE_HEADER =>
+        Put("Highscore");
+        New_Line;
         Protocol.Highscore(Packet);
       when ALLDONE_HEADER =>
+        Put("All done");
+        New_Line;
         Protocol.All_Done(Packet);
       when TERMINATE_HEADER =>
+        Put("Terminator");
+        New_Line;
         Protocol.Terminator(Packet);
       when others => Ada.Text_IO.Put(Packet.Header); exit;
     end case;
