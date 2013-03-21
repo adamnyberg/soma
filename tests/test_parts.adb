@@ -16,7 +16,9 @@ procedure Test_Parts is
   Test_Part_Parse : Unbounded_String :=
     To_Unbounded_String("2x3x1 101011011");
   Test_Part : Part_Type := Parts.Parse_Part(Test_Part_Parse);
+
   -------------------------------------------------------------------
+
   Test_Part_Parse2 : Unbounded_String :=
     To_Unbounded_String("2x3x1 101011");
   Test_Part_Parse3 : Unbounded_String :=
@@ -26,13 +28,22 @@ procedure Test_Parts is
   Rotate_Test_Part : Part_Type := Parts.Parse_Part(Test_Part_Parse2);
   Rotate_Test_Part2 : Part_Type := Parts.Parse_Part(Test_Part_Parse3); 
   Rotate_Test_Part3 : Part_Type := Parts.Parse_Part(Test_Part_Parse4);
+
   -------------------------------------------------------------------
   --Rotation vectors
+
   X_Rotate_Test_Vector : Vector_Type := (1,0,0);
   Y_Rotate_Test_Vector : Vector_Type := (0,1,0);
   Y_Rotate_270_Test_Vector : Vector_Type := (0,3,0);
   Z_Rotate_Test_Vector : Vector_Type := (0,0,1);
-  
+
+  -------------------------------------------------------
+  --
+  -- TEST EVERYTHING AGAIN WITH PART BIGGER THAN 31 BIT
+  --
+  -------------------------------------------------------
+
+  Part1 : Part_Type := Parts.Parse_Part(To_Unbounded_String("3x3x4 101010110001110001110011001111000110"));
 begin
   Test( Test_Parts(1).Dimension.X, 1 );
   Test( Test_Parts(1).Dimension.Y, 8 );
@@ -120,4 +131,27 @@ begin
   Test( Test_Part.Position.X, 4 );
   Test( Test_Part.Position.Y, 6 );
   Test( Test_Part.Position.Z, 8 );
+
+  -------------------------------------------------------
+  --
+  -- TEST EVERYTHING AGAIN WITH PART BIGGER THAN 31 BIT
+  --
+  -------------------------------------------------------
+
+  -- ROTATE X
+
+  Rotate(Part1, (4, 0, 0));
+  Test( To_String(Part1.Structure), "101010110001110001110011001111000110");
+
+
+  -- ROTATE Y
+
+  Rotate(Part1, (0, 4, 0));
+  Test( To_String(Part1.Structure), "101010110001110001110011001111000110");
+
+  -- ROTATE Z
+
+  Rotate(Part1, (0, 0, 4));
+  Test( To_String(Part1.Structure), "101010110001110001110011001111000110");
+
 end Test_Parts;

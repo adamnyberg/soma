@@ -56,7 +56,3 @@ sclean:
 lclean:
 	rm -R *.o *.ali
 
-# Legacy
-ssolver: solver
-stest: test
-

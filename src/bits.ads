@@ -21,12 +21,19 @@ package Bits is
   function Parse(Str : Unbounded_String) return Bits_Type;
   procedure Set_Bit(Bits : in out Bits_Type; In_Index : in Natural; Bit : in Natural);
   function Read_Bit(Bits : Bits_Type; In_Index : Integer) return Integer;
+  procedure Set_Bit(Bits : in out Bits_Type;
+                      Bits_Dimension : in Vector_Type;
+                      Vector_Index : in Vector_Type;
+                      Bit : in Natural);
+
+  function Read_Bit(Bits : Bits_Type; Bits_Dimension, Vector_Index : Vector_Type) return Integer; 
 
   -- procedure Fill_With_Zeroes(Bits : Bits_Type; Dimension : Vector_Type);
   -- function Compare(Bits1, Bits2 : Bits_Type) return Boolean;
   -- function "xor"(Bits1, Bits2 : Bits_Type) return Bits_Type;
   -- function Is_Zero(Bits : Bits_Type) return Boolean;
 
+  function Vector_To_Index(Dimension : Vector_Type; Vector_Index : Vector_Type) return Natural;
   function To_String(Bits : Bits_Type) return String;
   procedure Put(Bits : in Bits_Type; Dimension : in Vector_Type);
 private
