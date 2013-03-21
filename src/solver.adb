@@ -27,8 +27,7 @@ procedure Solver is
   Socket : Socket_Type;
   Raw_Packet : Unbounded_String;
   Packet : Packet_Type;
-
-  New_Parts : Parts.Parts_Type(1..7);
+  New_Parts : Parts.Parts_Type_Pointer;
   Figure : Figures.Figure_Type(1);
 begin
   Initiate(Socket);
@@ -37,7 +36,8 @@ begin
   loop
     Get_Line(Socket, Raw_Packet);
     Packet := Packets.Disassemble(Raw_Packet);
-
+    New_Line;
+    Put("Message: ");
     Ada.Text_IO.Put_Line(To_String( Packet.Message ));
     case Packet.Header is
       when INITIATE_HEADER =>
@@ -48,9 +48,8 @@ begin
         Protocol.Confirm(Socket, Packet);
       when PARTS_HEADER =>
         Put("Parts");
-        New_Parts := Parts.Parse(Packet.Message);
+        New_Parts := new Parts.Parts_Type'(Parts.Parse(Packet.Message));
       when FIGURE_HEADER =>
-        
         Figure := Figures.Parse(Packet.Message);
         Put("Figure");
         Protocol.Give_Up(Socket, Figure.ID);

@@ -13,7 +13,12 @@ package Parts is
     Dimension : Vector_Type;
     Structure : Bits_Type(Structure_Bits);
   end record;
-  type Parts_Type is array(Integer range <>) of Part_Type(1);
+  type Part_Type_Pointer is access Part_Type;
+
+  --type Parts_Type is array(Integer range <>) of Part_Type(1);
+  type Parts_Type is array(Integer range <>) of Part_Type_Pointer;
+
+  type Parts_Type_Pointer is access Parts_Type;
 
   function Parse_Part(Raw_Part : in Unbounded_String) return Part_Type;
   function Parse(Raw_Parts : in Unbounded_String) return Parts_Type;
