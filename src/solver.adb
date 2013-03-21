@@ -50,7 +50,6 @@ begin
         Put("Parts");
         New_Parts := Parts.Parse(Packet.Message);
       when FIGURE_HEADER =>
-        
         Figure := Figures.Parse(Packet.Message);
         Put("Figure");
         Protocol.Give_Up(Socket, Figure.ID);
