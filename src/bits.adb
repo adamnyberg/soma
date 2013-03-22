@@ -74,6 +74,20 @@ package body Bits is
     Set_Bit(Bits,Vector_To_Index(Bits_Dimension,Vector_Index),Bit);
   end Set_Bit;
 
+  function Ones_Index(Bits : in Bits_Type) return Index_Arr is
+    Arr : Index_Arr(1..Bits.Length);
+    Index : Integer := 0;
+  begin
+    for I in 1..Bits.Length loop
+      if Read_Bit(Bits,I) = 1 then
+        Index := Index + 1;
+        Arr(Index) := I;
+      end if;
+    end loop;
+    return Arr(1..Index);
+
+  end Ones_Index;
+
   procedure Fill_With_Zeroes(Bits : Bits_Type; Dimension : Vector_Type) is
   begin
     null;
