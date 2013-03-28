@@ -74,6 +74,20 @@ package body Bits is
     Set_Bit(Bits,Vector_To_Index(Bits_Dimension,Vector_Index),Bit);
   end Set_Bit;
 
+  function Ones_Index(Bits : in Bits_Type) return Index_Arr is
+    Arr : Index_Arr(1..Bits.Length);
+    Index : Integer := 0;
+  begin
+    for I in 1..Bits.Length loop
+      if Read_Bit(Bits,I) = 1 then
+        Index := Index + 1;
+        Arr(Index) := I;
+      end if;
+    end loop;
+    return Arr(1..Index);
+
+  end Ones_Index;
+
   procedure Fill_With_Zeroes(Bits : Bits_Type; Dimension : Vector_Type) is
   begin
     null;
@@ -99,8 +113,20 @@ package body Bits is
 
   function Vector_To_Index(Dimension : Vector_Type; Vector_Index : Vector_Type) return Natural is
   begin
-    return Dimension.X*( Dimension.Y - Vector_Index.Y + Dimension.Y*( Vector_Index.Z - 1 ) ) + Vector_Index.X; 
+    return Dimension.X*( Dimension.Y*Vector_Index.Z - Vector_Index.Y ) + Vector_Index.X;
   end Vector_To_Index;
+
+  function Index_To_Vector(Dimension : Vector_Type; Index : Natural) return Vector_Type is
+    X, Y, Z : Natural;
+  begin
+    X := Index rem Dimension.X;
+    if X = 0 then
+      X := Dimension.X;
+    end if;
+    Y := 1 + Dimension.Y - Divide_With_Ceil(Index rem (Dimension.X * Dimension.Y), Dimension.X);
+    Z := Divide_With_Ceil(Index, Dimension.X*Dimension.Y);
+    return (X, Y, Z);
+  end Index_To_Vector;
 
   function To_String(Bits : Bits_Type) return String is
     Str : Unbounded_String := To_Unbounded_String("");

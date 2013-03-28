@@ -7,6 +7,7 @@ with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with Tests; use Tests;
 with Bits; use Bits;
 with Misc; use Misc;
+with Vector; use Vector;
 
 procedure Test_Bits is
 --Creating bits strings
@@ -16,6 +17,7 @@ procedure Test_Bits is
   Test_Bits_Parse4 : Unbounded_String := To_Unbounded_String("1110");
   Test_Bits_Parse5 : Unbounded_String := To_Unbounded_String("111000110110");
   Test_Bits_Parse6 : Unbounded_String := To_Unbounded_String("111000110110");
+  Test_Bits_Parse7 : Unbounded_String := To_Unbounded_String("10101");
 begin
   declare
     --Parsing bits strings to create bits_type
@@ -25,6 +27,8 @@ begin
     Bits_Seq3_Ref : Bits_Type := Bits.Parse( Test_Bits_Parse4 );
     Bits_Set_Bit : Bits_Type := Bits.Parse( Test_Bits_Parse5 );
     Bits_Set_Bit2 : Bits_Type := Bits.Parse( Test_Bits_Parse6 );
+    Bits_Test_Arr : Bits_Type := Bits.Parse( Test_Bits_Parse7 );
+    Ref_Arr : Index_Arr(1..3) := (1,3,5);
   begin
     --Tests Read_Bit
     Test(Read_Bit(Bits_Seq2, 1),0);
@@ -63,6 +67,11 @@ begin
     --Tests Vector_To_Index
     Test(Vector_To_Index((3,3,3),(2,3,2)),11);
 
+    --Tests Index_To_Vector
+    Test(Index_To_Vector((3,3,3), 14), (2,2,2));
+    Test(Index_To_Vector((3,4,4), 14), (2,4,2));
+    Test(Index_To_Vector((3,4,4), 18), (3,3,2));
+
     --Tests Set_Bit with vector_type as index
     Set_Bit(Bits_Set_Bit,(3,2,2),(3,2,2),1);
     Test(To_String(Bits_Set_Bit),"111000111110");
@@ -72,6 +81,11 @@ begin
     --Tests Read_Bit with vector_type as index
     Test(Read_Bit(Bits_Set_Bit2,(3,2,2),(3,2,2)),0);
     Test(Read_Bit(Bits_Set_Bit2,(3,2,2),(2,2,2)),1);
+
+    --Tests Ones_Index
+    Test(Ones_Index(Bits_Test_Arr)(1),Ref_Arr(1));
+    Test(Ones_Index(Bits_Test_Arr)(2),Ref_Arr(2));
+    Test(Ones_Index(Bits_Test_Arr)(3),Ref_Arr(3));
 
   end;
 end Test_Bits;
