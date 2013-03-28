@@ -10,6 +10,7 @@ with Misc; use Misc;
 package Bits is
   type Unsigned_Type is private;
   type Bits_Raw_Type is array (Natural range <>) of Unsigned_Type;
+  type Index_Arr is array (Natural range <>) of Integer;
 
   type Bits_Type(Num_Bits_Raw_Type : Natural) is record
     Bits : Bits_Raw_Type(1..Num_Bits_Raw_Type);
@@ -27,7 +28,7 @@ package Bits is
                       Bit : in Natural);
 
   function Read_Bit(Bits : Bits_Type; Bits_Dimension, Vector_Index : Vector_Type) return Integer; 
-
+  function Ones_Index(Bits : in Bits_Type) return Index_Arr; 
   -- procedure Fill_With_Zeroes(Bits : Bits_Type; Dimension : Vector_Type);
   -- function Compare(Bits1, Bits2 : Bits_Type) return Boolean;
   -- function "xor"(Bits1, Bits2 : Bits_Type) return Bits_Type;
