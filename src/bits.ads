@@ -34,6 +34,7 @@ package Bits is
   -- function Is_Zero(Bits : Bits_Type) return Boolean;
 
   function Vector_To_Index(Dimension : Vector_Type; Vector_Index : Vector_Type) return Natural;
+  function Index_To_Vector(Dimension : Vector_Type; Index : Natural) return Vector_Type;
   function To_String(Bits : Bits_Type) return String;
   procedure Put(Bits : in Bits_Type; Dimension : in Vector_Type);
 private

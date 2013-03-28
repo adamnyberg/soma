@@ -7,6 +7,7 @@ with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with Tests; use Tests;
 with Bits; use Bits;
 with Misc; use Misc;
+with Vector; use Vector;
 
 procedure Test_Bits is
 --Creating bits strings
@@ -62,6 +63,11 @@ begin
 
     --Tests Vector_To_Index
     Test(Vector_To_Index((3,3,3),(2,3,2)),11);
+
+    --Tests Index_To_Vector
+    Test(Index_To_Vector((3,3,3), 14), (2,2,2));
+    Test(Index_To_Vector((3,4,4), 14), (2,4,2));
+    Test(Index_To_Vector((3,4,4), 18), (3,3,2));
 
     --Tests Set_Bit with vector_type as index
     Set_Bit(Bits_Set_Bit,(3,2,2),(3,2,2),1);
