@@ -6,6 +6,7 @@ with Vector; use Vector;
 with Parts; use Parts;
 with Tests; use Tests;
 with Bits; use Bits;
+with Figure; use Figure;
 
 procedure Test_Parts is
   --Creates Test_Parts

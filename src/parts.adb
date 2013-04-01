@@ -47,6 +47,43 @@ package body Parts is
     end;
   end Parse;
 
+  function Add_Dimensions(Part : in Part_Type; Figure : in Figure_Type) return Figure_Type is
+
+    Part_Filled_With_Zeros : Figure_Type := Figure;
+    Row : Integer := Figure.Dimension.Y;
+    Column : Integer := 1;
+    Layer : Integer := 1;
+
+
+  begin
+    for I in 1..To_Volume(Figure.Dimension) loop
+      if Row > Part.Dimension.Y + Part.Position.Y - 1 or Row < Part.Position.Y then
+        Set_Bit(Part_Filled_With_Zeros.Structure, I, 0);
+      elsif Column > Part.Dimension.X + Part.Position.X - 1 or Column < Part.Position.X then
+        Set_Bit(Part_Filled_With_Zeros.Structure, I, 0);
+      elsif Layer > Part.Dimension.Z + Part.Position.Z - 1 or Layer < Part.Position.Z then
+        Set_Bit(Part_Filled_With_Zeros.Structure, I, 0);
+      end if;
+
+
+      if I rem Figure.Dimension.X = 0 then
+        Row := Row - 1;
+      end if;
+      Column := Column + 1;
+      if I rem Figure.Dimension.Y = 0 then
+        Column := 1;
+      end if;
+      Layer := Layer + 1;
+      if I rem Figure.Dimension.X * Figure.Dimension.Y = 0 then
+        Layer := 1;
+        Row : Integer := Figure.Dimension.Y;
+      end if;
+
+    end loop;
+    return Part_Filled_With_Zeros;
+
+  end Add_Dimensions;
+
   procedure Compile(Parts : Parts_Type) is
   begin
     null;
