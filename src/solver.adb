@@ -6,12 +6,26 @@ with Figure; use Figure;
 
 -- TODO: Ones_Index, Part_Does_Fit, Insert
 package body Solver is
+  procedure Insert(Anchor, Up, Down, Right, Left : Linked_Matrix_Pointer) is
+  begin
+    if Anchor /= null and Up /= null and Down /= null and Right /= null and Left /= null then
+      Up.Down := Anchor;
+      Down.Up := Anchor;
+      Right.Left := Anchor;
+      Left.Right := Anchor;
+      Anchor.Up := Up;
+      Anchor.Down := Down;
+      Anchor.Right := Right;
+      Anchor.Left := Left;
+    end if;
+  end Insert;
+
   procedure Solve(Parts : Parts_Type; Figure : Figure_Type) is
     Original_Parts : Parts_Type := Parts;
     Row : Integer := 1;
     Column : Integer := 0;
   begin
-    -- Get all the index for each in figure
+    -- Get the index for each one in the figure
     Ones := Ones_Index(Figure.Structure);
 
     for One_Index in Ones'Range loop
@@ -27,11 +41,13 @@ package body Solver is
               if Part_Does_Fit(Figure, Parts(Part)) then
                 Column := Ones(Ones_Index);
                 -- Generate linked matrix element
-                -- Find the 1 above, below, rightand left in the matrix and (double) link them to the element
-                Insert(Linked_Matrix, Up, Down, Right, Left);
+                -- Find the 1 above, below, right and left in the matrix and (double) link them to the element
+                Insert(Element, Up, Down, Right, Left);
 
                 Row := Row + 1;
               end if;
+
+              Parts(Part) := Original_Parts(Part);
             end loop;
           end loop;
         end loop;
