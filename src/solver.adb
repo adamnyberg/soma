@@ -1,6 +1,7 @@
 -- adany869 Adam Nyberg, danth407 Daniel Rapp,
 -- harpe493 Harald Petterson, jonta760 Jonas Tarassu
 
+with DLX; use DLX;
 with Parts; use Parts;
 with Figure; use Figure;
 
@@ -19,7 +20,12 @@ package body Solver is
     end if;
   end Insert;
 
-  procedure Generate_Row(Part : Part_Type; Figure : Figure_Type; Row : Integer; Column_Head : Linked_Matrix) is
+  procedure Generate_Row(
+      Part : Part_Type;
+      Figure : Figure_Type;
+      Row : Integer;
+      Column_Head : Linked_Matrix;
+      Part_Column : Integer) is
     Element : Linked_Matrix;
 
     -- Get the index of the ones (blocks) where
@@ -33,28 +39,37 @@ package body Solver is
       Column := Part_Ones_In_Figure(One);
 
       -- Generate linked matrix element
-      Element := new Linked_Matrix'(( Column, Row ));
+      -- May cause huge memory problems
+      Element := new Linked_Matrix'(( Column, Row, Part ));
 
       -- Find the 1 above, below, right and left in the matrix and
       -- (double) link them to the element
       Insert(Element, Column_Head.Up, Column_Head, Row_Head, Row_Head.Left);
     end loop;
 
-    -- TODO: Add part one
+    -- Add part one
+    Element := new Linked_Matrix'(( Column, Row ));
+
+    Insert(Element, Column_Head.Up, Column_Head, Row_Head, Row_Head.Left);
   end Generate_Row;
 
-  procedure Solve(Parts : Parts_Type; Figure : Figure_Type) is
+  function Generate_Matrix(Parts : Parts_Type; Figure : Figure_Type) return Linked_Matrix is
     Original_Parts : Parts_Type := Parts;
     Row : Integer := 1;
     Column : Integer := 0;
 
-    -- Get the index for each one in the figure
+    -- Get the index for each *one* in the figure
     Figure_Ones : Index_Arr := Ones_Index(Figure.Structure);
     Column_Count : Integer := 0;
     Column_Head : Linked_Matrix;
+
+    Header : Linked_Matrix;
   begin
+    Header := new Linked_Matrix(( 0, 0 ));
+
     for One_Index in Figure_Ones'Range loop
       -- Insert column row
+      -- TODO: This will not work, column head is not useful
       Column_Count := Column_Count + 1;
       Column_Head := new Linked_Matrix'(( Column_Count, 0 ));
 
@@ -66,7 +81,8 @@ package body Solver is
               Traverse(Parts(Part), Index_To_Vector(Figure_Ones(One_Index)));
 
               if Part_Does_Fit(Figure, Parts(Part)) then
-                Generate_Row(Parts(Part), Figure, Row, Column_Head);
+                -- TODO: This will not work, column head will change
+                Generate_Row(Parts(Part), Figure, Row, Column_Head, Part);
                 Row := Row + 1;
               end if;
 
@@ -77,6 +93,14 @@ package body Solver is
       end loop;
     end loop;
 
-    -- TODO: use dlx on matrix
-  end Solve;
+    return Header;
+  end Generate_Matrix;
+
+  procedure Solve(Parts : Parts_Type; Figure : Figure_Type) is
+    Solution : Linked_Resulting_List;
+    Is_Solvable : Boolean;
+  begin
+    Solve_DLX(Generate_Matrix(Parts, Figure), Solution, Is_Solvable);
+    Put(Is_Solvable);
+  end;
 end Solver;

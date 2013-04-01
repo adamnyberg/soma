@@ -6,14 +6,15 @@ with Figure; use Figure;
 
 package Solver is
   type Data_Type is record
-    Column : Integer;
-    Row : Integer;
+    Column : Integer := 0;
+    Row : Integer := 0;
+    Part : Part_Type;
   end;
 
   type Linked_Matrix;
   type Linked_Matrix_Pointer is access Linked_Matrix;
   type Linked_Matrix is record
-    Data : Data_Type := null;
+    Data : Data_Type;
     Up : Linked_Matrix_Pointer := null;
     Down : Linked_Matrix_Pointer := null;
     Right : Linked_Matrix_Pointer := null;
