@@ -99,6 +99,48 @@ package body Bits is
     null;
   end Compare;
 
+  function "or"(Bits1, Bits2 : Bits_Type) return Bits_Type is
+    Bits : Bits_Type(Bits1.Bits'Length);
+  begin
+    --if Bits1.Length /= Bits2.Length then
+      --raise Exception("Hur fan tänkte du här?");
+    --end if;
+    Bits.Length := Bits1.Length;
+    for I in Bits.Bits'Range loop
+      Bits.Bits(I) := Bits1.Bits(I) or Bits2.Bits(I);
+    end loop;
+
+    return Bits;
+  end "or";
+
+  function "and"(Bits1, Bits2 : Bits_Type) return Bits_Type is
+    Bits : Bits_Type(Bits1.Bits'Length);
+  begin
+    --if Bits1.Length /= Bits2.Length then
+      --raise Exception("Hur fan tänkte du här?");
+    --end if;
+    Bits.Length := Bits1.Length;
+    for I in Bits.Bits'Range loop
+      Bits.Bits(I) := Bits1.Bits(I) and Bits2.Bits(I);
+    end loop;
+
+    return Bits;
+  end "and";
+
+  function "="(Bits1, Bits2 : Bits_Type) return Boolean is
+  begin
+    --if Bits1.Length /= Bits2.Length then
+      --raise Exception("Hur fan tänkte du här?");
+    --end if;
+    for I in Bits1.Bits'Range loop
+      if Bits1.Bits(I) /= Bits2.Bits(I) then
+        return false;
+      end if;
+    end loop;
+
+    return true;
+  end "=";
+
   function "xor"(Bits1, Bits2 : Bits_Type) return Bits_Type is
   begin
     return Bits1;

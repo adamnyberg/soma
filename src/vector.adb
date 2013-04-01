@@ -27,4 +27,18 @@ package body Vector is
        ", Y: " & Integer'Image(Vector.Y) &
        ", Z: " & Integer'Image(Vector.Z);
   end To_String;
+
+  function To_Volume(Vector : Vector_Type) return Integer is  
+  begin -- To_Volume
+    Split(To_Unbounded_String(To_String( Vector )),"x",X,Rest);
+    Split(Rest,"x",Y,Z);
+    return Integer'Value(To_String( X ))*Integer'Value(To_String( Y ))*Integer'Value(To_String( Z ));
+  end To_Volume;
+
+  function Sum_Vector(Vector1,Vector2 :in Vector_Type) return Vector_Type is  
+  begin -- To_Volume
+    Split(To_Unbounded_String(To_String( Vector )),"x",X,Rest);
+    Split(Rest,"x",Y,Z);
+    return (Integer'Value(To_String( X )),Integer'Value(To_String( Y )),Integer'Value(To_String( Z )));
+  end To_Volume;
 end Vector;
