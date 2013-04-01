@@ -112,5 +112,26 @@ package body Tests is
       raise Test_Fail;
     end if;
   end Test;
-  
+
+  procedure Test(El1, El2 : Boolean) is begin
+    if (El1) /= (El2) then
+      Put_Line("Test failed.");
+      Put_Line("Element 1:");
+      if El1 then
+        Put("True");
+      else
+        Put("False");
+      end if;
+      New_Line;
+      Put_Line("Element 2:");
+      if El2 then
+        Put("True");
+      else
+        Put("False");
+      end if;
+      New_Line;
+      raise Test_Fail;
+    end if;
+  end Test;
+
 end Tests;

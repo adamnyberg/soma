@@ -33,6 +33,7 @@ package Bits is
   -- function Compare(Bits1, Bits2 : Bits_Type) return Boolean;
   function "or"(Bits1, Bits2 : Bits_Type) return Bits_Type;
   function "and"(Bits1, Bits2 : Bits_Type) return Bits_Type;
+  function "="(Bits1, Bits2 : Bits_Type) return Boolean;
   -- function "xor"(Bits1, Bits2 : Bits_Type) return Bits_Type;
   -- function Is_Zero(Bits : Bits_Type) return Boolean;
 
