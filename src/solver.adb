@@ -3,9 +3,14 @@
 
 with DLX; use DLX;
 with Parts; use Parts;
-with Figure; use Figure;
+with Figures; use Figures;
 
 package body Solver is
+  function "="(Left, Right : Linked_Matrix) return Boolean is
+  begin
+    return Left.Data.Row = Right.Data.Row and Left.Data.Column = Right.Data.Column;
+  end "=";
+
   procedure Insert(Anchor, Up, Down, Right, Left : Linked_Matrix_Pointer) is
   begin
     if Anchor /= null and Up /= null and Down /= null and Right /= null and Left /= null then
@@ -53,8 +58,8 @@ package body Solver is
     Insert(Element, Column_Head.Up, Column_Head, Row_Head, Row_Head.Left);
   end Generate_Row;
 
-  function Generate_Matrix(Parts : Parts_Type; Figure : Figure_Type) return Linked_Matrix is
-    Original_Parts : Parts_Type := Parts;
+  function Generate_Matrix(Parts : Parts_Type_Pointer; Figure : Figure_Type) return Linked_Matrix is
+    Original_Parts : Parts_Type_Pointer := Parts;
     Row : Integer := 1;
     Column : Integer := 0;
 
@@ -96,7 +101,7 @@ package body Solver is
     return Header;
   end Generate_Matrix;
 
-  procedure Solve(Parts : Parts_Type; Figure : Figure_Type) is
+  procedure Solve(Parts : Parts_Type_Pointer; Figure : Figure_Type) is
     Solution : Linked_Resulting_List;
     Is_Solvable : Boolean;
   begin
