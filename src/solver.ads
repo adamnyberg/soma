@@ -21,5 +21,7 @@ package Solver is
     Left : Linked_Matrix_Pointer := null;
   end;
 
+  type Column_Headers_Type is array (Natural range <>) of access Linked_Matrix;
+
   procedure Solve(Parts : Parts_Type; Figure : Figure_Type);
 end Solver;
