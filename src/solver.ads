@@ -22,4 +22,5 @@ package Solver is
   end record;
 
   procedure Solve(Parts : Parts_Type_Pointer; Figure : Figure_Type);
+  type Column_Headers_Type is array (Natural range <>) of access Linked_Matrix;
 end Solver;
