@@ -29,7 +29,6 @@ package Parts is
   --function Overlap_Indices(Part : Part_Type; Figure : Figure_Type) return Index_Arr;
 
   procedure Compile(Parts : Parts_Type);
-
   procedure Traverse(Part : in out Part_Type; Diff : in Vector_Type);
   procedure Rotate(Part : in out Part_Type; Rotation : in Vector_Type);
 private
