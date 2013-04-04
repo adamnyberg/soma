@@ -18,7 +18,11 @@ procedure Test_Bits is
   Test_Bits_Parse5 : Unbounded_String := To_Unbounded_String("111000110110");
   Test_Bits_Parse6 : Unbounded_String := To_Unbounded_String("111000110110");
   Test_Bits_Parse7 : Unbounded_String := To_Unbounded_String("10101");
+  Test_Bits_Parse8 : Unbounded_String := To_Unbounded_String("000111001001");
+  Test_Bits_Parse9 : Unbounded_String := To_Unbounded_String("111111111111");
+  Test_Bits_Parse10 : Unbounded_String := To_Unbounded_String("000000000000");
 begin
+
   declare
     --Parsing bits strings to create bits_type
     Bits_Seq : Bits_Type := Bits.Parse( Test_Bits_Parse );
@@ -28,17 +32,23 @@ begin
     Bits_Set_Bit : Bits_Type := Bits.Parse( Test_Bits_Parse5 );
     Bits_Set_Bit2 : Bits_Type := Bits.Parse( Test_Bits_Parse6 );
     Bits_Test_Arr : Bits_Type := Bits.Parse( Test_Bits_Parse7 );
+    Bits5 : Bits_Type := Bits.Parse( Test_Bits_Parse5 );
+    Bits6 : Bits_Type := Bits.Parse( Test_Bits_Parse6 );
+    Bits8 : Bits_Type := Bits.Parse( Test_Bits_Parse8 );
+    Bits9 : Bits_Type := Bits.Parse( Test_Bits_Parse9 );
+    Bits10 : Bits_Type := Bits.Parse( Test_Bits_Parse10 );
     Ref_Arr : Index_Arr(1..3) := (1,3,5);
   begin
+
     --Tests Read_Bit
     Test(Read_Bit(Bits_Seq2, 1),0);
     Test(Read_Bit(Bits_Seq2, 6),0);
     Test(Read_Bit(Bits_Seq2, 12),1);
-    
+
     --Tests Bits.Parse
     Test(Test_Bits_Parse2, To_String(Bits_Seq2));
     Test(Test_Bits_Parse, To_String(Bits_Seq));
-    
+
     --Tests Bits.Put
     Put(Bits_Seq, (3, 3, 3));
 
@@ -63,6 +73,17 @@ begin
     Bits_Seq3_Ref := Parse(To_Unbounded_String("0010"));
     Set_Bit(Bits_Seq3,1,0);
     Test(Bits_Seq3, Bits_Seq3_Ref);
+
+    -- Tests "or" function
+    Test( Bits5 or Bits6, Bits5 );
+    Test( Bits5 or Bits8, Bits9 );
+
+    -- Tests "and" function
+    Test( Bits5 and Bits8, Bits10 );
+
+    -- Tests "=" function
+    Test( Bits5 = Bits6, True );
+    Test( Bits5 = Bits9, False );
 
     --Tests Vector_To_Index
     Test(Vector_To_Index((3,3,3),(2,3,2)),11);

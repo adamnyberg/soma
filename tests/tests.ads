@@ -17,4 +17,5 @@ package Tests is
   procedure Test(El1 : String; El2 : Unbounded_String);
   procedure Test(El1, El2 : Vector_Type);
   Procedure Test(El1, El2 : Bits_Type);
+  Procedure Test(El1, El2 : Boolean);
 end Tests;
