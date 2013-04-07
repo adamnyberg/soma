@@ -83,7 +83,7 @@ package body Parts is
       if I rem Figure.Dimension.Y = 0 then
         Column := 1;
       end if;
-      
+
       if I rem (Figure.Dimension.X * Figure.Dimension.Y) = 0 then
         Layer := Layer + 1;
         Row := Figure.Dimension.Y;
@@ -94,10 +94,24 @@ package body Parts is
 
   end Add_Dimensions;
 
-  procedure Compile(Parts : Parts_Type) is
+  -- Get the indicies, with respect to figure ones, where the part fit in the figure
+  function Overlap_Indices(Part : Part_Type; Figure : Figure_Type) return Bits.Index_Arr is
+    --Part_Figure : Figure_Type := Add_Dimensions(Part, Figure);
+    Figure_Ones : Bits.Index_Arr := Ones_Index(Figure.Structure);
+
+    Overlap : Bits.Index_Arr(Figure_Ones'Range);
+    Num_Overlap_Ones : Integer := 1;
   begin
-    null;
-  end Compile;
+    --for I in Figure_Ones'Range loop
+      --if Read_Bit(Part_Figure.Structure, Figure_Ones(I)) = 1 then
+      --  Overlap(Num_Overlap_Ones) := I;
+      --  Num_Overlap_Ones := Num_Overlap_Ones + 1;
+      --end if;
+    --end loop;
+
+    --return Overlap(1..Num_Overlap_Ones);
+    return Overlap(1..1);
+  end Overlap_Indices;
 
   -- Moves the part 'vector' much, in each direction
   procedure Traverse(Part : in out Part_Type; Diff : in Vector_Type) is

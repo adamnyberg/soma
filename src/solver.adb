@@ -71,8 +71,8 @@ package body Solver is
     Element : Linked_Matrix_Pointer;
     Column : Integer;
 
-    -- TODO: Uncomment eol when Overlap_Indices is done
-    Part_Ones_In_Figure : Bits.Index_Arr := (1 => 1);--Overlap_Indices(Parts(Part), Figure);
+    -- TODO: Uncomment eol when fixed.
+    Part_Ones_In_Figure : Bits.Index_Arr := ( 1 => 1 );--Overlap_Indices(Part.all, Figure);
     Row_Header : Linked_Matrix_Pointer := new Linked_Matrix;
   begin
     Insert(Row_Header, Row_Header, Row_Header, Row_Header, Row_Header);

@@ -84,8 +84,8 @@ package body Bits is
         Arr(Index) := I;
       end if;
     end loop;
-    return Arr(1..Index);
 
+    return Arr(1..Index);
   end Ones_Index;
 
   function "or"(Bits1, Bits2 : Bits_Type) return Bits_Type is

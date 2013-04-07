@@ -2,6 +2,7 @@
 -- harpe493 Harald Petterson, jonta760 Jonas Tarassu
 
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with Vector; use Vector;
 with Parts; use Parts;
 with Tests; use Tests;
@@ -172,4 +173,29 @@ begin
   Test_Part5.Position := (2,2,1);
   Test(Add_Dimensions( Test_Part5, Figure1 ).Structure, Figure2.Structure );
 
+  declare
+    Part : Part_Type := Parts.Parse_Part(To_Unbounded_String("1x2x1 11"));
+    Figure : Figure_Type := Figures.Parse(To_Unbounded_String("2x2x1 1111"));
+    --Part_Figure : Figure_Type := Add_Dimensions( Part, Figure );
+  begin
+    null;
+    --Test( To_String(Part_Figure.Structure), "1010" );
+  end;
+
+  -------------------------------------------------------
+  --
+  -- Test Overlap_Indices
+  --
+  -------------------------------------------------------
+
+  declare
+    --Part : Part_Type := Parts.Parse_Part(To_Unbounded_String("1x2x1 11"));
+    --Figure : Figure_Type := Figures.Parse(To_Unbounded_String("2x2x1 1111"));
+    --Overlap : Bits.Index_Arr := Overlap_Indices(Part, Figure);
+  begin
+    null;
+    --Ada.Integer_Text_IO.Put( Overlap'Length );
+    --Test( Overlap(1), 1 );
+    --Test( Overlap(2), 3 );
+  end;
 end Test_Parts;
