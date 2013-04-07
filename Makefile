@@ -7,7 +7,8 @@ lsoma:
 
 ltest:
 	gnatmake $(MAKEFLAGS) -Isrc/\
-		tests/test_parts.adb tests/test_misc.adb tests/test_figures.adb tests/test_packets.adb;
+		tests/test_parts.adb tests/test_misc.adb tests/test_figures.adb\
+		tests/test_packets.adb tests/test_bits.adb;
 	echo "\n"; ./test_parts; ./test_misc; ./test_figures; ./test_packets; rm test_*;
 	echo "All tests succeeded!"
 
