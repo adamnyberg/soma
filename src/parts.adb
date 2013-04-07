@@ -47,16 +47,53 @@ package body Parts is
     end;
   end Parse;
 
-  --function Part_Fit_In_Figure(Part : Part_Type; Figure : Figure_Type) return boolean is
---    Part_Figure : Figure_Type;
---    Bits : Bits_Type;
---  begin
---    Part_Figure = Add_Dimensions(Part, Figure);
---    Bits := Part_Figure or Figure.Structure;
---
---    return Bits = Figure.Structure;
---  end Part_Fit_In_Figure;
---
+  function Part_Fit_In_Figure(Part : Part_Type; Figure : Figure_Type) return Boolean is
+    Part_Figure : Figure_Type := Add_Dimensions(Part, Figure);
+  begin
+    return (Part_Figure.Structure or Figure.Structure) = Figure.Structure;
+  end Part_Fit_In_Figure;
+
+  function Add_Dimensions(Part : in Part_Type; Figure : in Figure_Type) return Figure_Type is
+
+    Part_Filled_With_Zeros : Figure_Type := Figure;
+    Row : Integer := Figure.Dimension.Y;
+    Column : Integer := 1;
+    Layer : Integer := 1;
+    Part_Index_Value : Natural;
+    Pos : Vector_Type;
+
+  begin
+    for I in 1..To_Volume(Figure.Dimension) loop
+      if Row > Part.Dimension.Y + Part.Position.Y - 1 or Row < Part.Position.Y then
+        Set_Bit(Part_Filled_With_Zeros.Structure, I, 0);
+      elsif Column > Part.Dimension.X + Part.Position.X - 1 or Column < Part.Position.X then
+        Set_Bit(Part_Filled_With_Zeros.Structure, I, 0);
+      elsif Layer > Part.Dimension.Z + Part.Position.Z - 1 or Layer < Part.Position.Z then
+        Set_Bit(Part_Filled_With_Zeros.Structure, I, 0);
+      else
+        Pos := Index_To_Vector(Figure.Dimension, I) - Part.Position;
+        Part_Index_Value := Read_Bit( Part.Structure, Vector_To_Index( Part.Dimension, Pos ));
+        Set_Bit( Part_Filled_With_Zeros.Structure, I, Part_Index_Value);
+      end if;
+
+      if I rem Figure.Dimension.X = 0 then
+        Row := Row - 1;
+      end if;
+      Column := Column + 1;
+      if I rem Figure.Dimension.Y = 0 then
+        Column := 1;
+      end if;
+      
+      if I rem (Figure.Dimension.X * Figure.Dimension.Y) = 0 then
+        Layer := Layer + 1;
+        Row := Figure.Dimension.Y;
+      end if;
+
+    end loop;
+    return Part_Filled_With_Zeros;
+
+  end Add_Dimensions;
+
   procedure Compile(Parts : Parts_Type) is
   begin
     null;
@@ -128,7 +165,6 @@ package body Parts is
         end loop;
       end loop;
     end loop;
-    New_Line;
 
     Tmp := Part.Dimension.Z;
     Part.Dimension.Z := Part.Dimension.X;

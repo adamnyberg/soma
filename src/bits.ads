@@ -27,15 +27,11 @@ package Bits is
                       Vector_Index : in Vector_Type;
                       Bit : in Natural);
 
-  function Read_Bit(Bits : Bits_Type; Bits_Dimension, Vector_Index : Vector_Type) return Integer; 
-  function Ones_Index(Bits : in Bits_Type) return Index_Arr; 
-  -- procedure Fill_With_Zeroes(Bits : Bits_Type; Dimension : Vector_Type);
-  -- function Compare(Bits1, Bits2 : Bits_Type) return Boolean;
+  function Read_Bit(Bits : Bits_Type; Bits_Dimension, Vector_Index : Vector_Type) return Integer;
+  function Ones_Index(Bits : in Bits_Type) return Index_Arr;
   function "or"(Bits1, Bits2 : Bits_Type) return Bits_Type;
   function "and"(Bits1, Bits2 : Bits_Type) return Bits_Type;
   function "="(Bits1, Bits2 : Bits_Type) return Boolean;
-  -- function "xor"(Bits1, Bits2 : Bits_Type) return Bits_Type;
-  -- function Is_Zero(Bits : Bits_Type) return Boolean;
 
   function Vector_To_Index(Dimension : Vector_Type; Vector_Index : Vector_Type) return Natural;
   function Index_To_Vector(Dimension : Vector_Type; Index : Natural) return Vector_Type;

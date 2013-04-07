@@ -6,6 +6,7 @@ with Vector; use Vector;
 with Parts; use Parts;
 with Tests; use Tests;
 with Bits; use Bits;
+with Figures; use Figures;
 
 procedure Test_Parts is
   --Creates Test_Parts
@@ -16,7 +17,11 @@ procedure Test_Parts is
   Test_Part_Parse : Unbounded_String :=
     To_Unbounded_String("2x3x1 101011011");
   Test_Part : Part_Type := Parts.Parse_Part(Test_Part_Parse);
-
+  --Creates test figure
+  Test_Figure_Parse : Unbounded_String := To_Unbounded_String("123 3x3x2 111111000011111000");
+  Figure1 : Figure_Type := Figures.Parse( Test_Figure_Parse );
+  Test_Figure_Parse2 : Unbounded_String := To_Unbounded_String("123 3x3x2 011001000000000000");
+  Figure2 : Figure_Type := Figures.Parse( Test_Figure_Parse2 );
   -------------------------------------------------------------------
 
   Test_Part_Parse2 : Unbounded_String :=
@@ -25,9 +30,13 @@ procedure Test_Parts is
     To_Unbounded_String("2x4x3 101010110010000000110000");
   Test_Part_Parse4 : Unbounded_String :=
      To_Unbounded_String("1x3x3 011110010");
+  Test_Part_Parse5 : Unbounded_String :=
+     To_Unbounded_String("2x2x1 1101");
+
   Rotate_Test_Part : Part_Type := Parts.Parse_Part(Test_Part_Parse2);
   Rotate_Test_Part2 : Part_Type := Parts.Parse_Part(Test_Part_Parse3); 
   Rotate_Test_Part3 : Part_Type := Parts.Parse_Part(Test_Part_Parse4);
+  Test_Part5 : Part_Type := Parts.Parse_Part( Test_Part_Parse5 );
 
   -------------------------------------------------------------------
   --Rotation vectors
@@ -153,5 +162,14 @@ begin
 
   Rotate(Part1, (0, 0, 4));
   Test( To_String(Part1.Structure), "101010110001110001110011001111000110");
+
+  -------------------------------------------------------
+  --
+  -- Tests Add_Dimension
+  --
+  -------------------------------------------------------
+
+  Test_Part5.Position := (2,2,1);
+  Test(Add_Dimensions( Test_Part5, Figure1 ).Structure, Figure2.Structure );
 
 end Test_Parts;

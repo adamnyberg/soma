@@ -28,17 +28,21 @@ package body Vector is
        ", Z: " & Integer'Image(Vector.Z);
   end To_String;
 
-  --function To_Volume(Vector : Vector_Type) return Integer is  
---  begin -- To_Volume
---    Split(To_Unbounded_String(To_String( Vector )),"x",X,Rest);
---    Split(Rest,"x",Y,Z);
---    return Integer'Value(To_String( X ))*Integer'Value(To_String( Y ))*Integer'Value(To_String( Z ));
---  end To_Volume;
+  function To_Volume(Vector : Vector_Type) return Integer is  
+  begin -- To_Volume
+    return Vector.X * Vector.Y * Vector.Z;
+  end To_Volume;
 
-  --function Sum_Vector(Vector1,Vector2 :in Vector_Type) return Vector_Type is  
---  begin -- To_Volume
---    Split(To_Unbounded_String(To_String( Vector )),"x",X,Rest);
---    Split(Rest,"x",Y,Z);
---    return (Integer'Value(To_String( X )),Integer'Value(To_String( Y )),Integer'Value(To_String( Z )));
---  end Sum_Vector;
+  function "-"(V1, V2 : Vector_Type) return Vector_Type is
+  begin
+    return (V1.X - V2.X + 1, V1.Y - V2.Y + 1, V1.Z - V2.Z + 1);
+  end "-";
+
+  -- function Sum_Vector(Vector1,Vector2 :in Vector_Type) return Vector_Type is
+  --   X,Y,Z : Integer;  
+  -- begin -- To_Volume
+  --   Split(To_Unbounded_String(To_String( Vector )),"x",X,Rest);
+  --   Split(Rest,"x",Y,Z);
+  --   return (Integer'Value(To_String( X )),Integer'Value(To_String( Y )),Integer'Value(To_String( Z )));
+  -- end Sum_Vector;
 end Vector;

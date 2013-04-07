@@ -10,6 +10,8 @@ package Vector is
 
   function Parse(Raw_Vector : in Unbounded_String) return Vector_Type;
   function To_String(Vector : Vector_Type) return String;
-  --function To_Volume(Vector : Vector_Type) return Integer;
---  function Sum_Vector(Vector1,Vector2 : in Vector_Type) return Vector_Type;
+  function To_Volume(Vector : Vector_Type) return Integer;
+  function "-"(V1, V2 : Vector_Type) return Vector_Type; -- adds 1 to X,Y,Z
+  --function Sum_Vector(Vector1,Vector2 : in Vector_Type) return Vector_Type;
+>>>>>>> 62ec332126d89afb93a02bef3c445466eb0cc94e
 end Vector;
