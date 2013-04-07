@@ -165,7 +165,6 @@ package body Parts is
         end loop;
       end loop;
     end loop;
-    New_Line;
 
     Tmp := Part.Dimension.Z;
     Part.Dimension.Z := Part.Dimension.X;
