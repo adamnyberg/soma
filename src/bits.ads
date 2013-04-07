@@ -27,8 +27,8 @@ package Bits is
                       Vector_Index : in Vector_Type;
                       Bit : in Natural);
 
-  function Read_Bit(Bits : Bits_Type; Bits_Dimension, Vector_Index : Vector_Type) return Integer; 
-  function Ones_Index(Bits : in Bits_Type) return Index_Arr; 
+  function Read_Bit(Bits : Bits_Type; Bits_Dimension, Vector_Index : Vector_Type) return Integer;
+  function Ones_Index(Bits : in Bits_Type) return Index_Arr;
   -- procedure Fill_With_Zeroes(Bits : Bits_Type; Dimension : Vector_Type);
   -- function Compare(Bits1, Bits2 : Bits_Type) return Boolean;
   function "or"(Bits1, Bits2 : Bits_Type) return Bits_Type;
