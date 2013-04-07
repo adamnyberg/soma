@@ -141,41 +141,19 @@ package body DLX is
   procedure Reset_DLX(Node : in Linked_Matrix_Pointer) is
     Temp : Linked_Matrix_Pointer := Node.Up;
   begin
-    Put("Reset_DLX");
-    New_Line;
-    Put("     A");
-    Put("(");
-    Put(Node.Data.Column,1   );
-    Put(", ");
-    Put(Node.Data.Row,1);
-    Put(")");
     Reset_Node(Node);
     if Temp.Data.Column /= 0 then
       loop
 	exit when Temp = Node;
 	if Temp.Data.Row /= 0 then
-	  Put("     B");
-	  Put("(");
-	  Put(Temp.Data.Column,1   );
-	  Put(", ");
-	  Put(Temp.Data.Row, 1);
-	  Put(")");
 	  Reset_Row(Temp);
 	else
-	  Put("     C");
-	  Put("(");
-	  Put(Temp.Data.Column,1   );
-	  Put(", ");
-	  Put(Temp.Data.Row, 1);
-	  Put(")");
 	  Reset_Node(Temp);
 	end if;
 	Temp := Temp.Up;
       end loop;
     end if;
     if not (Node.Right.Down.Up = Node.Right) then
-      New_Line;
-      Put("D");
       Reset_DLX(Node.Right);
     end if;
   end Reset_DLX;
@@ -216,17 +194,13 @@ package body DLX is
   function Has_A_Column_Without_Ones(Header : in Linked_Matrix_Pointer) return Boolean is
     Temp : Linked_Matrix_Pointer := Header.Right;
   begin
-    New_Line;
-    Put("Has_A_Column_Without_Ones");
     loop
       if Temp.Down.Data.Row = 0 then
-	Put("-True");
 	return True;
       end if;
       Temp := Temp.Right;
       exit when Temp.Data.Column = 0;
     end loop;
-    Put("-False");
     return False;
   end Has_A_Column_Without_Ones;
 
@@ -247,22 +221,15 @@ package body DLX is
 		  return Linked_Resulting_List_Pointer is
     Curr, Temp : Linked_Resulting_List_Pointer := Resulting_List;
   begin
-    New_Line;
-    Put("Last");
     if Curr /= Null then
-      Put("777777777777777");
       loop
 	if Curr.next = Null then
-	  Put("888888888");
-	  New_Line;
 	  return Curr;
 	else
 	  Curr := Curr.Next;
 	end if;
       end loop;
     end if;
-	  Put("999999999999");
-	  New_Line;
     return Curr;
   end Last;
 
@@ -271,11 +238,9 @@ package body DLX is
     Temp : Linked_Matrix_Pointer := Node;
   begin
     New_Line;
-    Put("Get_Row_Header_Info");
     while Temp.Data.Column /= 0 loop
       Temp := Temp.Left;
     end loop;
-
     Curr.Row := Temp;
     Curr.Part := Temp.Data.Part;
     Curr.Next := Null;
@@ -284,9 +249,7 @@ package body DLX is
 
   function Choose_Next_Row(Previous : in Linked_Matrix_Pointer) return Linked_Matrix_Pointer is
   begin
-    New_Line;
-    Put("Choose_Next_Row");
-    return Previous.Up;
+    return Previous.Down;
   end Choose_Next_Row;
 
   --function Choose_Next_One(Previous : in Linked_Matrix)
@@ -312,17 +275,9 @@ package body DLX is
   procedure Remove_Last(Linked_List : in out Linked_Resulting_List_Pointer) is
     Second_Last, Garbage : Linked_Resulting_List_Pointer;
   begin
-    New_Line;
-    Put("Remove_Last");
-    Put(Linked_List);
     Second_Last := Linked_List;
-    New_Line;
-    Put(Second_Last.Row.Data.Row);
-    New_Line;
     if Second_Last.Next /= Null then
-      Put("GG");
       while Second_Last.Next.Next /= Null loop
-	Put("HGH");
 	Second_Last:= Second_Last.Next;
       end loop;
       Garbage := Second_Last.Next;
@@ -363,23 +318,20 @@ package body DLX is
       New_Line;
       if Is_Empty(Header) then
 	--Solution Found! Return Resulting_Matrices
-	Put("SOLVED TRUE");
 	Solved := True;
-      elsif Has_A_Column_Without_Ones(Header)
-	or else Selected_Row = Header.Down then
+--      elsif Selected_Row = Header.Up then
+--	exit;
+      elsif Has_A_Column_Without_Ones(Header) 
+	or else Selected_Row = Header.Up then
 	--GO BACK!/Give up (When there is atleast one row with no ones or
 	--when all rows have been selected once.
-	Put("GO BACK!");
-	Reset_DLX(Last(Selected).Row);
-	Put(Selected);
-	Remove_Last(Selected);
-	Put(Selected);
+	if Selected /= Null then
+	  Reset_DLX(Last(Selected).Row);
+	  Remove_Last(Selected);
+	end if;
 	exit;
       else
 	Selected_Row := Choose_Next_Row(Selected_Row);
-	New_Line;
-	Put("Current Selected: ");
-	Put(Selected_Row.Data.Row);
 	Selected_Node := Selected_Row;
 	if Selected = Null then
 	  Selected := new Linked_Resulting_List'(Get_Row_Header_Info(Selected_Node));
@@ -387,16 +339,6 @@ package body DLX is
 	  Last(Selected).Next := new Linked_Resulting_List'(Get_Row_Header_Info(Selected_Node));
 	end if;
 	Delete_DLX(Selected_Node);
-	New_Line(4);
-
-	Put(Selected.Row.Data.Row);
-	Put("????????");
-	if Selected = Null then
-	  Put("SOL NULL");
-	else
-	  Put("SOL NOT NULL");
-	end if;
-	New_Line;
 	Solve_DLX(Header, Selected, Solved);
       end if;
       exit when Solved;

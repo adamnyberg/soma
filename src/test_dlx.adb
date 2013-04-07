@@ -60,6 +60,7 @@ begin
   Temp2.Up := new Linked_Matrix;
   Temp2.Up.Down := Temp2;
   Temp2.Down := T_L_M.Right.Right;
+  Temp2.Down.Up := Temp2;
   Temp2.Right := Temp;
   Temp2.Right.Left := Temp2;
   
@@ -94,56 +95,84 @@ begin
   Temp2.Down.Up := Temp2;
 --  Put(T_L_M.Down.Down.Down.Right.Right.Right.Data.Column);
 --  Put(T_L_M.Down.Down.Down.Right.Right.Right.Data.Row);
-  Put(T_L_M.Right.Up.Data.Column);
-  Put(T_L_M.Right.Up.Data.Row);
+--  Put(T_L_M.Right.Up.Data.Column);
+--  Put(T_L_M.Right.Up.Data.Row);
   New_Line;
-  APA := T_L_M.Down;
-  Put(T_L_M);
---  Solve_DLX(T_L_M,Solution, Solved);
---  Delete_Node(T_L_M.Up.Right.all);
---  Put(T_L_M);
---  T_L_M.Down := T_L_M.Down.Down;
---  if False
-  Delete_Row(APA);
-  New_Line(4);
-  Put(T_L_M);
-  Reset_Row(APA);
-  New_Line(4);
-  Put(T_L_M);
-  New_Line(4);
-  
+  --Add 1 to (3,2)
+--  Temp := new Linked_Matrix;
+--  T_L_M.Left.Down.Down := Temp;
+--  Temp.Data.Column := 3;
+--  Temp.Data.Row := 2;
+--  Temp.Up := T_L_M.Left.Down;
+--  Temp.Up.Down := Temp;
+--  Temp.Down := T_L_M.Left;
+--  Temp.Down.Up := Temp;
+--  Temp.Right := T_L_M.Down.Down;
+--  Temp.Right.Left := Temp;
+--  Temp.Left := Temp.Right.Right;
+--  Temp.Left.Right := Temp;
 
+  Put("     (");
+  Put(T_L_M.Right.Right.Up.Data.Column, 1);
+  Put(", ");
+  Put(T_L_M.Right.Right.Up.Data.Row, 1);
+  Put(")");
+  New_Line;
 
-  APA := T_L_M.Right.Right.Down;
-  T_L_M.Right.Right.Up := T_L_M.Up.Left;
-  Delete_Column(APA);
-  Put(T_L_M);
-  New_Line(4);
-  Reset_Column(APA);
-  Put(T_L_M);
-  New_Line(4);
-  
-  APA := T_L_M.Right.Up;
-  Delete_DLX(APA);
-  Put(T_L_M);
-  New_Line(4);
-  Put(T_L_M.Up.Data.Column, 1);
-  Put(",");
-  Put(T_L_M.Up.Data.Row, 1);
-  New_Line;
-  Reset_DLX(APA);
-  New_Line;
+  APA := T_L_M.Down.Down;
   Put(T_L_M);
 
---  if False then
-  Solve_DLX(T_L_M, Solution, Solved);
-  New_Line;
-  Put("++++++++++++++++++++++++");
-  New_Line;
-  while Solution /= Null loop
-    Put(Solution.Row.Data.Row, 1);
-    Put("     ");
-    Solution := Solution.Next;
-  end loop;
---end if;
+    Delete_Row(APA);
+    New_Line(3);
+    Put("Delete Row");
+    New_Line;
+    Put(T_L_M);
+    Reset_Row(APA);
+    New_Line(3);
+    Put("Reset Row");
+    New_Line;
+    Put(T_L_M);
+
+    APA := T_L_M.Right.Right.Right;
+    T_L_M.Right.Right.Up := T_L_M.Up.Left;
+    Delete_Column(APA);
+    New_Line(3);
+    Put("Delete Column");
+    New_Line;
+    Put(T_L_M);
+    New_Line(3);
+    Put("Reset Column");
+    New_Line;
+    Reset_Column(APA);
+    Put(T_L_M);
+
+  if False then
+    APA := T_L_M.Right.Right.Down;
+    Delete_DLX(APA);
+    New_Line(3);
+    Put("Delete DLX");
+    New_Line;
+    Put(T_L_M);
+    Reset_DLX(APA);
+    New_Line(3);
+    Put("Reset DLX");
+    New_Line;
+    Put(T_L_M);
+
+  end if;
+    Solve_DLX(T_L_M, Solution, Solved);
+    New_Line;
+    Put("++++++++++++++++++++++++");
+    New_Line;
+    if Solved then
+      Put("A solution has been found!");
+      new_Line;
+      while Solution /= Null loop
+	Put(Solution.Row.Data.Row, 1);
+	Put("     ");
+	Solution := Solution.Next;
+      end loop;
+      else
+      Put("No solution!");
+    end if;
 end Test_DLX;

@@ -4,13 +4,9 @@ with Ada.Integer_Text_IO; use Ada.Integer_Text_IO; --Samma för denna
 package body Matrix is
   function Is_Empty(Header : in Linked_Matrix_Pointer) return Boolean is
   begin
-    New_Line;
-    Put("Is_Empty");
     if Header.Right = Header then
-      Put("-True");
       return True;
     else
-      Put("-False");
       return False;
     end if;
   end Is_Empty;
@@ -59,11 +55,10 @@ package body Matrix is
       exit when Temp.Data.Column = 0;
     end loop;
     Temp := Header.Down;
-    loop
+    while Temp.Data.Row /= 0 loop
       New_Line(2);
       Put_Row(Temp, Num_Of_Cols);
       Temp := Temp.Down;
-      exit when Temp.Data.Row = 0;
     end loop;
   end Put;
   procedure Delete_Node(Node : in Linked_Matrix_Pointer) is
@@ -76,12 +71,6 @@ package body Matrix is
 
   procedure Reset_Node(Node : in Linked_Matrix_Pointer) is
   begin
-    Put("    E");
-    Put("(");
-    Put(Node.Data.Column, 1);
-    Put(", ");
-    Put(Node.Data.Row,1);
-    Put(")");
     Node.Left.Right:= Node;
     Node.Right.Left:= Node;
     Node.Up.Down:= Node;
@@ -95,7 +84,7 @@ package body Matrix is
     loop
       Temp := Temp.Right;
       Delete_Node(Temp);
-      exit when Temp.Right.all = Temp.all;
+      exit when Temp.Right = Temp;
     end loop;
   end Delete_Row;
 
@@ -116,7 +105,7 @@ package body Matrix is
     loop
       Temp := Temp.Up;
       Delete_Node(Temp);
-      exit when Temp.Up.all = Temp.all;
+      exit when Temp.Up = Temp;
     end loop;
   end Delete_Column;
 
@@ -126,7 +115,7 @@ package body Matrix is
     loop
       Reset_Node(Temp);
       Temp := Temp.Up;
-      exit when Temp= Node;
+      exit when Temp = Node;
       Reset_Node(Node);
     end loop;
   end Reset_Column;
