@@ -47,16 +47,16 @@ package body Parts is
     end;
   end Parse;
 
-  function Part_Fit_In_Figure(Part : Part_Type; Figure : Figure_Type) return boolean is
-    Part_Figure : Figure_Type;
-    Bits : Bits_Type;
-  begin
-    Part_Figure = Add_Dimensions(Part, Figure);
-    Bits := Part_Figure or Figure.Structure;
-
-    return Bits = Figure.Structure;
-  end Part_Fit_In_Figure;
-
+  --function Part_Fit_In_Figure(Part : Part_Type; Figure : Figure_Type) return boolean is
+--    Part_Figure : Figure_Type;
+--    Bits : Bits_Type;
+--  begin
+--    Part_Figure = Add_Dimensions(Part, Figure);
+--    Bits := Part_Figure or Figure.Structure;
+--
+--    return Bits = Figure.Structure;
+--  end Part_Fit_In_Figure;
+--
   procedure Compile(Parts : Parts_Type) is
   begin
     null;

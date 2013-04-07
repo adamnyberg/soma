@@ -24,9 +24,9 @@ package Parts is
   function Parse_Part(Raw_Part : in Unbounded_String) return Part_Type;
   function Parse(Raw_Parts : in Unbounded_String) return Parts_Type;
 
-  function Part_Fit_In_Figure(Part : Part_Type; Figure : Figure_Type) return boolean;
-  function Add_Dimensions(Part : Part_Type; Figure : Figure_Type) return Figure_Type;
-  function Overlap_Indices(Part : Part_Type; Figure : Figure_Type) return Index_Arr;
+  --function Part_Fit_In_Figure(Part : Part_Type; Figure : Figure_Type) return boolean;
+  --function Add_Dimensions(Part : Part_Type; Figure : Figure_Type) return Figure_Type;
+  --function Overlap_Indices(Part : Part_Type; Figure : Figure_Type) return Index_Arr;
 
   procedure Compile(Parts : Parts_Type);
   procedure Traverse(Part : in out Part_Type; Diff : in Vector_Type);
