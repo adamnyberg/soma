@@ -88,17 +88,6 @@ package body Bits is
 
   end Ones_Index;
 
-  procedure Fill_With_Zeroes(Bits : Bits_Type; Dimension : Vector_Type) is
-  begin
-    null;
-  end Fill_With_Zeroes;
-
-  function Compare(Bits1, Bits2 : Bits_Type) return Boolean is
-  begin
-    return False;
-    null;
-  end Compare;
-
   function "or"(Bits1, Bits2 : Bits_Type) return Bits_Type is
     Bits : Bits_Type(Bits1.Bits'Length);
   begin
@@ -140,18 +129,6 @@ package body Bits is
 
     return true;
   end "=";
-
-  function "xor"(Bits1, Bits2 : Bits_Type) return Bits_Type is
-  begin
-    return Bits1;
-    null;
-  end "xor";
-
-  function Is_Zero(Bits : Bits_Type) return Boolean is
-  begin
-    return False;
-    null;
-  end Is_Zero;
 
   function Vector_To_Index(Dimension : Vector_Type; Vector_Index : Vector_Type) return Natural is
   begin
