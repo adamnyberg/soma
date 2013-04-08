@@ -137,12 +137,16 @@ package body Bits is
 
   function Index_To_Vector(Dimension : Vector_Type; Index : Natural) return Vector_Type is
     X, Y, Z : Natural;
+    Layer_Index : Natural := Index rem (Dimension.X * Dimension.Y);
   begin
     X := Index rem Dimension.X;
     if X = 0 then
       X := Dimension.X;
     end if;
-    Y := 1 + Dimension.Y - Divide_With_Ceil(Index rem (Dimension.X * Dimension.Y), Dimension.X);
+    if Layer_Index = 0 then
+      Layer_Index := Dimension.X * Dimension.Y;
+    end if;
+    Y := Dimension.Y + 1 - Divide_With_Ceil(Layer_Index, Dimension.X);
     Z := Divide_With_Ceil(Index, Dimension.X*Dimension.Y);
     return (X, Y, Z);
   end Index_To_Vector;
