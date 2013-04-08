@@ -9,7 +9,7 @@ with Figures; use Figures;
 
 package Parts is
   type Part_Type (Structure_Bits : Natural) is record
-    Position : Vector_Type;
+    Position : Vector_Type := (1,1,1);
     Rotation : Vector_Type;
     Dimension : Vector_Type;
     Structure : Bits_Type(Structure_Bits);

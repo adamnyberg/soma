@@ -63,7 +63,8 @@ package body Parts is
     Pos : Vector_Type;
 
   begin
-    for I in 1..To_Volume(Figure.Dimension) loop
+    for I in 1..Figure.Structure.Length loop
+      New_Line;
       if Row > Part.Dimension.Y + Part.Position.Y - 1 or Row < Part.Position.Y then
         Set_Bit(Part_Filled_With_Zeros.Structure, I, 0);
       elsif Column > Part.Dimension.X + Part.Position.X - 1 or Column < Part.Position.X then

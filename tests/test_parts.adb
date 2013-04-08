@@ -175,11 +175,10 @@ begin
 
   declare
     Part : Part_Type := Parts.Parse_Part(To_Unbounded_String("1x2x1 11"));
-    Figure : Figure_Type := Figures.Parse(To_Unbounded_String("2x2x1 1111"));
-    --Part_Figure : Figure_Type := Add_Dimensions( Part, Figure );
+    Figure : Figure_Type := Figures.Parse(To_Unbounded_String("142 2x2x1 1111"));
   begin
-    null;
-    --Test( To_String(Part_Figure.Structure), "1010" );
+    Part.Position := (1,1,1);
+    Test( To_String(Add_Dimensions( Part, Figure ).Structure), "1010" );
   end;
 
   -------------------------------------------------------
