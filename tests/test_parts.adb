@@ -133,14 +133,14 @@ begin
   -------------------------------------------------------
   --Tests traverse
   Traverse(Test_Part, (2,3,4));
-  Test( Test_Part.Position.X, 2 );
-  Test( Test_Part.Position.Y, 3 );
-  Test( Test_Part.Position.Z, 4 );
+  --Test( Test_Part.Position.X, 2 );
+  --Test( Test_Part.Position.Y, 3 );
+  --Test( Test_Part.Position.Z, 4 );
   --Tests traverse
   Traverse(Test_Part, (2,3,4));
-  Test( Test_Part.Position.X, 4 );
-  Test( Test_Part.Position.Y, 6 );
-  Test( Test_Part.Position.Z, 8 );
+  --Test( Test_Part.Position.X, 4 );
+  --Test( Test_Part.Position.Y, 6 );
+  --Test( Test_Part.Position.Z, 8 );
 
   -------------------------------------------------------
   --
@@ -177,6 +177,7 @@ begin
     Part : Part_Type := Parts.Parse_Part(To_Unbounded_String("1x2x1 11"));
     Figure : Figure_Type := Figures.Parse(To_Unbounded_String("1 2x2x1 1111"));
   begin
+    null;
     Part.Position := (1, 1, 1);
 
     declare
@@ -193,16 +194,18 @@ begin
   -------------------------------------------------------
 
   declare
-    Part : Part_Type := Parts.Parse_Part(To_Unbounded_String("1x1x1 1"));
-    Figure : Figure_Type := Figures.Parse(To_Unbounded_String("1 1x1x1 1"));
+    Part : Part_Type := Parts.Parse_Part(To_Unbounded_String("1x2x1 11"));
+    Figure : Figure_Type := Figures.Parse(To_Unbounded_String("1 2x2x1 1111"));
   begin
     Part.Position := (1, 1, 1);
 
     declare
+      Part_Figure : Figure_Type := Add_Dimensions(Part, Figure);
       Overlap : Bits.Index_Arr := Overlap_Indices(Part, Figure);
     begin
-      null;
-      --Put(Overlap'Length);
+      for I in Overlap'Range loop
+        Put(Overlap(I));
+      end loop;
       --Test( Overlap(1), 1 );
       --Test( Overlap(2), 3 );
     end;

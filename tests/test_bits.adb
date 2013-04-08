@@ -108,5 +108,8 @@ begin
     Test(Ones_Index(Bits_Test_Arr)(2),Ref_Arr(2));
     Test(Ones_Index(Bits_Test_Arr)(3),Ref_Arr(3));
 
+    -- TEST VECTOR TO INDEX
+    Test( Vector_To_Index((1, 2, 3), Index_To_Vector((1, 2, 3), 2)), 2 );
+
   end;
 end Test_Bits;

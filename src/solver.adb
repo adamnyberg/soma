@@ -72,8 +72,7 @@ package body Solver is
     Element : Linked_Matrix_Pointer;
     Column : Integer;
 
-    -- TODO: Uncomment eol when fixed.
-    Part_Ones_In_Figure : Bits.Index_Arr := ( 1 => 1 );--Overlap_Indices(Part.all, Figure);
+    Part_Ones_In_Figure : Bits.Index_Arr := Overlap_Indices(Part.all, Figure);
     Row_Header : Linked_Matrix_Pointer := new Linked_Matrix;
   begin
     Insert(Row_Header, Row_Header, Row_Header, Row_Header, Row_Header);
@@ -122,7 +121,6 @@ package body Solver is
 
     Num_Columns : Integer := Figure_Ones'Length + Parts'Length;
     Column_Headers : Column_Headers_Type(1..Num_Columns);
-    Original_Parts : Parts_Type := Parts;
     Row : Integer := 1;
 
     Row_Header : Linked_Matrix_Pointer;
@@ -137,23 +135,27 @@ package body Solver is
         for Rot_X in 0..3 loop
           for Rot_Y in 0..3 loop
             for Rot_Z in 0..3 loop
-              Rotate(Parts(Part).all, (Rot_X, Rot_Y, Rot_Z));
-              Traverse(Parts(Part).all, Index_To_Vector(Figure.Dimension, Figure_Ones(One_Index)));
+              declare
+                Original_Part : Part_Type := Parts(Part).all;
+              begin
+                Rotate(Parts(Part).all, (Rot_X, Rot_Y, Rot_Z));
+                Traverse(Parts(Part).all, Index_To_Vector(Figure.Dimension, Figure_Ones(One_Index)));
 
-              if Part_Fit_In_Figure(Parts(Part).all, Figure) then
-                Row_Header := Generate_Row(Parts(Part), Figure, Row, Column_Headers, Figure_Ones'Length + Part);
+                if Part_Fit_In_Figure(Parts(Part).all, Figure) then
+                  Row_Header := Generate_Row(Parts(Part), Figure, Row, Column_Headers, Figure_Ones'Length + Part);
 
-                -- Connect row header to rest of matrix
-                -- Note: The order in which this is done matters
-                Row_Header.Down := Header;
-                Row_Header.Up := Header.Up;
-                Header.Up.Down := Row_Header;
-                Header.Up := Row_Header;
+                  -- Connect row header to rest of matrix
+                  -- Note: The order in which this is done matters
+                  Row_Header.Down := Header;
+                  Row_Header.Up := Header.Up;
+                  Header.Up.Down := Row_Header;
+                  Header.Up := Row_Header;
 
-                Row := Row + 1;
-              end if;
+                  Row := Row + 1;
+                end if;
 
-              Parts(Part).all := Original_Parts(Part).all;
+                Parts(Part).all := Original_Part;
+              end;
             end loop;
           end loop;
         end loop;
@@ -166,8 +168,9 @@ package body Solver is
   procedure Solve(Parts : Parts_Type; Figure : Figure_Type) is
     Solution : Linked_Resulting_List_Pointer;
     Is_Solvable : Boolean;
+    Header : Linked_Matrix_Pointer := Generate_Matrix(Parts, Figure);
   begin
-    Solve_DLX(Generate_Matrix(Parts, Figure), Solution, Is_Solvable);
+    --Solve_DLX(Generate_Matrix(Parts, Figure), Solution, Is_Solvable);
     --Put_Matrix(Generate_Matrix(Parts, Figure));
     if Is_Solvable then
       Put("True");

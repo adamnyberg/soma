@@ -3,6 +3,7 @@
 
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with Ada.Text_IO; use Ada.Text_IO;
+with Bits; use Bits; -- debugging only
 
 package body Parts is
   function Parse_Part(Raw_Part : in Unbounded_String) return Part_Type is
@@ -64,7 +65,6 @@ package body Parts is
 
   begin
     for I in 1..Figure.Structure.Length loop
-      New_Line;
       if Row > Part.Dimension.Y + Part.Position.Y - 1 or Row < Part.Position.Y then
         Set_Bit(Part_Filled_With_Zeros.Structure, I, 0);
       elsif Column > Part.Dimension.X + Part.Position.X - 1 or Column < Part.Position.X then
@@ -97,22 +97,27 @@ package body Parts is
 
   -- Get the indicies, with respect to figure ones, where the part fit in the figure
   function Overlap_Indices(Part : Part_Type; Figure : Figure_Type) return Bits.Index_Arr is
-    --Part_Figure : Figure_Type := Add_Dimensions(Part, Figure);
+    Part_Figure : Figure_Type := Add_Dimensions(Part, Figure);
     Figure_Ones : Bits.Index_Arr := Ones_Index(Figure.Structure);
 
     Overlap : Bits.Index_Arr(Figure_Ones'Range);
     Num_Overlap_Ones : Integer := 0;
   begin
     for I in Figure_Ones'Range loop
-      null;
-    --  if Read_Bit(Part_Figure.Structure, Figure_Ones(I)) = 1 then
-    --    Num_Overlap_Ones := Num_Overlap_Ones + 1;
-    --    Overlap(Num_Overlap_Ones) := I;
-    --  end if;
+      --Put(Part.Position.X);
+      --Put(Part.Position.Y);
+      --Put(Part.Position.Z);
+      --New_Line;
+      --Put(Part.Structure, Part.Dimension);
+      --Put(Part_Figure.Structure, Part_Figure.Dimension);
+      --New_Line(5);
+      if Read_Bit(Part_Figure.Structure, Figure_Ones(I)) = 1 then
+        Num_Overlap_Ones := Num_Overlap_Ones + 1;
+        Overlap(Num_Overlap_Ones) := I;
+      end if;
     end loop;
 
-    --return Overlap(1..Num_Overlap_Ones);
-    return Overlap;
+    return Overlap(1..Num_Overlap_Ones);
   end Overlap_Indices;
 
   -- Moves the part 'vector' much, in each direction
@@ -124,8 +129,19 @@ package body Parts is
       Z => (Part.Position.Z + Diff.Z));
   end Traverse;
 
+  procedure Move(Part : in out Part_Type; Pos : in Vector_Type) is
+  begin
+    -- TODO: Might work with just Part.Position := Pos
+    Part.Position := ( X => Pos.X, Y => Pos.Y, Z => Pos.Z );
+  end Move;
+
   procedure Rotate(Part : in out Part_Type; Rotation : in Vector_Type) is
   begin
+    Part.Rotation := (
+      X => (Part.Rotation.X + Rotation.X),
+      Y => (Part.Rotation.Y + Rotation.Y),
+      Z => (Part.Rotation.Z + Rotation.Z));
+
     for X in 1..Rotation.X loop
       Rotate_X(Part);
     end loop;
@@ -134,7 +150,7 @@ package body Parts is
       Rotate_Y_270(Part);
     else
       for Y in 1..Rotation.Y loop
-	Rotate_Y(Part);
+        Rotate_Y(Part);
       end loop;
     end if;
 

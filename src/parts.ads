@@ -9,8 +9,8 @@ with Figures; use Figures;
 
 package Parts is
   type Part_Type (Structure_Bits : Natural) is record
-    Position : Vector_Type := (1,1,1);
-    Rotation : Vector_Type;
+    Position : Vector_Type := (1, 1, 1);
+    Rotation : Vector_Type := (0, 0, 0);
     Dimension : Vector_Type;
     Structure : Bits_Type(Structure_Bits);
   end record;
@@ -30,6 +30,7 @@ package Parts is
   function Overlap_Indices(Part : Part_Type; Figure : Figure_Type) return Bits.Index_Arr;
 
   procedure Traverse(Part : in out Part_Type; Diff : in Vector_Type);
+  procedure Move(Part : in out Part_Type; Pos : in Vector_Type);
   procedure Rotate(Part : in out Part_Type; Rotation : in Vector_Type);
 private
   procedure Rotate_X(Part : in out Part_Type);
