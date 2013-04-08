@@ -100,17 +100,18 @@ package body Parts is
     Figure_Ones : Bits.Index_Arr := Ones_Index(Figure.Structure);
 
     Overlap : Bits.Index_Arr(Figure_Ones'Range);
-    Num_Overlap_Ones : Integer := 1;
+    Num_Overlap_Ones : Integer := 0;
   begin
-    --for I in Figure_Ones'Range loop
-      --if Read_Bit(Part_Figure.Structure, Figure_Ones(I)) = 1 then
-      --  Overlap(Num_Overlap_Ones) := I;
-      --  Num_Overlap_Ones := Num_Overlap_Ones + 1;
-      --end if;
-    --end loop;
+    for I in Figure_Ones'Range loop
+      null;
+    --  if Read_Bit(Part_Figure.Structure, Figure_Ones(I)) = 1 then
+    --    Num_Overlap_Ones := Num_Overlap_Ones + 1;
+    --    Overlap(Num_Overlap_Ones) := I;
+    --  end if;
+    end loop;
 
     --return Overlap(1..Num_Overlap_Ones);
-    return Overlap(1..1);
+    return Overlap;
   end Overlap_Indices;
 
   -- Moves the part 'vector' much, in each direction

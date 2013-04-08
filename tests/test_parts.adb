@@ -175,11 +175,15 @@ begin
 
   declare
     Part : Part_Type := Parts.Parse_Part(To_Unbounded_String("1x2x1 11"));
-    Figure : Figure_Type := Figures.Parse(To_Unbounded_String("2x2x1 1111"));
-    --Part_Figure : Figure_Type := Add_Dimensions( Part, Figure );
+    Figure : Figure_Type := Figures.Parse(To_Unbounded_String("1 2x2x1 1111"));
   begin
-    null;
-    --Test( To_String(Part_Figure.Structure), "1010" );
+    Part.Position := (1, 1, 1);
+
+    declare
+      Part_Figure : Figure_Type := Add_Dimensions( Part, Figure );
+    begin
+      Test( To_String(Part_Figure.Structure), "1010" );
+    end;
   end;
 
   -------------------------------------------------------
@@ -189,13 +193,18 @@ begin
   -------------------------------------------------------
 
   declare
-    --Part : Part_Type := Parts.Parse_Part(To_Unbounded_String("1x2x1 11"));
-    --Figure : Figure_Type := Figures.Parse(To_Unbounded_String("2x2x1 1111"));
-    --Overlap : Bits.Index_Arr := Overlap_Indices(Part, Figure);
+    Part : Part_Type := Parts.Parse_Part(To_Unbounded_String("1x1x1 1"));
+    Figure : Figure_Type := Figures.Parse(To_Unbounded_String("1 1x1x1 1"));
   begin
-    null;
-    --Ada.Integer_Text_IO.Put( Overlap'Length );
-    --Test( Overlap(1), 1 );
-    --Test( Overlap(2), 3 );
+    Part.Position := (1, 1, 1);
+
+    declare
+      Overlap : Bits.Index_Arr := Overlap_Indices(Part, Figure);
+    begin
+      null;
+      --Put(Overlap'Length);
+      --Test( Overlap(1), 1 );
+      --Test( Overlap(2), 3 );
+    end;
   end;
 end Test_Parts;

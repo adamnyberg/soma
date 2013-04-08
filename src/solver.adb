@@ -168,8 +168,12 @@ package body Solver is
     Is_Solvable : Boolean;
   begin
     Solve_DLX(Generate_Matrix(Parts, Figure), Solution, Is_Solvable);
-    --Put(Is_Solvable);
-    New_Line;
-    Put(Solution.Row.Data.Row);
+    --Put_Matrix(Generate_Matrix(Parts, Figure));
+    if Is_Solvable then
+      Put("True");
+    else
+      Put("False");
+    end if;
+    --Put(Solution.Row.Data.Row);
   end;
 end Solver;
