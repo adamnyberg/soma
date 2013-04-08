@@ -7,6 +7,7 @@ with DLX; use DLX;
 with Parts; use Parts;
 with Figures; use Figures;
 with Bits; use Bits;
+with Matrix; use Matrix;
 
 package body Solver is
   procedure Put_Row(Element : Linked_Matrix_Pointer) is
@@ -163,11 +164,12 @@ package body Solver is
   end Generate_Matrix;
 
   procedure Solve(Parts : Parts_Type; Figure : Figure_Type) is
-    --Solution : Linked_Resulting_List;
-    --Is_Solvable : Boolean;
+    Solution : Linked_Resulting_List_Pointer;
+    Is_Solvable : Boolean;
   begin
-    --Solve_DLX(Generate_Matrix(Parts, Figure), Solution, Is_Solvable);
+    Solve_DLX(Generate_Matrix(Parts, Figure), Solution, Is_Solvable);
     --Put(Is_Solvable);
-    null;
+    New_Line;
+    Put(Solution.Row.Data.Row);
   end;
 end Solver;
