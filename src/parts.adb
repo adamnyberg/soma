@@ -51,7 +51,13 @@ package body Parts is
   function Part_Fit_In_Figure(Part : Part_Type; Figure : Figure_Type) return Boolean is
     Part_Figure : Figure_Type := Add_Dimensions(Part, Figure);
   begin
-    return (Part_Figure.Structure or Figure.Structure) = Figure.Structure;
+    if (Part.Position.X + Part.Dimension.X) <= Figure.Dimension.X or else
+       (Part.Position.Y + Part.Dimension.Y) <= Figure.Dimension.Y or else
+       (Part.Position.Z + Part.Dimension.Z) <= Figure.Dimension.Z then
+      return False;
+    else
+      return (Part_Figure.Structure or Figure.Structure) = Figure.Structure;
+    end if;
   end Part_Fit_In_Figure;
 
   function Add_Dimensions(Part : in Part_Type; Figure : in Figure_Type) return Figure_Type is
