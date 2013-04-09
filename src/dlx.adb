@@ -4,6 +4,7 @@ package body DLX is
   procedure Delete_DLX(Node : in Linked_Matrix_Pointer) is
     Temp : Linked_Matrix_Pointer := Node.Up;
   begin
+    Put("J");
     Delete_Node(Node);
     if Temp.Data.Column /= 0 then
       loop
@@ -123,21 +124,21 @@ package body DLX is
   end Choose_Next_Row;
 
   --function Choose_Next_One(Previous : in Linked_Matrix)
---	return Linked_Matrix is
---    Node : Linked_Matrix;
---  begin
---    if Previous.Down.Data.Row = 0 then
---      Node := Previous.Down.Right.Down;
---    else
---      Node := Previous.Down;
---    end if;
---
---    if Node.Left.Data.Cols = 0 then--ROW_HEADER then
---      return Previous.Down.Right.Down;
---    else
---      return Choose_Next_One(Node);
---    end if;
---  end Choose_Next_One;
+  --	return Linked_Matrix is
+  --    Node : Linked_Matrix;
+  --  begin
+  --    if Previous.Down.Data.Row = 0 then
+  --      Node := Previous.Down.Right.Down;
+  --    else
+  --      Node := Previous.Down;
+  --    end if;
+  --
+  --    if Node.Left.Data.Cols = 0 then--ROW_HEADER then
+  --      return Previous.Down.Right.Down;
+  --    else
+  --      return Choose_Next_One(Node);
+  --    end if;
+  --  end Choose_Next_One;
 
   procedure Free is
     new Ada.Unchecked_Deallocation(Linked_Resulting_List, Linked_Resulting_List_Pointer);
@@ -148,14 +149,14 @@ package body DLX is
     Second_Last := Linked_List;
     if Second_Last.Next /= Null then
       while Second_Last.Next.Next /= Null loop
-	Second_Last:= Second_Last.Next;
+        Second_Last:= Second_Last.Next;
       end loop;
       Garbage := Second_Last.Next;
-      Second_Last := Null;
+      Second_Last.Next := Null;
       Free(Garbage);
     else
       Garbage := Linked_List.Next;
-      Linked_List := Null;
+      Linked_List.Next := Null;
       Free(Garbage);
     end if;
   end Remove_Last;
@@ -179,37 +180,47 @@ package body DLX is
   begin
     Put(Selected);
     loop
-      New_Line;
-      Put("------------");
-      New_Line;
-      Put(Header);
-      New_Line;
-      Put("------------");
-      New_Line;
+      Put("F");
+      --New_Line;
+      --Put("------------");
+      --New_Line;
+      --Put(Header);
+      --New_Line;
+      --Put("------------");
+      --New_Line;
       if Is_Empty(Header) then
-	--Solution Found! Return Resulting_Matrices
-	Solved := True;
---      elsif Selected_Row = Header.Up then
---	exit;
+        Put("D");
+        --Solution Found! Return Resulting_Matrices
+        Solved := True;
+        --      elsif Selected_Row = Header.Up then
+        --	exit;
       elsif Has_A_Column_Without_Ones(Header) 
-	or else Selected_Row = Header.Up then
-	--GO BACK!/Give up (When there is atleast one row with no ones or
-	--when all rows have been selected once.
-	if Selected /= Null then
-	  Reset_DLX(Last(Selected).Row);
-	  Remove_Last(Selected);
-	end if;
-	exit;
+        or else Selected_Row = Header.Up then
+        --GO BACK!/Give up (When there is atleast one row with no ones or
+        --when all rows have been selected once.
+        if Selected /= Null then
+          Put("A");
+          Reset_DLX(Last(Selected).Row);
+          Remove_Last(Selected);
+          Put("B");
+          Put(selected);
+        end if;
+        exit;
       else
-	Selected_Row := Choose_Next_Row(Selected_Row);
-	Selected_Node := Selected_Row;
-	if Selected = Null then
-	  Selected := new Linked_Resulting_List'(Get_Row_Header_Info(Selected_Node));
-	else
-	  Last(Selected).Next := new Linked_Resulting_List'(Get_Row_Header_Info(Selected_Node));
-	end if;
-	Delete_DLX(Selected_Node);
-	Solve_DLX(Header, Selected, Solved);
+        Put("C");
+        Selected_Row := Choose_Next_Row(Selected_Row);
+        Selected_Node := Selected_Row;
+        Put("E");
+        if Selected = Null then
+          Selected := new Linked_Resulting_List'(Get_Row_Header_Info(Selected_Node));
+        else
+          Last(Selected).Next := new Linked_Resulting_List'(Get_Row_Header_Info(Selected_Node));
+        end if;
+        Put("G");
+        Put(Selected_Row.Data.Row);
+        Delete_DLX(Selected_Node);
+        Put("H");
+        Solve_DLX(Header, Selected, Solved);
       end if;
       exit when Solved;
     end loop;

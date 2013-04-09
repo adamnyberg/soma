@@ -146,21 +146,20 @@ package body Solver is
                     Tmp_Part : Part_Type := Parts(Part).all;
                     New_Part_Pointer : Part_Type_Pointer := new Part_Type'(Tmp_Part);
                   begin
-                    null;
---                    Row_Header := Generate_Row(New_Part_Pointer, Figure, Row, Column_Headers, Figure_Ones'Length + Part);
+                    Row_Header := Generate_Row(New_Part_Pointer, Figure, Row, Column_Headers, Figure_Ones'Length + Part);
                   end;
---
---                  -- Connect row header to rest of matrix
---                  -- Note: The order in which this is done matters
---                  Row_Header.Down := Header;
---                  Row_Header.Up := Header.Up;
---                  Header.Up.Down := Row_Header;
---                  Header.Up := Row_Header;
---
---                  Row := Row + 1;
-                end if;
---
---                Parts(Part).all := Original_Part;
+
+                  -- Connect row header to rest of matrix
+                  -- Note: The order in which this is done matters
+                  Row_Header.Down := Header;
+                  Row_Header.Up := Header.Up;
+                  Header.Up.Down := Row_Header;
+                  Header.Up := Row_Header;
+
+                  Row := Row + 1;
+              end if;
+
+                Parts(Part).all := Original_Part;
               end;
             end loop;
           end loop;
@@ -176,7 +175,7 @@ package body Solver is
     Is_Solvable : Boolean;
     Header : Linked_Matrix_Pointer := Generate_Matrix(Parts, Figure);
   begin
-    --Solve_DLX(Generate_Matrix(Parts, Figure), Solution, Is_Solvable);
+    Solve_DLX(Generate_Matrix(Parts, Figure), Solution, Is_Solvable);
     --Put_Matrix(Generate_Matrix(Parts, Figure));
 
     if Is_Solvable then

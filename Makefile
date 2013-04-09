@@ -21,8 +21,9 @@ test: sync
 		"cd soma;bash -l -c 'export PATH=/bin:/sw/gcc-3.4.6/bin:/usr/ccs/bin;make ltest'"
 
 ptest:
-	gnatmake -Isrc/\
+	gnatmake -f -pg -Isrc/\
 		tests/test_$(pack).adb;
+	#gprof ./test_$(pack);
 	echo "\n"; ./test_$(pack); rm test_*;
 	echo "Test succeeded!";
 
