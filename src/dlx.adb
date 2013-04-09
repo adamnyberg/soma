@@ -4,15 +4,20 @@ package body DLX is
   procedure Delete_DLX(Node : in Linked_Matrix_Pointer) is
     Temp : Linked_Matrix_Pointer := Node.Up;
   begin
-    Put("J");
     Delete_Node(Node);
     if Temp.Data.Column /= 0 then
       loop
+--	New_Line;
 	if Temp.Data.Row /= 0 then
 	  Delete_Row(Temp);
 	else
+--	  Put("Header");
 	  Delete_Node(Temp);
 	end if;
+--	Put(Temp.Data.Column);
+--	Put(Temp.Data.Row);
+--	Put(Temp.Up.Data.Column);
+--	Put(Temp.Up.Data.Row);
 	exit when Temp.Up = Temp;
 	Temp := Temp.Up;
       end loop;
@@ -37,7 +42,7 @@ package body DLX is
 	Temp := Temp.Up;
       end loop;
     end if;
-    if not (Node.Right.Down.Up = Node.Right) then
+    if not (Node.Right.Up.Down = Node.Right) then
       Reset_DLX(Node.Right);
     end if;
   end Reset_DLX;
@@ -88,7 +93,7 @@ package body DLX is
     return False;
   end Has_A_Column_Without_Ones;
 
-  function Last(Resulting_List : in Linked_Resulting_List_Pointer) 
+  function Last(Resulting_List : in Linked_Resulting_List_Pointer)
 		  return Linked_Resulting_List_Pointer is
     Curr, Temp : Linked_Resulting_List_Pointer := Resulting_List;
   begin
@@ -155,8 +160,8 @@ package body DLX is
       Second_Last.Next := Null;
       Free(Garbage);
     else
-      Garbage := Linked_List.Next;
-      Linked_List.Next := Null;
+      Garbage := Linked_List;
+      Linked_List := Null;
       Free(Garbage);
     end if;
   end Remove_Last;
@@ -180,46 +185,35 @@ package body DLX is
   begin
     Put(Selected);
     loop
-      Put("F");
-      --New_Line;
-      --Put("------------");
-      --New_Line;
-      --Put(Header);
-      --New_Line;
-      --Put("------------");
-      --New_Line;
+      New_Line;
+      Put("------------");
+      New_Line;
+      Put(Header);
+      New_Line;
+      Put("------------");
+      New_Line;
       if Is_Empty(Header) then
-        Put("D");
         --Solution Found! Return Resulting_Matrices
         Solved := True;
-        --      elsif Selected_Row = Header.Up then
-        --	exit;
       elsif Has_A_Column_Without_Ones(Header) 
         or else Selected_Row = Header.Up then
         --GO BACK!/Give up (When there is atleast one row with no ones or
         --when all rows have been selected once.
         if Selected /= Null then
-          Put("A");
           Reset_DLX(Last(Selected).Row);
           Remove_Last(Selected);
-          Put("B");
-          Put(selected);
         end if;
         exit;
       else
-        Put("C");
         Selected_Row := Choose_Next_Row(Selected_Row);
         Selected_Node := Selected_Row;
-        Put("E");
         if Selected = Null then
           Selected := new Linked_Resulting_List'(Get_Row_Header_Info(Selected_Node));
         else
           Last(Selected).Next := new Linked_Resulting_List'(Get_Row_Header_Info(Selected_Node));
         end if;
-        Put("G");
-        Put(Selected_Row.Data.Row);
+
         Delete_DLX(Selected_Node);
-        Put("H");
         Solve_DLX(Header, Selected, Solved);
       end if;
       exit when Solved;

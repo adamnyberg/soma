@@ -146,20 +146,27 @@ begin
     Reset_Column(APA);
     Put(T_L_M);
 
-  if False then
-    APA := T_L_M.Right.Right.Down;
+    APA := T_L_M.Down.Down.Right;
     Delete_DLX(APA);
     New_Line(3);
     Put("Delete DLX");
     New_Line;
     Put(T_L_M);
+
+    New_Line;
+    Put("------------");
+    Put(APA.Down.Right.Up.Data.Column);
+    Put(APA.Down.Right.Up.Data.Row);
+    New_Line;
+
     Reset_DLX(APA);
     New_Line(3);
     Put("Reset DLX");
     New_Line;
     Put(T_L_M);
 
-  end if;
+
+if False then
     Solve_DLX(T_L_M, Solution, Solved);
     New_Line;
     Put("++++++++++++++++++++++++");
@@ -175,4 +182,5 @@ begin
       else
       Put("No solution!");
     end if;
+end if;
 end Test_DLX;

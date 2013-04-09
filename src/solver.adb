@@ -182,6 +182,8 @@ package body Solver is
       Put("A solution has been found!");
       New_Line(3);
       while Solution /= Null loop
+	Put("-----------------------");
+        New_Line;
         Put(Solution.Row.Data.Row, 1);
         New_Line;
 
@@ -193,7 +195,6 @@ package body Solver is
         Put(Solution.Part.Rotation.Y);
         Put(Solution.Part.Rotation.Z);
         New_Line;
-        Put(Solution.Part.Structure, Solution.Part.Dimension);
         Put(Solution.Part.Structure, Solution.Part.Dimension);
         New_Line(1);
 
