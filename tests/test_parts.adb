@@ -177,20 +177,44 @@ begin
     Part : Part_Type := Parts.Parse_Part(To_Unbounded_String("1x2x1 11"));
     Figure : Figure_Type := Figures.Parse(To_Unbounded_String("1 2x2x1 1111"));
 
-    Test_Figure : Figure_Type := Figures.Parse(To_Unbounded_String("1 5x2x5 10001111110000011111000001111100000111111000111111"));
-    Test_Part : Part_Type := Parts.Parse_Part(To_Unbounded_String("2x2x1 1110"));
   begin
     Part.Position := (1, 1, 1);
-    Test_Part.Position := (2, 1, 1);
 
     declare
       Part_Figure : Figure_Type := Add_Dimensions( Part, Figure );
-      Test_Part_Figure : Figure_Type := Add_Dimensions( Test_Part, Test_Figure );
     begin
-      --Test( To_String(Part_Figure.Structure), "1010" );
-      Test( To_String(Test_Part_Figure.Structure), "01100010000000000000000000000000000000000000000000" );
+      Test( To_String(Part_Figure.Structure), "1010" );
     end;
   end;
+
+  -- GIVES TEST ERROR
+  declare
+    Figure : Figure_Type := Figures.Parse(To_Unbounded_String("1 5x2x5 10001111110000011111000001111100000111111000111111"));
+    Part : Part_Type := Parts.Parse_Part(To_Unbounded_String("2x2x1 1110"));
+  begin
+    Part.Position := (2, 1, 1);
+
+    declare
+      Part_Figure : Figure_Type := Add_Dimensions( Part, Figure );
+    begin
+      Test( To_String(Part_Figure.Structure), "01100010000000000000000000000000000000000000000000" );
+    end;
+  end;
+
+  -- GIVES CONSTRAINT ERROR
+  declare
+    Figure : Figure_Type := Figures.Parse(To_Unbounded_String("1 5x2x5 10001111110000011111000001111100000111111000111111"));
+    Part : Part_Type := Parts.Parse_Part(To_Unbounded_String("2x1x2 1011"));
+  begin
+    Part.Position := (2, 1, 1);
+
+    declare
+      Part_Figure : Figure_Type := Add_Dimensions( Part, Figure );
+    begin
+      null;
+    end;
+  end;
+
 
   -------------------------------------------------------
   --
