@@ -104,13 +104,14 @@ package body Parts is
     Num_Overlap_Ones : Integer := 0;
   begin
     for I in Figure_Ones'Range loop
-      --Put(Part.Position.X);
-      --Put(Part.Position.Y);
-      --Put(Part.Position.Z);
-      --New_Line;
-      --Put(Part.Structure, Part.Dimension);
-      --Put(Part_Figure.Structure, Part_Figure.Dimension);
-      --New_Line(5);
+      Put(Part.Position.X);
+      Put(Part.Position.Y);
+      Put(Part.Position.Z);
+      New_Line;
+      Put(Part.Structure, Part.Dimension);
+      Put(Figure.Structure, Figure.Dimension);
+      Put(Part_Figure.Structure, Part_Figure.Dimension);
+      New_Line(5);
       if Read_Bit(Part_Figure.Structure, Figure_Ones(I)) = 1 then
         Num_Overlap_Ones := Num_Overlap_Ones + 1;
         Overlap(Num_Overlap_Ones) := I;
