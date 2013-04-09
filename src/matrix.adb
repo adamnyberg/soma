@@ -22,6 +22,11 @@ package body Matrix is
 	end loop;
 	exit when Curr.Data.Column = 0;
 	Put(1,4);
+	Put("(");
+	Put(Curr.Data.Column,1);
+	Put(", ");
+	Put(Curr.Data.Row,1);
+	Put(")");
 	Prev := Curr;
 	Curr := Curr.Right;
 	if Curr.Data.Column = 0 then
