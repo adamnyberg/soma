@@ -98,7 +98,16 @@ begin
     Test(To_String(Bits_Set_Bit),"111000111110");
     Set_Bit(Bits_Set_Bit,(3,2,2),(2,2,2),0);
     Test(To_String(Bits_Set_Bit),"111000101110");
-
+    declare
+      Test_Bits_US : Unbounded_String := To_Unbounded_String("00111011101101001111110011101100111111100110111010011010011101010001110101010110010101");
+      Test_Bits_Set : Bits_Type := Bits.Parse(Test_Bits_US);
+    begin
+      Set_Bit(Test_Bits_Set, 1, 1);
+      Test(To_String(Test_Bits_Set),"10111011101101001111110011101100111111100110111010011010011101010001110101010110010101");
+      Set_Bit(Test_Bits_Set,35, 0);
+      Test(To_String(Test_Bits_Set),"10111011101101001111110011101100110111100110111010011010011101010001110101010110010101");
+      Test(Read_Bit(Test_Bits_Set, 35), 0);
+    end;
     --Tests Read_Bit with vector_type as index
     Test(Read_Bit(Bits_Set_Bit2,(3,2,2),(3,2,2)),0);
     Test(Read_Bit(Bits_Set_Bit2,(3,2,2),(2,2,2)),1);
