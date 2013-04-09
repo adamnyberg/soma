@@ -70,6 +70,14 @@ package body Parts is
     Pos : Vector_Type;
 
   begin
+    New_Line(5);
+    Put(Part.Position.X);
+    Put(Part.Position.Y);
+    Put(Part.Position.Z);
+    New_Line;
+    Put(Part.Structure, Part.Dimension);
+    Put(Figure.Structure, Figure.Dimension);
+
     for I in 1..Figure.Structure.Length loop
       if Row > Part.Dimension.Y + Part.Position.Y - 1 or Row < Part.Position.Y then
         Set_Bit(Part_Filled_With_Zeros.Structure, I, 0);
@@ -97,6 +105,7 @@ package body Parts is
       end if;
 
     end loop;
+    Put(Part_Filled_With_Zeros.Structure, Part_Filled_With_Zeros.Dimension);
     return Part_Filled_With_Zeros;
 
   end Add_Dimensions;
@@ -110,7 +119,7 @@ package body Parts is
     Num_Overlap_Ones : Integer := 0;
   begin
     for I in Figure_Ones'Range loop
-      if True then
+      if False then
         Put(Part.Position.X);
         Put(Part.Position.Y);
         Put(Part.Position.Z);

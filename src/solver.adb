@@ -130,8 +130,8 @@ package body Solver is
     Generate_Column_Headers(Column_Headers, Header);
 
     -- Generate matrix
-    for One_Index in Figure_Ones'Range loop
-      for Part in Parts'Range loop
+    for Part in Parts'Range loop
+      for One_Index in Figure_Ones'Range loop
         for Rot_X in 0..3 loop
           for Rot_Y in 0..3 loop
             for Rot_Z in 0..3 loop
@@ -140,25 +140,27 @@ package body Solver is
               begin
                 Rotate(Parts(Part).all, (Rot_X, Rot_Y, Rot_Z));
                 Move(Parts(Part).all, Index_To_Vector(Figure.Dimension, Figure_Ones(One_Index)));
-                --Put(Index_To_Vector(Figure.Dimension, Figure_Ones(One_Index)).X);
-                --Put(Index_To_Vector(Figure.Dimension, Figure_Ones(One_Index)).Y);
-                --Put(Index_To_Vector(Figure.Dimension, Figure_Ones(One_Index)).Z);
-                --New_Line;
 
                 if Part_Fit_In_Figure(Parts(Part).all, Figure) then
-                  Row_Header := Generate_Row(Parts(Part), Figure, Row, Column_Headers, Figure_Ones'Length + Part);
-
-                  -- Connect row header to rest of matrix
-                  -- Note: The order in which this is done matters
-                  Row_Header.Down := Header;
-                  Row_Header.Up := Header.Up;
-                  Header.Up.Down := Row_Header;
-                  Header.Up := Row_Header;
-
-                  Row := Row + 1;
+                  declare
+                    Tmp_Part : Part_Type := Parts(Part).all;
+                    New_Part_Pointer : Part_Type_Pointer := new Part_Type'(Tmp_Part);
+                  begin
+                    null;
+--                    Row_Header := Generate_Row(New_Part_Pointer, Figure, Row, Column_Headers, Figure_Ones'Length + Part);
+                  end;
+--
+--                  -- Connect row header to rest of matrix
+--                  -- Note: The order in which this is done matters
+--                  Row_Header.Down := Header;
+--                  Row_Header.Up := Header.Up;
+--                  Header.Up.Down := Row_Header;
+--                  Header.Up := Row_Header;
+--
+--                  Row := Row + 1;
                 end if;
-
-                Parts(Part).all := Original_Part;
+--
+--                Parts(Part).all := Original_Part;
               end;
             end loop;
           end loop;
@@ -176,11 +178,30 @@ package body Solver is
   begin
     --Solve_DLX(Generate_Matrix(Parts, Figure), Solution, Is_Solvable);
     --Put_Matrix(Generate_Matrix(Parts, Figure));
+
     if Is_Solvable then
-      Put("True");
+      Put("A solution has been found!");
+      New_Line(3);
+      while Solution /= Null loop
+        Put(Solution.Row.Data.Row, 1);
+        New_Line;
+
+        Put(Solution.Part.Position.X);
+        Put(Solution.Part.Position.Y);
+        Put(Solution.Part.Position.Z);
+        New_Line;
+        Put(Solution.Part.Rotation.X);
+        Put(Solution.Part.Rotation.Y);
+        Put(Solution.Part.Rotation.Z);
+        New_Line;
+        Put(Solution.Part.Structure, Solution.Part.Dimension);
+        Put(Solution.Part.Structure, Solution.Part.Dimension);
+        New_Line(1);
+
+        Solution := Solution.Next;
+      end loop;
     else
-      Put("False");
+      Put("No solution!");
     end if;
-    --Put(Solution.Row.Data.Row);
   end;
 end Solver;
