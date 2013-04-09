@@ -175,7 +175,7 @@ package body Solver is
     Header : Linked_Matrix_Pointer := Generate_Matrix(Parts, Figure);
   begin
     --Solve_DLX(Generate_Matrix(Parts, Figure), Solution, Is_Solvable);
-    Put_Matrix(Generate_Matrix(Parts, Figure));
+    --Put_Matrix(Generate_Matrix(Parts, Figure));
     if Is_Solvable then
       Put("True");
     else
