@@ -110,6 +110,7 @@ begin
 
     -- TEST VECTOR TO INDEX
     Test( Vector_To_Index((1, 2, 3), Index_To_Vector((1, 2, 3), 2)), 2 );
+    Test( Index_To_Vector((1,2,3), 2), (1,1,1));
 
   end;
 end Test_Bits;
