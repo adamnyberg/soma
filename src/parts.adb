@@ -54,9 +54,9 @@ package body Parts is
     if (Part.Position.X + Part.Dimension.X) <= Figure.Dimension.X or else
        (Part.Position.Y + Part.Dimension.Y) <= Figure.Dimension.Y or else
        (Part.Position.Z + Part.Dimension.Z) <= Figure.Dimension.Z then
-      return False;
-    else
       return (Part_Figure.Structure or Figure.Structure) = Figure.Structure;
+    else
+      return False;
     end if;
   end Part_Fit_In_Figure;
 
