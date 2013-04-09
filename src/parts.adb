@@ -91,11 +91,9 @@ package body Parts is
         Set_Bit( Part_Filled_With_Zeros.Structure, I, Part_Index_Value);
       end if;
 
+      Column := Column + 1;
       if I rem Figure.Dimension.X = 0 then
         Row := Row - 1;
-      end if;
-      Column := Column + 1;
-      if I rem Figure.Dimension.Y = 0 then
         Column := 1;
       end if;
 
