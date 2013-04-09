@@ -203,11 +203,27 @@ begin
       Part_Figure : Figure_Type := Add_Dimensions(Part, Figure);
       Overlap : Bits.Index_Arr := Overlap_Indices(Part, Figure);
     begin
-      for I in Overlap'Range loop
-        Put(Overlap(I));
-      end loop;
-      --Test( Overlap(1), 1 );
-      --Test( Overlap(2), 3 );
+--      for I in Overlap'Range loop
+--        Put(Overlap(I));
+--      end loop;
+      Test( Overlap(1), 1 );
+      Test( Overlap(2), 3 );
     end;
+  end;
+
+
+  -------------------------------------------------------
+  --
+  -- Test Part_Fit_In_Figure
+  --
+  -------------------------------------------------------
+
+  declare
+    Part : Part_Type := Parts.Parse_Part(To_Unbounded_String("1x2x1 11"));
+    Figure : Figure_Type := Figures.Parse(To_Unbounded_String("1 2x2x1 1111"));
+  begin
+    Test(Part_Fit_In_Figure(Part, Figure), True);
+    Part.Position.Y := 2;
+    Test(Part_Fit_In_Figure(Part, Figure), False);
   end;
 end Test_Parts;
