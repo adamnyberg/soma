@@ -307,15 +307,15 @@ package body DLX is
     Selected_Row : Linked_Matrix_Pointer := Header;
     Selected_Node : Linked_Matrix_Pointer;
   begin
-    Put(Selected);
+    --Put(Selected);
     loop
-      New_Line;
-      Put("------------");
-      New_Line;
-      Put(Header);
-      New_Line;
-      Put("------------");
-      New_Line;
+      --New_Line;
+      --Put("------------");
+      --New_Line;
+      --Put(Header);
+      --New_Line;
+      --Put("------------");
+      --New_Line;
       if Is_Empty(Header) then
 	--Solution Found! Return Resulting_Matrices
 	Solved := True;

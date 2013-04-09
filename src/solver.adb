@@ -139,7 +139,11 @@ package body Solver is
                 Original_Part : Part_Type := Parts(Part).all;
               begin
                 Rotate(Parts(Part).all, (Rot_X, Rot_Y, Rot_Z));
-                Traverse(Parts(Part).all, Index_To_Vector(Figure.Dimension, Figure_Ones(One_Index)));
+                Move(Parts(Part).all, Index_To_Vector(Figure.Dimension, Figure_Ones(One_Index)));
+                --Put(Index_To_Vector(Figure.Dimension, Figure_Ones(One_Index)).X);
+                --Put(Index_To_Vector(Figure.Dimension, Figure_Ones(One_Index)).Y);
+                --Put(Index_To_Vector(Figure.Dimension, Figure_Ones(One_Index)).Z);
+                --New_Line;
 
                 if Part_Fit_In_Figure(Parts(Part).all, Figure) then
                   Row_Header := Generate_Row(Parts(Part), Figure, Row, Column_Headers, Figure_Ones'Length + Part);
@@ -171,7 +175,7 @@ package body Solver is
     Header : Linked_Matrix_Pointer := Generate_Matrix(Parts, Figure);
   begin
     --Solve_DLX(Generate_Matrix(Parts, Figure), Solution, Is_Solvable);
-    --Put_Matrix(Generate_Matrix(Parts, Figure));
+    Put_Matrix(Generate_Matrix(Parts, Figure));
     if Is_Solvable then
       Put("True");
     else
