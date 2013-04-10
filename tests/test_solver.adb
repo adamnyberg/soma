@@ -6,12 +6,13 @@ with Parts; use Parts;
 with Figures; use Figures;
 with Tests; use Tests;
 with Solver; use Solver;
+with DLX; use DLX; --Onödig förutom vid räkning
 
 procedure Test_Solver is
 --  Test_Figure : Figure_Type := Figures.Parse(To_Unbounded_String("1 2x2x2 11111111"));
 --  Test_Parts : Parts_Type := Parts.Parse(To_Unbounded_String("3 1x2x2 1101 1x2x2 1101 2x1x1 11"));
 
-  --Funkar ej - Put fastnar på (21,1379):
+  --Funkar ej - Put fastnar på (21,1379) när row 1338 resetas:
 --  Test_Figure : Figure_Type := Figures.Parse(To_Unbounded_String("1 5x2x5 10001111110000011111000001111100000111111000111111"));
 --  Test_Parts : Parts_Type := Parts.Parse(To_Unbounded_String("8 2x2x1 1110 3x2x1 111100 3x2x1 111010 3x2x1 110011 2x2x2 11101000 2x2x2 11001010 2x2x2 11000101 2x1x1 11"));
 

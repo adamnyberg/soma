@@ -4,6 +4,7 @@ with Matrix; use Matrix;
 with Parts; use	Parts;
 
 package DLX is
+  RESET_DLX_ERROR : exception;
   type Linked_Resulting_List;
   type Linked_Resulting_List_Pointer is access Linked_Resulting_List;
   type Linked_Resulting_List is
@@ -22,7 +23,7 @@ package DLX is
 --  procedure Delete_Column(Node : in Linked_Matrix);
 --  procedure Reset_Column(Node : in Linked_Matrix);
   procedure Delete_DLX(Node : in Linked_Matrix_Pointer);
-  procedure Reset_DLX(Node : in Linked_Matrix_Pointer);
+  procedure Reset_DLX(Node : in Linked_Matrix_Pointer; Start : in Linked_Matrix_Pointer := Null);
   --function Count_Ones(Col_Header : in Linked_Matrix) return Integer;
   --function Fewest_Ones_2(Col_Header1, Col_Header2 : in Linked_Matrix) return Linked_Matrix;
   --function Fewest_Ones_All(Header : in Linked_Matrix) return Linked_Matrix;
@@ -34,6 +35,7 @@ package DLX is
   --function Choose_Next_One(Header : in Linked_Matrix; Previous : in Linked_Matrix)
 --	return Linked_Matrix;
   procedure Put(Linked_List: in Linked_Resulting_List_Pointer);
+  function Count_Col(Header : in Linked_Matrix_Pointer) return Integer;
   procedure Solve_DLX(Header : in Linked_Matrix_Pointer;
     Selected : in out Linked_Resulting_List_Pointer; Solved : out Boolean);
 end DLX;

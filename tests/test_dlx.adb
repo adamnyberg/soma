@@ -3,6 +3,7 @@ with Matrix; use Matrix;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with Ada.Text_IO; use Ada.Text_IO;
 procedure Test_DLX is
+
 T_L_M, Temp ,Temp2 : Linked_Matrix_Pointer;
 APA : Linked_Matrix_Pointer;
 Solution : Linked_Resulting_List_Pointer;
@@ -99,19 +100,37 @@ begin
 --  Put(T_L_M.Right.Up.Data.Row);
   New_Line;
   --Add 1 to (3,2)
---  Temp := new Linked_Matrix;
---  T_L_M.Left.Down.Down := Temp;
---  Temp.Data.Column := 3;
---  Temp.Data.Row := 2;
---  Temp.Up := T_L_M.Left.Down;
---  Temp.Up.Down := Temp;
---  Temp.Down := T_L_M.Left;
---  Temp.Down.Up := Temp;
---  Temp.Right := T_L_M.Down.Down;
---  Temp.Right.Left := Temp;
---  Temp.Left := Temp.Right.Right;
---  Temp.Left.Right := Temp;
+  Temp := new Linked_Matrix;
+  T_L_M.Left.Down.Down := Temp;
+  Temp.Data.Column := 3;
+  Temp.Data.Row := 2;
+  Temp.Up := T_L_M.Left.Down;
+  Temp.Up.Down := Temp;
+  Temp.Down := T_L_M.Left;
+  Temp.Down.Up := Temp;
+  Temp.Right := T_L_M.Down.Down;
+  Temp.Right.Left := Temp;
+  Temp.Left := Temp.Right.Right;
+  Temp.Left.Right := Temp;
 
+  --Add 1 to (3,3)
+  Temp := new Linked_Matrix;
+  T_L_M.Right.Right.Right.Down.Down.Down:= Temp;
+  Temp.Data.Column := 3;
+  Temp.Data.Row := 3;
+  Temp.Up := T_L_M.Left.Down.Down;
+  Temp.Up.Down := Temp;
+  Temp.Down := T_L_M.Left;
+  Temp.Down.Up := Temp;
+  Temp.Right := T_L_M.Up;
+  Temp.Right.Left := Temp;
+  Temp.Left := T_L_M.Right.Right.Up;
+  Temp.Left.Right := Temp;
+  Test_Node(Temp);
+  Test_Node(Temp.Left);
+   
+  Test_Matrix(T_L_M);
+ if False then 
   Put("     (");
   Put(T_L_M.Right.Right.Up.Data.Column, 1);
   Put(", ");
@@ -133,6 +152,8 @@ begin
     New_Line;
     Put(T_L_M);
 
+--    Test_Matrix(T_L_M);
+
     APA := T_L_M.Right.Right.Right;
     T_L_M.Right.Right.Up := T_L_M.Up.Left;
     Delete_Column(APA);
@@ -146,12 +167,23 @@ begin
     Reset_Column(APA);
     Put(T_L_M);
 
-    APA := T_L_M.Down.Down.Right;
+--    Test_Matrix(T_L_M);
+    end if;
+    APA := T_L_M.Down.Right.Right;
+  New_Line;
+  Put("     (");
+  Put(APA.Data.Column, 1);
+  Put(", ");
+  Put(APA.Data.Row, 1);
+  Put(")");
+
+    Put("Delete DLX");
     Delete_DLX(APA);
     New_Line(3);
-    Put("Delete DLX");
     New_Line;
     Put(T_L_M);
+
+    Test_Matrix(T_L_M);
 
     New_Line;
     Put("------------");
@@ -165,6 +197,38 @@ begin
     New_Line;
     Put(T_L_M);
 
+
+    Test_Matrix(T_L_M);
+    APA := T_L_M.Down.Down.Down.Right.Right.Right;
+  
+  New_Line;
+  Put("     (");
+  Put(APA.Data.Column, 1);
+  Put(", ");
+  Put(APA.Data.Row, 1);
+  Put(")");
+    Put("Delete DLX");
+
+    Delete_DLX(APA);
+    New_Line(3);
+    New_Line;
+    Put(T_L_M);
+    New_Line;
+
+    Test_Matrix(T_L_M);
+
+    New_Line;
+    Put("------------");
+    Put(APA.Down.Right.Up.Data.Column);
+    Put(APA.Down.Right.Up.Data.Row);
+    New_Line;
+
+    Reset_DLX(APA);
+    New_Line(3);
+    Put("Reset DLX");
+    New_Line;
+    Put(T_L_M);
+    Test_Matrix(T_L_M);
 
 if False then
     Solve_DLX(T_L_M, Solution, Solved);
