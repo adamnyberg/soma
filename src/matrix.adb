@@ -207,9 +207,9 @@ package body Matrix is
     loop
       loop
 	if Is_Equal(Curr, Temp) then
-	  Put(Curr.Data.Row);
-	  Put("  ");
-	  Put(Temp.Data.Row,1);
+	  --Put(Curr.Data.Row);
+	  --Put("  ");
+	  --Put(Temp.Data.Row,1);
 	  Delete_Row(Temp);
 	end if;
 	Temp := Temp.Down;
@@ -247,7 +247,7 @@ package body Matrix is
     Node.Right.Left:= Node;
     Node.Up.Down:= Node;
     Node.Down.Up:= Node;
-    Test_Node(Node);
+    --Test_Node(Node);
   end Reset_Node;
 
   procedure Delete_Row(Node : in Linked_Matrix_Pointer) is
