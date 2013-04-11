@@ -13,6 +13,14 @@ package DLX is
       Part : Part_Type_Pointer;
       Next : Linked_Resulting_List_Pointer;
     end record;
+  type Linked_Deleted_Rows;
+  type Linked_Deleted_Rows_Pointer is access Linked_Deleted_Rows;
+  type Linked_Deleted_Rows is
+    record
+      Previous : Linked_Deleted_Rows_Pointer;
+      Row : Linked_Matrix_Pointer;
+      Next : Linked_Deleted_Rows_Pointer;
+    end record;
 --  function Is_Empty(Header : in Linked_Matrix_Pointer) return Boolean;
 --  procedure Put_Row(Row : in Linked_Matrix_Pointer; Amount : in Integer);
 --  procedure Put(Header : in Linked_Matrix_Pointer);

@@ -226,111 +226,76 @@ package body DLX is
     return Columns;
   end Count_Col;
 
+  function Last(Linked_List : Linked_Deleted_Rows_Pointer) return Linked_Deleted_Rows_Pointer is
+    Temp : Linked_Deleted_Rows_Pointer := Linked_List;
+  begin
+      if Temp /= Null then
+	loop
+	  exit when Temp.Next = Null;
+	  Temp := Temp.Next;
+	end loop;
+      end if;
+      return Temp;
+  end Last;
+
+  procedure Free is
+    new Ada.Unchecked_Deallocation(Linked_Deleted_Rows, Linked_Deleted_Rows_Pointer);
+
+  procedure Reset_All(Linked_List : in Linked_Deleted_Rows_Pointer) is
+    Last_Element : Linked_Deleted_Rows_Pointer := Last(Linked_List);
+    Second_Last : Linked_Deleted_Rows_Pointer;
+  begin
+    if Last_Element /= Null then
+      while Last_Element.Previous /= Null loop
+	Second_Last := Last_Element.Previous;
+	Reset_Row(Last_Element.Row);
+
+	Last_Element.Previous.Next := Null;
+	Free(Last_Element);
+	Last_Element := Second_Last;
+      end loop;
+    end if;
+  end Reset_All;
+
   procedure Solve_DLX(Header : in Linked_Matrix_Pointer;
     Selected : in out Linked_Resulting_List_Pointer; Solved : out Boolean) is
     Selected_Row : Linked_Matrix_Pointer := Header;
     Selected_Node : Linked_Matrix_Pointer;
+    Deleted_Rows : Linked_Deleted_Rows_Pointer := Null;
   begin
-    if Selected= Null then
-      Put("Nästa ");
-      Put(Count_Col(Header), 1);
-      New_Line;
-    end if;
     Put(Selected);
---    Put(Count_Col(Header),1);
---    New_Line;
-    loop
---      New_Line;
---      Put("------------");
---      New_Line;
---      Put(Header);
---      New_Line;
---      Put("------------");
---      New_Line;
+--    loop
       if Is_Empty(Header) then
-        --Solution Found! Return Resulting_Matrices
-        Solved := True;
-	exit;
-      elsif Selected_Row = Header.Up then
---	New_Line;
---	Put("Har testat alla rader. Tar bort från selected: ");
---	Put("(");
---	Put(Last(Selected).Row.Data.Column, 1);
---	Put(", ");
---	Put(Last(Selected).Row.Data.Row, 1);
---	Put(")");
---	Remove_Last(Selected);
-	exit;
+	Solved := True;
+	Null;
       elsif Has_A_Column_Without_Ones(Header) then
---        or else Selected_Row = Header.Up then
-        --GO BACK!/Give up (When there is atleast one row with no ones or
-        --when all rows have been selected once.
---        if Selected /= Null then
---	  New_Line;
---	  Put("Har inga nollor");
---	  Put(". Resetar: ");
---	Put("(");
---	Put(Last(Selected).Row.Data.Column, 1);
---	Put(", ");
---	Put(Last(Selected).Row.Data.Row, 1);
---	Put(")");
---	  New_Line;
---      Put("------------");
---      New_Line;
---      Put(Header);
---      New_Line;
---      Put("------------");
---	  New_Line;
---	  Put("Before reset: ");
---	  Test_Matrix(Header);
---          Reset_DLX(Last(Selected).Row);
---	  New_Line;
---	  Put("After reset: ");
---	  Test_Matrix(Header);
---          Remove_Last(Selected);
---        end if;
-        exit;
+	Null;
       else
-        Selected_Row := Choose_Next_Row(Selected_Row);
-        Selected_Node := Selected_Row;
-        if Selected = Null then
-          Selected := new Linked_Resulting_List'(Get_Row_Header_Info(Selected_Node));
-        else
-          Last(Selected).Next := new Linked_Resulting_List'(Get_Row_Header_Info(Selected_Node));
-        end if;
---	Put("Before delete: ");
---	Test_Matrix(Header);
---	New_Line;
-        Delete_DLX(Selected_Node);
---	Put("After delete: ");
---	Test_Matrix(Header);
+	Selected_Row := Choose_Next_Row(Selected_Row);
+	Selected_Node := Selected_Row;
+	if Selected = Null then
+	  Selected := new Linked_Resulting_List'(Get_Row_Header_Info(Selected_Node));
+	else
+	  Last(Selected).Next := new Linked_Resulting_List'(Get_Row_Header_Info(Selected_Node));
+	end if;
+	Delete_DLX(Selected_Node);
+	Solve_DLX(Header, Selected, Solved);
+--	exit when Solved;
+	if not Solved then
+	  Reset_DLX(Last(Selected).Row);
+	  Remove_Last(Selected);
 
-        Solve_DLX(Header, Selected, Solved);
-      exit when Solved;
-      if Selected /= Null then
---	New_Line;
---	Put("Valde fel rad. Resetar: ");
---	Put("(");
---	Put(Selected_Node.Data.Column, 1);
---	Put(", ");
---	Put(Selected_Node.Data.Row, 1);
---	Put(")");
---	New_Line;
---	  Put("Before reset2: ");
---	  Test_Matrix(Header);
-	Reset_DLX(Selected_Node);
---	  New_Line;
---	  Put("After reset2: ");
---	  Test_Node(Selected_Node);
---	  New_Line;
---	  Put("And even more after:");
---	  Test_Matrix(Header);
---	Delete_Row(Selected_Node); --If a solution can't be found when this row is chosen first, the row is in no solution.
---	Put("After delete row: ");
---	Test_Matrix(Header);
-	Remove_Last(Selected);
+
+	  Delete_Row(Selected_Row); --If a solution can't be found when this row is chosen first, the row is in no solution.
+
+	  Solve_DLX(Header, Selected, Solved);
+--	  exit when Solved;
+	  if not Solved then
+	    Reset_Row(Selected_Row);
+	  end if;
+	end if;
       end if;
-      end if;
-    end loop;
-  end Solve_DLX;
+
+--  end loop;
+end Solve_DLX;
 end DLX;
