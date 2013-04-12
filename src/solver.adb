@@ -3,10 +3,12 @@
 
 with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with DLX; use DLX;
 with Parts; use Parts;
 with Figures; use Figures;
 with Bits; use Bits;
+with Vector; use Vector;
 with Matrix; use Matrix;
 
 package body Solver is
@@ -157,7 +159,7 @@ package body Solver is
                   Header.Up := Row_Header;
 
                   Row := Row + 1;
-              end if;
+                end if;
 
                 Parts(Part).all := Original_Part;
               end;
@@ -170,7 +172,26 @@ package body Solver is
     return Header;
   end Generate_Matrix;
 
-  procedure Solve(Parts : Parts_Type; Figure : Figure_Type) is
+  function To_String(Solution : Linked_Resulting_List_Pointer) return Unbounded_String is
+    Result : Unbounded_String := To_Unbounded_String("");
+    Solution_Copy : Linked_Resulting_List_Pointer := Solution;
+  begin
+    while Solution_Copy /= null loop
+      Result := Result & To_Unbounded_String("!") &
+        To_Simple_String(Solution_Copy.Part.Rotation) &
+        To_Simple_String(Solution_Copy.Part.Position);
+
+      if Solution_Copy.Next /= null then
+        Result := Result & To_Unbounded_String(" ");
+      end if;
+
+      Solution_Copy := Solution_Copy.Next;
+    end loop;
+
+    return Result;
+  end To_String;
+
+  function Solve(Parts : Parts_Type; Figure : Figure_Type) return Unbounded_String is
     Solution : Linked_Resulting_List_Pointer;
     Is_Solvable : Boolean;
     Header : Linked_Matrix_Pointer := Generate_Matrix(Parts, Figure);
@@ -181,13 +202,15 @@ package body Solver is
     Test_Matrix(Header);
 
     Solve_DLX(Header, Solution, Is_Solvable);
-    --Put_Matrix(Generate_Matrix(Parts, Figure));
 
     if Is_Solvable then
-      Put("A solution has been found!");
-      New_Line(3);
-      while Solution /= Null loop
-	Put("-----------------------");
+      return To_Unbounded_String("S ") & Figure.ID &
+             To_Unbounded_String(" ") & To_String(Solution);
+
+      -- TODO: Remove?
+      while False loop
+      --while Solution /= Null loop
+        Put("-----------------------");
         New_Line;
         Put(Solution.Row.Data.Row, 1);
         New_Line;
@@ -206,7 +229,7 @@ package body Solver is
         Solution := Solution.Next;
       end loop;
     else
-      Put("No solution!");
+      return To_Unbounded_String("G ") & Figure.ID;
     end if;
   end;
 end Solver;

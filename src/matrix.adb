@@ -1,80 +1,81 @@
 with DLX; use DLX; --Endast för PUT-test, ska tas bort
 with Ada.Text_IO; use Ada.Text_IO; --Samma för denna
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO; --Samma för denna
+
 package body Matrix is
   procedure Test_Node(Node : in Linked_Matrix_Pointer) is
     NODE_ERROR : exception;
   begin
-     if (Node.Up.Down /= Node) or else (Node.Down.Up /= Node)
-       or else (Node.Right.Left /= Node) or else (Node.Left.Right /= Node) then
-       New_Line(2);
-       Put("(");
-       Put(Node.Data.Column,1);
-       Put(", ");
-       Put(Node.Data.Row,1);
-       Put(")");
---       raise NODE_ERROR;
-     end if;
-     if (Node.Up.Down /= Node) then
-       New_Line;
-       Put("Up ");
-       Put("(");
-       Put(Node.Up.Data.Column,1);
-       Put(", ");
-       Put(Node.Up.Data.Row,1);
-       Put(")");
-       Put("(");
-       Put(Node.Up.Down.Data.Column,1);
-       Put(", ");
-       Put(Node.Up.Down.Data.Row,1);
-       Put(")");
-     end if;
-     if (Node.Down.Up /= Node) then
-       New_Line;
-       Put("Down ");
-       Put("(");
-       Put(Node.Down.Data.Column,1);
-       Put(", ");
-       Put(Node.Down.Data.Row,1);
-       Put(")");
-       Put("(");
-       Put(Node.Down.Up.Data.Column,1);
-       Put(", ");
-       Put(Node.Down.Up.Data.Row,1);
-       Put(")");
-     end if;
-     if (Node.Right.Left /= Node) then
-       New_Line;
-       Put("Right ");
-       Put("(");
-       Put(Node.Right.Data.Column,1);
-       Put(", ");
-       Put(Node.Right.Data.Row,1);
-       Put(")");
-       Put("(");
-       Put(Node.Right.Left.Data.Column,1);
-       Put(", ");
-       Put(Node.Right.Left.Data.Row,1);
-       Put(")");
-     end if;
-     if (Node.Left.Right /= Node) then
-       New_Line;
-       Put("Left");
-       Put("(");
-       Put(Node.Left.Data.Column,1);
-       Put(", ");
-       Put(Node.Left.Data.Row,1);
-       Put(")");
-       Put("(");
-       Put(Node.Left.Right.Data.Column,1);
-       Put(", ");
-       Put(Node.Left.Right.Data.Row,1);
-       Put(")");
-     end if;
-     if (Node.Up.Down /= Node) or else (Node.Down.Up /= Node)
-       or else (Node.Right.Left /= Node) or else (Node.Left.Right /= Node) then
-       raise NODE_ERROR;
-     end if;
+    if (Node.Up.Down /= Node) or else (Node.Down.Up /= Node)
+      or else (Node.Right.Left /= Node) or else (Node.Left.Right /= Node) then
+      New_Line(2);
+      Put("(");
+      Put(Node.Data.Column,1);
+      Put(", ");
+      Put(Node.Data.Row,1);
+      Put(")");
+      --       raise NODE_ERROR;
+    end if;
+    if (Node.Up.Down /= Node) then
+      New_Line;
+      Put("Up ");
+      Put("(");
+      Put(Node.Up.Data.Column,1);
+      Put(", ");
+      Put(Node.Up.Data.Row,1);
+      Put(")");
+      Put("(");
+      Put(Node.Up.Down.Data.Column,1);
+      Put(", ");
+      Put(Node.Up.Down.Data.Row,1);
+      Put(")");
+    end if;
+    if (Node.Down.Up /= Node) then
+      New_Line;
+      Put("Down ");
+      Put("(");
+      Put(Node.Down.Data.Column,1);
+      Put(", ");
+      Put(Node.Down.Data.Row,1);
+      Put(")");
+      Put("(");
+      Put(Node.Down.Up.Data.Column,1);
+      Put(", ");
+      Put(Node.Down.Up.Data.Row,1);
+      Put(")");
+    end if;
+    if (Node.Right.Left /= Node) then
+      New_Line;
+      Put("Right ");
+      Put("(");
+      Put(Node.Right.Data.Column,1);
+      Put(", ");
+      Put(Node.Right.Data.Row,1);
+      Put(")");
+      Put("(");
+      Put(Node.Right.Left.Data.Column,1);
+      Put(", ");
+      Put(Node.Right.Left.Data.Row,1);
+      Put(")");
+    end if;
+    if (Node.Left.Right /= Node) then
+      New_Line;
+      Put("Left");
+      Put("(");
+      Put(Node.Left.Data.Column,1);
+      Put(", ");
+      Put(Node.Left.Data.Row,1);
+      Put(")");
+      Put("(");
+      Put(Node.Left.Right.Data.Column,1);
+      Put(", ");
+      Put(Node.Left.Right.Data.Row,1);
+      Put(")");
+    end if;
+    if (Node.Up.Down /= Node) or else (Node.Down.Up /= Node)
+      or else (Node.Right.Left /= Node) or else (Node.Left.Right /= Node) then
+      raise NODE_ERROR;
+    end if;
   end Test_Node;
 
   procedure Test_Column(Col : in Linked_Matrix_Pointer) is
@@ -101,19 +102,19 @@ package body Matrix is
     Curr : Linked_Matrix_Pointer := Header;
   begin
     loop
---      Put("R");
+      --      Put("R");
       Test_Row(Curr);
       Curr := Curr.Down;
       exit when Curr = Header;
     end loop;
     loop
---      Put("Col");
+      --      Put("Col");
       Test_Column(Curr);
       Curr := Curr.Right;
       exit when Curr = Header;
     end loop;
---    New_Line;
---    Put("Matrix is all right");
+    --    New_Line;
+    --    Put("Matrix is all right");
   end Test_Matrix;
   function Is_Empty(Header : in Linked_Matrix_Pointer) return Boolean is
   begin
@@ -130,23 +131,23 @@ package body Matrix is
   begin
     Put(Row.Data.Row,1);
     loop
-	for I in Prev.Data.Column + 1..Curr.Data.Column - 1 loop
-	  Put(0,4);
-	end loop;
-	exit when Curr.Data.Column = 0;
-	Put(1,4);
---	Put("(");
---	Put(Curr.Data.Column,1);
---	Put(", ");
---	Put(Curr.Data.Row,1);
---	Put(")");
-	Prev := Curr;
-	Curr := Curr.Right;
-	if Curr.Data.Column = 0 then
-	  for I in Prev.Data.Column + 2..Amount loop
-	    Put(0,4);
-	  end loop;
-	end if;
+      for I in Prev.Data.Column + 1..Curr.Data.Column - 1 loop
+        Put(0,4);
+      end loop;
+      exit when Curr.Data.Column = 0;
+      Put(1,4);
+      --	Put("(");
+      --	Put(Curr.Data.Column,1);
+      --	Put(", ");
+      --	Put(Curr.Data.Row,1);
+      --	Put(")");
+      Prev := Curr;
+      Curr := Curr.Right;
+      if Curr.Data.Column = 0 then
+        for I in Prev.Data.Column + 2..Amount loop
+          Put(0,4);
+        end loop;
+      end if;
 
     end loop;
   end Put_Row;
@@ -162,8 +163,8 @@ package body Matrix is
     end if;
     loop
       for I in Prev.Data.Column+2 ..Temp.Data.Column loop
-	Put(0,1);
-	Put("   ");
+        Put(0,1);
+        Put("   ");
       end loop;
       Put(Temp.Data.Column,1);
       Put("   ");
@@ -186,7 +187,7 @@ package body Matrix is
   begin
     loop
       if Left_Temp.Data.Column /= Right_Temp.Data.Column then
-	return False;
+        return False;
       end if;
       Left_Temp := Left_Temp.Right;
       Right_Temp := Right_Temp.Right;
@@ -206,14 +207,14 @@ package body Matrix is
   begin
     loop
       loop
-	if Is_Equal(Curr, Temp) then
-	  --Put(Curr.Data.Row);
-	  --Put("  ");
-	  --Put(Temp.Data.Row,1);
-	  Delete_Row(Temp);
-	end if;
-	Temp := Temp.Down;
-	exit when Temp = Header;
+        if Is_Equal(Curr, Temp) then
+          --Put(Curr.Data.Row);
+          --Put("  ");
+          --Put(Temp.Data.Row,1);
+          Delete_Row(Temp);
+        end if;
+        Temp := Temp.Down;
+        exit when Temp = Header;
       end loop;
       Curr := Curr.Down;
       Temp := Curr.Down;
@@ -223,12 +224,12 @@ package body Matrix is
 
   procedure Delete_Node(Node : in Linked_Matrix_Pointer) is
   begin
---       Put("(");
---       Put(Node.Data.Column,1);
---       Put(", ");
---       Put(Node.Data.Row,1);
---       Put(")");
---       New_Line;
+    --       Put("(");
+    --       Put(Node.Data.Column,1);
+    --       Put(", ");
+    --       Put(Node.Data.Row,1);
+    --       Put(")");
+    --       New_Line;
     Node.Left.Right := Node.Right;
     Node.Right.Left := Node.Left;
     Node.Up.Down := Node.Down;
@@ -237,12 +238,12 @@ package body Matrix is
 
   procedure Reset_Node(Node : in Linked_Matrix_Pointer) is
   begin
---       Put("(");
---       Put(Node.Data.Column,1);
---       Put(", ");
---       Put(Node.Data.Row,1);
---       Put(")");
---       New_Line;
+    --       Put("(");
+    --       Put(Node.Data.Column,1);
+    --       Put(", ");
+    --       Put(Node.Data.Row,1);
+    --       Put(")");
+    --       New_Line;
     Node.Left.Right:= Node;
     Node.Right.Left:= Node;
     Node.Up.Down:= Node;
@@ -269,7 +270,7 @@ package body Matrix is
       Temp := Temp.Right;
       exit when Temp = Node;
     end loop;
---    Test_Row(Node);
+    --    Test_Row(Node);
   end Reset_Row;
 
   procedure Delete_Column(Node : in Linked_Matrix_Pointer) is

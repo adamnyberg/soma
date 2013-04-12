@@ -2,6 +2,7 @@
 -- harpe493 Harald Petterson, jonta760 Jonas Tarassu
 
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with Ada.Text_IO; use Ada.Text_IO;
 with Parts; use Parts;
 with Figures; use Figures;
 with Tests; use Tests;
@@ -29,7 +30,10 @@ procedure Test_Solver is
   --Test_Parts : Parts_Type := Parts.Parse(To_Unbounded_String("8 1x1x1 1 1x1x1 1 1x1x1 1 1x1x1 1 1x1x1 1 1x1x1 1 1x1x1 1 1x1x1 1"));
 
   --Header : Linked_Matrix_Pointer;
+  Solution : Unbounded_String;
 begin
   --Put_Matrix(Header);
-  Solve(Test_Parts, Test_Figure);
+  Solution := Solve(Test_Parts, Test_Figure);
+  New_Line;
+  Put(To_String(Solution));
 end Test_Solver;

@@ -3,6 +3,9 @@
 
 with TJa.Sockets; use TJa.Sockets;
 with Packets; use Packets;
+with Figures; use Figures;
+with Parts; use Parts;
+with Solver; use Solver;
 with Ada.Numerics.Float_Random; use Ada.Numerics.Float_Random;
 
 package body Protocol is
@@ -11,7 +14,7 @@ package body Protocol is
 
     Gen : Generator;
     Random_Tail : Integer;
-    Nickname : Unbounded_String := To_Unbounded_String("adjh");
+    Nickname : Unbounded_String := To_Unbounded_String("MarioDart");
   begin
     Put("Init: ");
     Put_Line(To_String( Packet.Message ));
@@ -39,13 +42,10 @@ package body Protocol is
     end if;
   end Confirm;
 
-  procedure Figure(Socket : in Socket_Type; Figure_ID : in Unbounded_String) is
+  procedure Solve(Socket : in Socket_Type; Figure : Figure_Type; Parts : Parts_Type) is
   begin
-  --Need to add code for solving
-  --If solving fails, put the following
-    Put("Give up");
-    Put_Line(Socket, Packets.Assemble(GIVEUP_HEADER, Figure_ID));
-  end Figure;
+    Put_Line(Socket, Packets.Timestamp & ' ' & Solver.Solve(Parts, Figure));
+  end Solve;
 
   procedure Answer(Packet : in Packet_Type) is
   begin

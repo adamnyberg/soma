@@ -13,6 +13,5 @@ package Packets is
 
   function Assemble(Header : Character; Message : Unbounded_String) return String;
   function Disassemble(Raw_Packet : Unbounded_String) return Packet_Type;
-private
   function Timestamp return Unbounded_String;
 end Packets;

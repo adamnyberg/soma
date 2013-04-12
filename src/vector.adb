@@ -28,6 +28,13 @@ package body Vector is
        ", Z: " & Integer'Image(Vector.Z);
   end To_String;
 
+  function To_Simple_String(Vector : Vector_Type) return String is
+  begin
+     return Integer'Image(Vector.X) &
+            Integer'Image(Vector.Y) &
+            Integer'Image(Vector.Z);
+  end To_Simple_String;
+
   function To_Volume(Vector : Vector_Type) return Integer is  
   begin -- To_Volume
     return Vector.X * Vector.Y * Vector.Z;

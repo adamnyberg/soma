@@ -1,8 +1,7 @@
-QUICKRUN=-O3
 MAKEFLAGS=-aL/home/TDDD11/lib/TJa/lib/Solaris -aI/home/TDDD11/lib/TJa/src/Solaris -aO/home/TDDD11/lib/TJa/lib/Solaris
 
 lsoma:
-	gnatmake $(QUICKRUN) $(MAKEFLAGS) src/soma.adb
+	gnatmake $(MAKEFLAGS) src/soma.adb
 	./soma; rm soma;
 
 ltest:

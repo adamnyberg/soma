@@ -5,10 +5,11 @@ with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with TJa.Sockets; use TJa.Sockets;
 with Protocol; use Protocol;
 with Packets; use Packets;
-with Figures;
-with Parts;
+with Figures; use Figures;
+with Parts; use Parts;
 with Misc;
 with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 
 procedure Soma is
   -- Get the whole line from a socket into an unbounded string
@@ -28,8 +29,10 @@ procedure Soma is
   Raw_Packet : Unbounded_String;
   Packet : Packet_Type;
 
-  New_Parts : Parts.Parts_Type(1..7);
-  --Figure : Figures.Figure_Type(1);
+  type Parts_Type_Pointer is access Parts.Parts_Type;
+  type Figure_Type_Pointer is access Figures.Figure_Type;
+  New_Parts : Parts_Type_Pointer;
+  Figure : Figure_Type_Pointer;
 
   Start : Unbounded_String;
   Rest  : Unbounded_String;
@@ -48,15 +51,14 @@ begin
       when CONFIRM_HEADER =>
         Protocol.Confirm(Socket, Packet);
       when PARTS_HEADER =>
-        Put("Parts: ");
-        Ada.Text_IO.Put_Line(To_String( Packet.Message ));
-        New_Parts := Parts.Parse(Packet.Message);
+        New_Parts := new Parts_Type'(Parts.Parse(Packet.Message));
       when FIGURE_HEADER =>
-        --Figure := Figures.Parse(Packet.Message);
-        Put("Figure: ");
-        Ada.Text_IO.Put_Line(To_String( Packet.Message ));
-        Misc.Split(Packet.Message," ",Start,Rest);
-        Protocol.Figure(Socket, Start);
+        Figure := new Figure_Type'(Figures.Parse(Packet.Message));
+
+        --Misc.Split(Packet.Message, " ", Start, Rest);
+        --Protocol.Figure(Socket, Start);
+
+        Protocol.Solve(Socket, Figure.all, New_Parts.all);
       when ANSWER_HEADER =>
         Protocol.Answer(Packet);
       when DONE_HEADER =>

@@ -3,6 +3,8 @@
 
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 with TJa.Sockets; use TJa.Sockets;
+with Figures; use Figures;
+with Parts; use Parts;
 with Packets; use Packets;
 with Ada.Text_IO; use Ada.Text_IO;
 with Misc; use Misc;
@@ -26,7 +28,7 @@ package Protocol is
   procedure Initiate(Socket : in Socket_Type; Packet : in Packet_Type;
                      Add_Random_Tail : in Boolean := False);
   procedure Confirm(Socket : in Socket_Type; Packet : in Packet_Type);
-  procedure Figure(Socket : in Socket_Type; Figure_ID : in Unbounded_String);
+  procedure Solve(Socket : in Socket_Type; Figure : Figure_Type; Parts : Parts_Type);
   procedure Answer(Packet : in Packet_Type);
   procedure Done(Packet : in Packet_Type);
   procedure Highscore(Packet : in Packet_Type);
