@@ -13,6 +13,7 @@ package Parts is
     Rotation : Vector_Type := (0, 0, 0);
     Dimension : Vector_Type;
     Structure : Bits_Type(Structure_Bits);
+    ID : Integer;
   end record;
   type Part_Type_Pointer is access Part_Type;
   type Index_Arr is array (Natural range <>) of Integer;

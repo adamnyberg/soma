@@ -176,6 +176,7 @@ package body Solver is
     Result : Unbounded_String := To_Unbounded_String("");
     Solution_Copy : Linked_Resulting_List_Pointer := Solution;
   begin
+    -- TODO: Sort Solution_Copy by Solution_Copy.Part.ID
     while Solution_Copy /= null loop
       Result := Result & To_Unbounded_String("!") &
         To_Simple_String(Solution_Copy.Part.Rotation) &

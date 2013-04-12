@@ -42,6 +42,7 @@ package body Parts is
         end if;
 
         New_Parts(Part_Index) := new Part_Type'(Parse_Part( Start ));
+        New_Parts(Part_Index).ID := Part_Index;
       end loop;
 
       return New_Parts;
@@ -51,7 +52,7 @@ package body Parts is
   function Part_Fit_In_Figure(Part : Part_Type; Figure : Figure_Type) return Boolean is
     Part_Figure : Figure_Type := Add_Dimensions(Part, Figure);
   begin
-    if (Part.Position.X + Part.Dimension.X - 1) <= Figure.Dimension.X and then 
+    if (Part.Position.X + Part.Dimension.X - 1) <= Figure.Dimension.X and then
        (Part.Position.Y + Part.Dimension.Y - 1) <= Figure.Dimension.Y and then
        (Part.Position.Z + Part.Dimension.Z - 1) <= Figure.Dimension.Z then
       return (Part_Figure.Structure or Figure.Structure) = Figure.Structure;
