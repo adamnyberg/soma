@@ -23,8 +23,8 @@ test: sync
 ptest:
 	gnatmake -f -pg -Isrc/\
 		tests/test_$(pack).adb;
-	#gprof ./test_$(pack);
-	echo "\n"; ./test_$(pack); rm test_*;
+	echo "\n"; ./test_$(pack);
+	#rm test_*;
 	echo "Test succeeded!";
 
 iptest:
@@ -36,6 +36,12 @@ iptest:
 sptest: sync
 	ssh $(liu_id)@astmatix.ida.liu.se \
 		"cd soma;bash -l -c 'export PATH=/bin:/sw/gcc-3.4.6/bin:/usr/ccs/bin;make iptest pack=$(pack)'"
+
+prof:
+	make ptest pack=solver;
+	gprof test_solver gmon.out > prf;
+	head -n30 prf;
+	#rm gmon.out test_*;
 
 vinit:
 	ssh -X $(liu_id)@astmatix.ida.liu.se 'mkdir -p soma; cd soma; /sw/gnu/bin/wget --no-clobber\

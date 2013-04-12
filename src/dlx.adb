@@ -263,7 +263,7 @@ package body DLX is
     Selected_Node : Linked_Matrix_Pointer;
     Deleted_Rows : Linked_Deleted_Rows_Pointer := Null;
   begin
-    Put(Selected);
+    --Put(Selected);
 --    loop
       if Is_Empty(Header) then
 	Solved := True;
