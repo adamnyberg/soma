@@ -198,9 +198,9 @@ package body Solver is
     Header : Linked_Matrix_Pointer := Generate_Matrix(Parts, Figure);
   begin
     --Put(Count_Col(Header));
-    Delete_Equal_Rows(Header);
+    --Delete_Equal_Rows(Header);
     --Put(Count_Col(Header));
-    Test_Matrix(Header);
+    --Test_Matrix(Header);
 
     Solve_DLX(Header, Solution, Is_Solvable);
 
