@@ -193,6 +193,7 @@ package body DLX is
         Second_Last:= Second_Last.Next;
       end loop;
       Garbage := Second_Last.Next;
+      Second_Last.Next.Previous := Null;
       Second_Last.Next := Null;
       Free(Garbage);
     else
@@ -201,6 +202,56 @@ package body DLX is
       Free(Garbage);
     end if;
   end Remove_Last;
+
+  procedure Swap(Left, Right : in Linked_Resulting_List_Pointer) is
+    Temp1, Temp2 : Linked_Resulting_List_Pointer;
+  begin
+    Temp1 := Right.Next;
+    Right.Next.Previous := Left;
+    Right.Next := Left;
+    Right.Previous := Left.Previous;
+    Temp2 := Right;
+    Left.Next := Temp1;
+    Left.Previous := Temp2;
+    Left.Previous.Previous.Next := Temp2;
+  end Swap;
+
+  procedure Sort(List : in out Linked_Resulting_List_Pointer) is
+    Prev, Curr, Temp1, Temp2 : Linked_Resulting_List_Pointer;
+  begin
+    if List = Null or else List.Next = Null then
+      Null;
+    else
+      Prev := List.Next;
+      if List.Part.ID > Prev.Part.ID then
+	Temp1 := Prev.Next;
+	Prev.Next.Previous := List;
+	Prev.Next := List;
+	Prev.Previous := List.Previous;
+	Temp2 := Prev;
+	List.Next := Temp1;
+	List.Previous := Temp2;
+	List := Temp2;
+      end if;
+      if List.Next.Next = Null then
+	Null;
+      else
+	Prev := List.Next;
+	Curr := List.Next.Next;
+	loop
+	  if Prev.Part.ID > Curr.Part.ID then
+	    Swap(Prev, Curr);
+	    Curr := Prev;
+	    Prev := Prev.Previous;
+	  else
+	    Prev := Curr;
+	    Curr := Curr.Next;
+	  end if;
+	  exit when Curr = Null;
+	end loop;
+      end if;
+    end if;
+  end Sort;
 
   procedure Put(Linked_List : in Linked_Resulting_List_Pointer) is
     Curr, Prev : Linked_Resulting_List_Pointer := Linked_List;
@@ -226,42 +277,43 @@ package body DLX is
     return Columns;
   end Count_Col;
 
-  function Last(Linked_List : Linked_Deleted_Rows_Pointer) return Linked_Deleted_Rows_Pointer is
-    Temp : Linked_Deleted_Rows_Pointer := Linked_List;
-  begin
-      if Temp /= Null then
-	loop
-	  exit when Temp.Next = Null;
-	  Temp := Temp.Next;
-	end loop;
-      end if;
-      return Temp;
-  end Last;
+--  function Last(Linked_List : Linked_Deleted_Rows_Pointer) return Linked_Deleted_Rows_Pointer is
+--    Temp : Linked_Deleted_Rows_Pointer := Linked_List;
+--  begin
+--      if Temp /= Null then
+--	loop
+--	  exit when Temp.Next = Null;
+--	  Temp := Temp.Next;
+--	end loop;
+--      end if;
+--      return Temp;
+--  end Last;
 
-  procedure Free is
-    new Ada.Unchecked_Deallocation(Linked_Deleted_Rows, Linked_Deleted_Rows_Pointer);
+--  procedure Free is
+--    new Ada.Unchecked_Deallocation(Linked_Deleted_Rows, Linked_Deleted_Rows_Pointer);
 
-  procedure Reset_All(Linked_List : in Linked_Deleted_Rows_Pointer) is
-    Last_Element : Linked_Deleted_Rows_Pointer := Last(Linked_List);
-    Second_Last : Linked_Deleted_Rows_Pointer;
-  begin
-    if Last_Element /= Null then
-      while Last_Element.Previous /= Null loop
-	Second_Last := Last_Element.Previous;
-	Reset_Row(Last_Element.Row);
-
-	Last_Element.Previous.Next := Null;
-	Free(Last_Element);
-	Last_Element := Second_Last;
-      end loop;
-    end if;
-  end Reset_All;
+--  procedure Reset_All(Linked_List : in Linked_Deleted_Rows_Pointer) is
+--    Last_Element : Linked_Deleted_Rows_Pointer := Last(Linked_List);
+--    Second_Last : Linked_Deleted_Rows_Pointer;
+--  begin
+--    if Last_Element /= Null then
+--      while Last_Element.Previous /= Null loop
+--	Second_Last := Last_Element.Previous;
+--	Reset_Row(Last_Element.Row);
+--
+--	Last_Element.Previous.Next := Null;
+--	Free(Last_Element);
+--	Last_Element := Second_Last;
+--      end loop;
+--    end if;
+--  end Reset_All;
 
   procedure Solve_DLX(Header : in Linked_Matrix_Pointer;
     Selected : in out Linked_Resulting_List_Pointer; Solved : out Boolean) is
     Selected_Row : Linked_Matrix_Pointer := Header;
     Selected_Node : Linked_Matrix_Pointer;
-    Deleted_Rows : Linked_Deleted_Rows_Pointer := Null;
+    Selected_Temp1, Selected_Temp2 : Linked_Resulting_List_Pointer;
+--    Deleted_Rows : Linked_Deleted_Rows_Pointer := Null;
   begin
     --Put(Selected);
 --    loop
@@ -276,7 +328,11 @@ package body DLX is
 	if Selected = Null then
 	  Selected := new Linked_Resulting_List'(Get_Row_Header_Info(Selected_Node));
 	else
-	  Last(Selected).Next := new Linked_Resulting_List'(Get_Row_Header_Info(Selected_Node));
+	  Selected_Temp1 := Last(Selected);
+	  Selected_Temp1.Next := new Linked_Resulting_List'(Get_Row_Header_Info(Selected_Node));
+	  Selected_Temp2 := Selected_Temp1.Next;
+	  Selected_Temp2.Previous := Selected_Temp1;
+--	  Last(Selected).Next := new Linked_Resulting_List'(Get_Row_Header_Info(Selected_Node));
 	end if;
 	Delete_DLX(Selected_Node);
 	Solve_DLX(Header, Selected, Solved);

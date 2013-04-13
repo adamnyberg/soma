@@ -178,7 +178,9 @@ package body Solver is
   begin
     -- TODO: Sort Solution_Copy by Solution_Copy.Part.ID
     while Solution_Copy /= null loop
-      Result := Result & To_Unbounded_String("!") &
+      Result := Result & To_Unbounded_String("! ID:") &
+	To_Unbounded_String(Integer'Image(Solution_Copy.Part.ID)) &
+	To_Unbounded_String(" ") &
         To_Simple_String(Solution_Copy.Part.Rotation) &
         To_Simple_String(Solution_Copy.Part.Position);
 
@@ -197,12 +199,15 @@ package body Solver is
     Is_Solvable : Boolean;
     Header : Linked_Matrix_Pointer := Generate_Matrix(Parts, Figure);
   begin
-    --Put(Count_Col(Header));
-    Delete_Equal_Rows(Header);
-    --Put(Count_Col(Header));
+    Put(Count_Col(Header));
+    if Count_Col(Header) > 1 then
+      Delete_Equal_Rows(Header);
+    end if;
+    Put(Count_Col(Header));
     Test_Matrix(Header);
 
     Solve_DLX(Header, Solution, Is_Solvable);
+    Sort(Solution);
 
     if Is_Solvable then
       while False loop
@@ -218,7 +223,7 @@ package body Solver is
         Solution := Solution.Next;
       end loop;
 
-      Put(To_String(To_Unbounded_String("S ") & Figure.ID &
+      Put(To_String(To_Unbounded_String("S ") & To_Unbounded_String("ID: ")  &Figure.ID &
              To_Unbounded_String(" ") & To_String(Solution)));
 
       return To_Unbounded_String("S ") & Figure.ID &

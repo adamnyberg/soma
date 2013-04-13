@@ -9,18 +9,19 @@ package DLX is
   type Linked_Resulting_List_Pointer is access Linked_Resulting_List;
   type Linked_Resulting_List is
     record
+      Previous : Linked_Resulting_List_Pointer;
       Row : Linked_Matrix_Pointer;
       Part : Part_Type_Pointer;
       Next : Linked_Resulting_List_Pointer;
     end record;
-  type Linked_Deleted_Rows;
-  type Linked_Deleted_Rows_Pointer is access Linked_Deleted_Rows;
-  type Linked_Deleted_Rows is
-    record
-      Previous : Linked_Deleted_Rows_Pointer;
-      Row : Linked_Matrix_Pointer;
-      Next : Linked_Deleted_Rows_Pointer;
-    end record;
+--  type Linked_Deleted_Rows;
+--  type Linked_Deleted_Rows_Pointer is access Linked_Deleted_Rows;
+--  type Linked_Deleted_Rows is
+--    record
+--      Previous : Linked_Deleted_Rows_Pointer;
+--      Row : Linked_Matrix_Pointer;
+--      Next : Linked_Deleted_Rows_Pointer;
+--    end record;
 --  function Is_Empty(Header : in Linked_Matrix_Pointer) return Boolean;
 --  procedure Put_Row(Row : in Linked_Matrix_Pointer; Amount : in Integer);
 --  procedure Put(Header : in Linked_Matrix_Pointer);
@@ -38,6 +39,8 @@ package DLX is
   function Has_A_Column_Without_Ones(Header: in Linked_Matrix_Pointer) return Boolean;
   function Last(Resulting_List : in Linked_Resulting_List_Pointer)
 		  return Linked_Resulting_List_Pointer;
+  procedure Swap(Left, Right: in Linked_Resulting_List_Pointer);
+  procedure Sort(List : in out Linked_Resulting_List_Pointer);
   function Get_Row_Header_Info(Node : in Linked_Matrix_Pointer) return Linked_Resulting_List;
   function Choose_Next_Row(Previous : in Linked_Matrix_Pointer) return Linked_Matrix_Pointer;
   --function Choose_Next_One(Header : in Linked_Matrix; Previous : in Linked_Matrix)
