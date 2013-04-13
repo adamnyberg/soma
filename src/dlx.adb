@@ -284,8 +284,6 @@ package body DLX is
 	if not Solved then
 	  Reset_DLX(Last(Selected).Row);
 	  Remove_Last(Selected);
-
-
 	  Delete_Row(Selected_Row); --If a solution can't be found when this row is chosen first, the row is in no solution.
 
 	  Solve_DLX(Header, Selected, Solved);

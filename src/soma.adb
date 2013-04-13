@@ -52,8 +52,12 @@ begin
         Protocol.Confirm(Socket, Packet);
       when PARTS_HEADER =>
         New_Parts := new Parts_Type'(Parts.Parse(Packet.Message));
+        Put(To_String(Packet.Message));
+        New_Line;
       when FIGURE_HEADER =>
         Figure := new Figure_Type'(Figures.Parse(Packet.Message));
+        Put(To_String(Packet.Message));
+        New_Line;
 
         --Misc.Split(Packet.Message, " ", Start, Rest);
         --Protocol.Figure(Socket, Start);

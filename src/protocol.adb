@@ -1,11 +1,15 @@
 -- adany869 Adam Nyberg, danth407 Daniel Rapp,
 -- harpe493 Harald Petterson, jonta760 Jonas Tarassu
 
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 with TJa.Sockets; use TJa.Sockets;
 with Packets; use Packets;
+with Bits; use Bits;
 with Figures; use Figures;
 with Parts; use Parts;
 with Solver; use Solver;
+with Vector; use Vector;
 with Ada.Numerics.Float_Random; use Ada.Numerics.Float_Random;
 
 package body Protocol is
