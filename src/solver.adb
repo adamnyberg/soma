@@ -204,8 +204,6 @@ package body Solver is
       Delete_Equal_Rows(Header);
     end if;
     Put(Count_Col(Header));
-    New_Line;
-    Put(Header);
     Test_Matrix(Header);
 
     Solve_DLX(Header, Solution, Is_Solvable);
