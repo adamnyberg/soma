@@ -48,6 +48,7 @@ package body Protocol is
 
   procedure Solve(Socket : in Socket_Type; Figure : Figure_Type; Parts : Parts_Type) is
   begin
+    --Put_Line(Socket, Packets.Timestamp & ' ' & "S 1 ! 0 1 1 0 2 0 ! 0 1 3 1 2 0 ! 0 1 1 0 0 0 ! 0 2 1 0 0 2 ! 0 0 2 1 0 0 ! 0 3 2 0 1 0 ! 0 0 0 1 0 1");
     Put_Line(Socket, Packets.Timestamp & ' ' & Solver.Solve(Parts, Figure));
   end Solve;
 

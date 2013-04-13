@@ -25,7 +25,7 @@ ptest:
 	echo "\n"; ./test_$(pack);
 	#rm test_*;
 	#echo "Test succeeded!";
-	#gdb $(pack);
+	#gdb ./$(pack);
 
 iptest:
 	gnatmake $(MAKEFLAGS) -Isrc/\

@@ -45,6 +45,6 @@ procedure Test_Solver is
 begin
   --Put_Matrix(Header);
   Solution := Solve(Test_Parts, Test_Figure);
-  New_Line;
-  Put(To_String(Solution));
+  --New_Line;
+  --Put(To_String(Solution));
 end Test_Solver;

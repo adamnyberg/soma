@@ -176,15 +176,24 @@ package body Solver is
     Result : Unbounded_String := To_Unbounded_String("");
     Solution_Copy : Linked_Resulting_List_Pointer := Solution;
   begin
-    -- TODO: Sort Solution_Copy by Solution_Copy.Part.ID
     while Solution_Copy /= null loop
-      Result := Result & To_Unbounded_String("! ID:") &
-	To_Unbounded_String(Integer'Image(Solution_Copy.Part.ID)) &
-	To_Unbounded_String(" ") &
-        To_Simple_String(Solution_Copy.Part.Rotation) &
-        To_Simple_String(Solution_Copy.Part.Position);
+      --Put(Solution_Copy.Part.Structure, Solution_Copy.Part.Dimension);
+      --New_Line;
 
-      if Solution_Copy.Next /= null then
+      -- TODO: Fix this ugly solution
+      declare
+        Pos : Vector_Type;
+      begin
+        Pos.X := Solution_Copy.Part.Position.X - 1;
+        Pos.Y := Solution_Copy.Part.Position.Y - 1;
+        Pos.Z := Solution_Copy.Part.Position.Z - 1;
+
+        Result := Result & To_Unbounded_String("!") &
+          To_Simple_String(Solution_Copy.Part.Rotation) &
+          To_Simple_String(Pos);
+      end;
+
+     if Solution_Copy.Next /= null then
         Result := Result & To_Unbounded_String(" ");
       end if;
 
@@ -199,12 +208,21 @@ package body Solver is
     Is_Solvable : Boolean;
     Header : Linked_Matrix_Pointer := Generate_Matrix(Parts, Figure);
   begin
-    Put(Count_Col(Header));
-    if Count_Col(Header) > 1 then
-      Delete_Equal_Rows(Header);
-    end if;
-    Put(Count_Col(Header));
-    Test_Matrix(Header);
+    for Part in Parts'Range loop
+      Put(To_String(Parts(Part).Structure));
+      Put(" ");
+      Put(To_Simple_String(Parts(Part).Dimension));
+      New_Line;
+    end loop;
+    Put(To_String(Figure.Structure));
+
+    --Put(Count_Col(Header));
+    --if Count_Col(Header) > 1 then
+      --Delete_Equal_Rows(Header);
+    --end if;
+    --Put(Count_Col(Header));
+    --Test_Matrix(Header);
+    --Put_Matrix(Header);
 
     Solve_DLX(Header, Solution, Is_Solvable);
     Sort(Solution);
@@ -223,7 +241,7 @@ package body Solver is
         Solution := Solution.Next;
       end loop;
 
-      Put(To_String(To_Unbounded_String("S ") & To_Unbounded_String("ID: ")  &Figure.ID &
+      Put(To_String(To_Unbounded_String("S ") & Figure.ID &
              To_Unbounded_String(" ") & To_String(Solution)));
 
       return To_Unbounded_String("S ") & Figure.ID &
