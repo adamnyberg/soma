@@ -197,38 +197,32 @@ package body Solver is
     Is_Solvable : Boolean;
     Header : Linked_Matrix_Pointer := Generate_Matrix(Parts, Figure);
   begin
-    Put(Count_Col(Header));
+    --Put(Count_Col(Header));
     Delete_Equal_Rows(Header);
-    Put(Count_Col(Header));
+    --Put(Count_Col(Header));
     Test_Matrix(Header);
 
     Solve_DLX(Header, Solution, Is_Solvable);
 
     if Is_Solvable then
-      return To_Unbounded_String("S ") & Figure.ID &
-             To_Unbounded_String(" ") & To_String(Solution);
-
-      -- TODO: Remove?
       while False loop
       --while Solution /= Null loop
+        New_Line;
         Put("-----------------------");
         New_Line;
-        Put(Solution.Row.Data.Row, 1);
+        Put(To_Simple_String(Solution.Part.Position));
         New_Line;
-
-        Put(Solution.Part.Position.X);
-        Put(Solution.Part.Position.Y);
-        Put(Solution.Part.Position.Z);
+        Put(To_Simple_String(Solution.Part.Rotation));
         New_Line;
-        Put(Solution.Part.Rotation.X);
-        Put(Solution.Part.Rotation.Y);
-        Put(Solution.Part.Rotation.Z);
-        New_Line;
-        Put(Solution.Part.Structure, Solution.Part.Dimension);
-        New_Line(1);
 
         Solution := Solution.Next;
       end loop;
+
+      Put(To_String(To_Unbounded_String("S ") & Figure.ID &
+             To_Unbounded_String(" ") & To_String(Solution)));
+
+      return To_Unbounded_String("S ") & Figure.ID &
+             To_Unbounded_String(" ") & To_String(Solution);
     else
       return To_Unbounded_String("G ") & Figure.ID;
     end if;
