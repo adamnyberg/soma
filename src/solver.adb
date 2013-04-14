@@ -217,9 +217,9 @@ package body Solver is
     Put(To_String(Figure.Structure));
 
     --Put(Count_Col(Header));
-    --if Count_Col(Header) > 1 then
-      --Delete_Equal_Rows(Header);
-    --end if;
+    if Count_Col(Header) > 1 then
+      Delete_Equal_Rows(Header);
+    end if;
     --Put(Count_Col(Header));
     --Test_Matrix(Header);
     --Put_Matrix(Header);
