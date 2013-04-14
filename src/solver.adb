@@ -205,9 +205,13 @@ package body Solver is
 
   function Solve(Parts : Parts_Type; Figure : Figure_Type) return Unbounded_String is
     Solution : Linked_Resulting_List_Pointer;
-    Is_Solvable : Boolean;
+    Is_Solvable : Boolean :=False;
     Header : Linked_Matrix_Pointer := Generate_Matrix(Parts, Figure);
   begin
+    if Is_Empty(Header) or Get_Volume(Parts) /= Get_Volume(Figure) or Has_A_Column_Without_Ones(Header) then
+      Put(To_String(To_Unbounded_String("G ") & Figure.ID));
+      return To_Unbounded_String("G ") & Figure.ID;
+    end if;
     for Part in Parts'Range loop
       Put(To_String(Parts(Part).Structure));
       Put(" ");
@@ -224,16 +228,19 @@ package body Solver is
       Delete_Equal_Rows(Header);
     end if;
     New_Line;
+    Put(Header.Down.Data.Part.ID);
+    New_Line;
     Put(Count_Col(Header));
     New_Line;
     --Put(Count_Col(Header));
     Test_Matrix(Header);
-    Put_Matrix(Header);
+--    Put_Matrix(Header);
 
     Solve_DLX(Header, Solution, Is_Solvable);
     Sort(Solution);
 
     if Is_Solvable then
+      Put("SOLVED");
       while False loop
       --while Solution /= Null loop
         New_Line;
@@ -253,6 +260,8 @@ package body Solver is
       return To_Unbounded_String("S ") & Figure.ID &
              To_Unbounded_String(" ") & To_String(Solution);
     else
+      Put("NOT SOLVABLE");
+      Put(To_String(To_Unbounded_String("G ") & Figure.ID));
       return To_Unbounded_String("G ") & Figure.ID;
     end if;
   end;

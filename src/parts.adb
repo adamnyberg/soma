@@ -6,6 +6,15 @@ with Ada.Text_IO; use Ada.Text_IO;
 with Bits; use Bits; -- debugging only
 
 package body Parts is
+  function Get_Volume(The_Parts : Parts_Type) return Integer is
+    Sum : Integer := 0;
+  begin
+    for Part in The_Parts'Range loop
+      Sum := Sum + Ones_Index(The_Parts(Part).Structure)'Length;
+    end loop;
+    return Sum;
+  end Get_Volume;
+
   function Parse_Part(Raw_Part : in Unbounded_String) return Part_Type is
     Start : Unbounded_String;
     Rest : Unbounded_String;

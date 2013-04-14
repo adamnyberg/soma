@@ -4,14 +4,14 @@ spawn "~/soma/puzzles/server"
 
 send "P\r"
 expect "Ange en ny port:"
-send "3333\r"
+send "4433\r"
 
 send "F"
 expect "Ange nytt filnamns prefix:"
-send "soma_\r"
+send "only_one_\r"
 
+send "S\r"
+send "T\r"
 send "I"
-send "S"
-send "T"
 
 interact

@@ -19,6 +19,7 @@ package Parts is
   type Index_Arr is array (Natural range <>) of Integer;
   type Parts_Type is array(Integer range <>) of Part_Type_Pointer;
 
+  function Get_Volume(The_Parts : Parts_Type) return Integer;
   function Parse_Part(Raw_Part : in Unbounded_String) return Part_Type;
   function Parse(Raw_Parts : in Unbounded_String) return Parts_Type;
 
