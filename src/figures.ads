@@ -14,5 +14,6 @@ package Figures is
     Structure : Bits_Type(Structure_Bits);
   end record;
 
+  function Get_Volume(Figure : Figure_Type) return Integer;
   function Parse(Raw_Figure : in Unbounded_String) return Figure_Type;
 end Figures;

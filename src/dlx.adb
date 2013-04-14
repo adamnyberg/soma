@@ -315,7 +315,7 @@ package body DLX is
     Selected_Temp1, Selected_Temp2 : Linked_Resulting_List_Pointer;
 --    Deleted_Rows : Linked_Deleted_Rows_Pointer := Null;
   begin
---    Put(Selected);
+    Put(Selected);
 --    loop
       if Is_Empty(Header) then
 	Solved := True;

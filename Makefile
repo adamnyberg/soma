@@ -51,7 +51,7 @@ vinit:
 		http://www.ida.liu.se/~TDDC68/2013/Matr/SN/Info_Ada/proj/files/soma-visual.jar;\
 		/usr/jdk/instances/jdk1.7.0/bin/java -jar soma-visual.jar'
 
-tinit:
+tinit: sync
 	ssh $(liu_id)@astmatix.ida.liu.se 'mkdir -p soma/puzzles; cd soma/puzzles; /sw/gnu/bin/wget --no-clobber\
 		http://www.ida.liu.se/~TDDC68/2013/Matr/SN/Info_Ada/proj/files/Server/server;\
 		/usr/bin/chmod 777 server; /usr/local/bin/expect server_conf.sh'
