@@ -216,13 +216,19 @@ package body Solver is
     end loop;
     Put(To_String(Figure.Structure));
 
-    --Put(Count_Col(Header));
+    New_Line;
+    Put(Count_Col(Header));
+    New_Line;
+
     --if Count_Col(Header) > 1 then
-      --Delete_Equal_Rows(Header);
+      Delete_Equal_Rows(Header);
     --end if;
+    New_Line;
+    Put(Count_Col(Header));
+    New_Line;
     --Put(Count_Col(Header));
-    --Test_Matrix(Header);
-    --Put_Matrix(Header);
+    Test_Matrix(Header);
+    Put_Matrix(Header);
 
     Solve_DLX(Header, Solution, Is_Solvable);
     Sort(Solution);
