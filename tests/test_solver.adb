@@ -9,6 +9,8 @@ with Tests; use Tests;
 with Solver; use Solver;
 
 procedure Test_Solver is
+--  Test_Figure : Figure_Type := Figures.Parse(To_Unbounded_String("1 3x3x3 111111111111111111111111111"));
+--  Test_Parts : Parts_Type := Parts.Parse(To_Unbounded_String("1 3x3x3 111111111111111111111111111"));
 
 --  Test_Figure : Figure_Type := Figures.Parse(To_Unbounded_String("1 2x2x2 11111111"));
 --  Test_Parts : Parts_Type := Parts.Parse(To_Unbounded_String("3 1x2x2 1101 1x2x2 1101 2x1x1 11"));
