@@ -58,8 +58,25 @@ package body Parts is
     end;
   end Parse;
 
+  function Part_To_Figure(Part : Part_Type; Figure : Figure_Type) return Figure_Type is
+    Part_Figure : Figure_Type := Figure;
+  begin
+    if Figure.Dimension.X = Part.Dimension.X and then
+       Figure.Dimension.Y = Part.Dimension.Y and then
+       Figure.Dimension.Z = Part.Dimension.Z then
+
+      Part_Figure.ID := To_Unbounded_String("1");
+      Part_Figure.Structure := Part.Structure;
+      Part_Figure.Dimension := Part.Dimension;
+
+      return Part_Figure;
+    else
+      return Add_Dimensions(Part, Figure);
+    end if;
+  end;
+
   function Part_Fit_In_Figure(Part : Part_Type; Figure : Figure_Type) return Boolean is
-    Part_Figure : Figure_Type := Add_Dimensions(Part, Figure);
+    Part_Figure : Figure_Type := Part_To_Figure(Part, Figure);
   begin
     if (Part.Position.X + Part.Dimension.X - 1) <= Figure.Dimension.X and then
        (Part.Position.Y + Part.Dimension.Y - 1) <= Figure.Dimension.Y and then

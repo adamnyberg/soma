@@ -143,7 +143,11 @@ package body Solver is
                 Rotate(Parts(Part).all, (Rot_X, Rot_Y, Rot_Z));
                 Move(Parts(Part).all, Index_To_Vector(Figure.Dimension, Figure_Ones(One_Index)));
 
+                Put("Testing row");
+                New_Line;
                 if Part_Fit_In_Figure(Parts(Part).all, Figure) then
+                  Put("Fits!");
+                  New_Line;
                   declare
                     Tmp_Part : Part_Type := Parts(Part).all;
                     New_Part_Pointer : Part_Type_Pointer := new Part_Type'(Tmp_Part);

@@ -3,7 +3,7 @@
 MAKEFLAGS=-aL/home/TDDD11/lib/TJa/gcc-4/lib/Solaris -aI/home/TDDD11/lib/TJa/gcc-4/src/Solaris -aO/home/TDDD11/lib/TJa/gcc-4/lib/Solaris
 
 lsoma:
-	gnatmake $(MAKEFLAGS) src/soma.adb
+	/sw/gcc-4.8.0/bin/gnatmake $(MAKEFLAGS) src/soma.adb
 #	gnatmake `~TDDC68/lib/TJa/bin/tja_config` src/soma.adb
 	./soma; rm soma;
 
