@@ -126,6 +126,8 @@ package body Solver is
     Row : Integer := 1;
 
     Row_Header : Linked_Matrix_Pointer;
+    Vec : Vector_Type;
+    Part_Vec : Vector_Type;
   begin
     -- Header setup
     Insert(Header, Header, Header, Header, Header);
@@ -133,36 +135,44 @@ package body Solver is
 
     -- Generate matrix
     for Part in Parts'Range loop
-      for One_Index in Figure_Ones'Range loop
-        for Rot_X in 0..3 loop
-          for Rot_Y in 0..3 loop
-            for Rot_Z in 0..3 loop
+      for Rot_X in 0..3 loop
+        for Rot_Y in 0..3 loop
+          for Rot_Z in 0..3 loop
+            for One_Index in Figure_Ones'Range loop
+              --for Pos_X in 1..(Figure.Dimension.X-Parts(Part).Dimension.X + 1) loop
+              --for Pos_Y in 1..(Figure.Dimension.Y-Parts(Part).Dimension.Y + 1) loop
+              --for Pos_Z in 1..(Figure.Dimension.Z-Parts(Part).Dimension.Z + 1) loop
               declare
                 Original_Part : Part_Type := Parts(Part).all;
               begin
                 Rotate(Parts(Part).all, (Rot_X, Rot_Y, Rot_Z));
-                Move(Parts(Part).all, Index_To_Vector(Figure.Dimension, Figure_Ones(One_Index)));
 
-                Put("Testing row");
-                New_Line;
-                if Part_Fit_In_Figure(Parts(Part).all, Figure) then
-                  Put("Fits!");
-                  New_Line;
-                  declare
-                    Tmp_Part : Part_Type := Parts(Part).all;
-                    New_Part_Pointer : Part_Type_Pointer := new Part_Type'(Tmp_Part);
-                  begin
-                    Row_Header := Generate_Row(New_Part_Pointer, Figure, Row, Column_Headers, Figure_Ones'Length + Part);
-                  end;
+                Part_Vec := Index_To_Vector( Parts(Part).Dimension, Ones_Index(Parts(Part).Structure)(1) );
+                Vec := Index_To_Vector(Figure.Dimension, Figure_Ones(One_Index));
+                Vec.X := Vec.X - Part_Vec.X + 1;
+                Vec.Y := Vec.Y - Part_Vec.Y + 1;
+                Vec.Z := Vec.Z - Part_Vec.Z + 1;
 
-                  -- Connect row header to rest of matrix
-                  -- Note: The order in which this is done matters
-                  Row_Header.Down := Header;
-                  Row_Header.Up := Header.Up;
-                  Header.Up.Down := Row_Header;
-                  Header.Up := Row_Header;
+                if not (Vec.X <= 0 or else Vec.Y <= 0 or else Vec.Z <= 0) then
+                  Move(Parts(Part).all, Vec);
 
-                  Row := Row + 1;
+                  if Part_Fit_In_Figure(Parts(Part).all, Figure) then
+                    declare
+                      Tmp_Part : Part_Type := Parts(Part).all;
+                      New_Part_Pointer : Part_Type_Pointer := new Part_Type'(Tmp_Part);
+                    begin
+                      Row_Header := Generate_Row(New_Part_Pointer, Figure, Row, Column_Headers, Figure_Ones'Length + Part);
+                    end;
+
+                    -- Connect row header to rest of matrix
+                    -- Note: The order in which this is done matters
+                    Row_Header.Down := Header;
+                    Row_Header.Up := Header.Up;
+                    Header.Up.Down := Row_Header;
+                    Header.Up := Row_Header;
+
+                    Row := Row + 1;
+                  end if;
                 end if;
 
                 Parts(Part).all := Original_Part;
@@ -170,6 +180,8 @@ package body Solver is
             end loop;
           end loop;
         end loop;
+        --end loop;
+        --end loop;
       end loop;
     end loop;
 
@@ -193,8 +205,8 @@ package body Solver is
         Pos.Z := Solution_Copy.Part.Position.Z - 1;
 
         Result := Result & To_Unbounded_String("!") &
-          To_Simple_String(Solution_Copy.Part.Rotation) &
-          To_Simple_String(Pos);
+        To_Simple_String(Solution_Copy.Part.Rotation) &
+        To_Simple_String(Pos);
       end;
 
      if Solution_Copy.Next /= null then

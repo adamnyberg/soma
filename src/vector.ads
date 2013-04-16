@@ -5,7 +5,7 @@ with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
 package Vector is
   type Vector_Type is record
-    X, Y, Z : Natural := 0;
+    X, Y, Z : Integer := 0;
   end record;
 
   function Parse(Raw_Vector : in Unbounded_String) return Vector_Type;

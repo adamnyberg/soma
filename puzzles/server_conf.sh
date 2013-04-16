@@ -8,7 +8,7 @@ send "4433\r"
 
 send "F"
 expect "Ange nytt filnamns prefix:"
-send "only_one_\r"
+send "comp_\r"
 
 send "S\r"
 send "T\r"
