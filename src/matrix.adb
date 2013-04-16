@@ -102,20 +102,17 @@ package body Matrix is
     Curr : Linked_Matrix_Pointer := Header;
   begin
     loop
-      --      Put("R");
       Test_Row(Curr);
       Curr := Curr.Down;
       exit when Curr = Header;
     end loop;
     loop
-      --      Put("Col");
       Test_Column(Curr);
       Curr := Curr.Right;
       exit when Curr = Header;
     end loop;
-    --    New_Line;
-    --    Put("Matrix is all right");
   end Test_Matrix;
+
   function Is_Empty(Header : in Linked_Matrix_Pointer) return Boolean is
   begin
     if Header.Right = Header then
@@ -136,11 +133,6 @@ package body Matrix is
       end loop;
       exit when Curr.Data.Column = 0;
       Put(1,4);
-      --	Put("(");
-      --	Put(Curr.Data.Column,1);
-      --	Put(", ");
-      --	Put(Curr.Data.Row,1);
-      --	Put(")");
       Prev := Curr;
       Curr := Curr.Right;
       if Curr.Data.Column = 0 then
@@ -208,9 +200,6 @@ package body Matrix is
     loop
       loop
         if Is_Equal(Curr, Temp) then
-          --Put(Curr.Data.Row);
-          --Put("  ");
-          --Put(Temp.Data.Row,1);
           Delete_Row(Temp);
         end if;
         Temp := Temp.Down;
@@ -224,12 +213,6 @@ package body Matrix is
 
   procedure Delete_Node(Node : in Linked_Matrix_Pointer) is
   begin
-    --       Put("(");
-    --       Put(Node.Data.Column,1);
-    --       Put(", ");
-    --       Put(Node.Data.Row,1);
-    --       Put(")");
-    --       New_Line;
     Node.Left.Right := Node.Right;
     Node.Right.Left := Node.Left;
     Node.Up.Down := Node.Down;
@@ -238,17 +221,10 @@ package body Matrix is
 
   procedure Reset_Node(Node : in Linked_Matrix_Pointer) is
   begin
-    --       Put("(");
-    --       Put(Node.Data.Column,1);
-    --       Put(", ");
-    --       Put(Node.Data.Row,1);
-    --       Put(")");
-    --       New_Line;
     Node.Left.Right:= Node;
     Node.Right.Left:= Node;
     Node.Up.Down:= Node;
     Node.Down.Up:= Node;
-    --Test_Node(Node);
   end Reset_Node;
 
   procedure Delete_Row(Node : in Linked_Matrix_Pointer) is
@@ -270,7 +246,6 @@ package body Matrix is
       Temp := Temp.Right;
       exit when Temp = Node;
     end loop;
-    --    Test_Row(Node);
   end Reset_Row;
 
   procedure Delete_Column(Node : in Linked_Matrix_Pointer) is

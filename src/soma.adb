@@ -38,13 +38,12 @@ procedure Soma is
   Rest  : Unbounded_String;
 begin
   Initiate(Socket);
-  Connect(Socket, "localhost", 5342);
+  Connect(Socket, "zaza7", 2345);
 
   loop
     Get_Line(Socket, Raw_Packet);
     Packet := Packets.Disassemble(Raw_Packet);
 
-    --Ada.Text_IO.Put_Line(To_String( Packet.Message ));
     case Packet.Header is
       when INITIATE_HEADER =>
         Protocol.Initiate(Socket, Packet);
@@ -56,12 +55,6 @@ begin
         New_Line;
       when FIGURE_HEADER =>
         Figure := new Figure_Type'(Figures.Parse(Packet.Message));
-        Put(To_String(Packet.Message));
-        New_Line;
-
-        --Misc.Split(Packet.Message, " ", Start, Rest);
-        --Protocol.Figure(Socket, Start);
-
         Protocol.Solve(Socket, Figure.all, New_Parts.all);
       when ANSWER_HEADER =>
         Protocol.Answer(Packet);
